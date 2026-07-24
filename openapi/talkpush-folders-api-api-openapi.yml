@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Folders API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Folders API
+  description: Collection of endpoints related to folders
+paths:
+  /company/folders:
+    get:
+      tags:
+      - Folders API
+      summary: Retrieve all the available folders on the company account
+      description: This endpoint let's you retrieve all the available folders on the company account and shows whether these are default folders. This is useful for example if you want to display the them inside your ATS.
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Folders were returned successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  folders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/folder_body'
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+    post:
+      tags:
+      - Folders API
+      summary: Create custom folders
+      description: This endpoint let's you create custom folders in the company account. A common scenario for this endpoint would be to create a custom folder whenever you create a new recruitment process step inside the ATS.
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/folder_request'
+        required: true
+      responses:
+        '200':
+          description: Custom Folder was created successfully
+        '400':
+          description: Bad request. Please make sure that no invalid parameters were provided.
+        '409':
+          description: Conflict. The folder name sent already exists.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+components:
+  schemas:
+    folder_body:
+      type: object
+      required:
+      - id
+      - folder_name
+      - default
+      properties:
+        id:
+          type: number
+          description: Folder ID.
+        folder_name:
+          type: string
+          description: The name you want the custom folder to have.
+        default:
+          type: boolean
+          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
+    folder_request:
+      type: object
+      required:
+      - api_key
+      - folder
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        folder:
+          $ref: '#/components/schemas/folder_body'

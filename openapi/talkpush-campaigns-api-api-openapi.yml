@@ -1,0 +1,515 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Campaigns API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Campaigns API
+  description: Collection of endpoints related to Talkpush Campaigns
+paths:
+  /campaigns:
+    get:
+      tags:
+      - Campaigns API
+      summary: Retrieve all active campaigns of the account
+      description: This endpoint returns a list of all the active campaigns in the company account. The campaigns can be filtered by type parameter (optional), **if no type is defined, by the default, the result will include ONLY job_application type campaigns**.
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: false
+        description: The campaign type filter. E.g. job_application, inquiry, single_time_engagement, onboarding, exit_interview
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Campaigns were returned successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/campaigns_response'
+        '404':
+          description: Campaigns not found for this company.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+    post:
+      tags:
+      - Campaigns API
+      summary: Create a new campaign inside your Talkpush account
+      description: "This endpoint lets you create a new campaign inside Talkpush. Not all the information required to set up a fully operational campaign can be provided via the API.  Permission settings, questions, message, smart filters and notifications need to set up from the campaign settings inside the CRM. \nA common use case for this endpoint would be the automatic creation of a campaign inside Talkpush when a user creates a job requisiton inside an integrated ATS.\n"
+      requestBody:
+        $ref: '#/components/requestBodies/campaign_request'
+      responses:
+        '200':
+          description: Campaign created successfully
+        '400':
+          description: Bad request. Please make sure that no invalid parameters were provided.
+        '404':
+          description: Country not found. Will return the list of available countries.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/archive:
+    get:
+      tags:
+      - Campaigns API
+      summary: Retrieve all archive campaigns of the account
+      description: This endpoint returns a list with all the archive campaigns in the company account.
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Campaigns were returned successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/campaigns_response'
+        '404':
+          description: No archive campaigns found for this company.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/search/{criteria}:
+    get:
+      tags:
+      - Campaigns API
+      summary: Retrieve details of active campaigns that match the search criteria
+      description: This endpoint returns a list of active campaigns that match the search criteria in the company account.
+      parameters:
+      - name: criteria
+        in: path
+        description: The campaign ID, Ats external id or title.
+        required: true
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Campaigns were returned successfully.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/campaigns_response'
+        '404':
+          description: Campaigns not match the criteria.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/{id}:
+    get:
+      tags:
+      - Campaigns API
+      summary: Retrieve details of a specific active campaign
+      description: This endpoint returns a specific campaigns details in the company account.
+      parameters:
+      - name: id
+        in: path
+        description: The campaign ID.
+        required: true
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Campaign was returned successfully
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/campaign'
+        '404':
+          description: Campaign not found for this company.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+    put:
+      tags:
+      - Campaigns API
+      summary: Update a campaign inside your Talkpush account
+      description: "This endpoint lets you update an exixting campaign inside Talkpush. Not all the information required to update the campaign.  Permission settings, questions, message, smart filters and notifications need to be updated from the campaign settings inside the CRM. \n"
+      parameters:
+      - name: id
+        in: path
+        description: The campaign to which the folder should be associated.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/campaign_request'
+      responses:
+        '200':
+          description: Campaign updated successfully
+        '404':
+          description: Campaign not found. | Country not found. Will return the list of available countries.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/{id}/questions:
+    get:
+      tags:
+      - Campaigns API
+      summary: Get questions for a specific campaign
+      description: This endpoint let's you retrieve all the questions that are associated to a campaign for which you provide the ID in the path. <b> DISCLAIMER </b> - Only text, short_text and multiple choice types supported. No audio or image type question supported.
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The campaign to which the question should be associated.
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Questions were returned successfully.
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  questions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/question_body'
+        '404':
+          description: Invalid Campaign Id. Or Questions not found for this campaign.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/{id}/folders:
+    get:
+      tags:
+      - Campaigns API
+      summary: Retrieve all the folders that are associated to a campaign
+      description: This endpoint let's you see what folders are associated to the campaign for which you provide the ID in the path
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The campaign to which the folder should be associated.
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Folders were returned successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  folders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/folder_body'
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/{id}/archive:
+    put:
+      tags:
+      - Campaigns API
+      summary: Archive an existing campaign
+      description: This endpoint let's you archive a campaign for which you provide the ID in the path
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The ID of which campaign should be archived.
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Campaign was archived successfully.
+        '404':
+          description: Campaign not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/{id}/activate:
+    put:
+      tags:
+      - Campaigns API
+      summary: Activate an archived campaign
+      description: This endpoint let's you activate a archived campaign for which you provide the ID in the path
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The ID of which campaign should be activated.
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Campaign was activated successfully.
+        '404':
+          description: Campaign not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/{campaign_id}/folders/{folder_id}:
+    post:
+      tags:
+      - Campaigns API
+      summary: Associate a campaign with a custom folder
+      description: In order for custom folders to become available in a given campaign they need to be associated with the campaign. This is not necessary for custom folders that are enabled as default folders, which are by default associated to all campaigns.
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      - name: campaign_id
+        in: path
+        description: The campaign to which the folder should be associated.
+        required: true
+        schema:
+          type: integer
+      - name: folder_id
+        in: path
+        description: The custom folder that should be associated with the campaign.
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Campaign & Folder associated.
+        '404':
+          description: Campaign not found | Folder not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+components:
+  schemas:
+    folder_body:
+      type: object
+      required:
+      - id
+      - folder_name
+      - default
+      properties:
+        id:
+          type: number
+          description: Folder ID.
+        folder_name:
+          type: string
+          description: The name you want the custom folder to have.
+        default:
+          type: boolean
+          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
+    question_body:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the question.
+        type:
+          type: string
+          description: Question type. DISCLAIMER - Only text, short_text and multiple choice types supported. No audio or image type question supported.
+        question_text:
+          type: string
+          description: The content of the question statement.
+        data_point:
+          type: string
+          description: The data point associated with the question if the question has a data point configured.
+        options:
+          type: array
+          description: Array of strings that cointais the possible options for the question if the type is multiple choice.
+          items:
+            type: string
+    campaigns_response:
+      type: object
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/campaign_response_body'
+    campaign_response_body:
+      type: object
+      properties:
+        id:
+          type: number
+          description: Campaign ID.
+        campaign_title:
+          type: string
+          description: The title of the hiring campaign, only used internally in the CRM.
+        campaign_type:
+          type: string
+          description: The campaign Talkpush type. E.g. job_application, inquiry...
+        job_title:
+          type: string
+          description: The title of the job that the campaign is for, this is shown to the leads.
+        street:
+          type: string
+          description: The street of the job address.
+        city:
+          type: string
+          description: The city of the job job address.
+        region:
+          type: string
+          description: The region or state of the job address
+        postal_code:
+          type: string
+          description: The postal code of the job address.
+        country:
+          type: string
+          description: The country code or country name of the job address. E.g. "US" or "United States"
+        short_description:
+          type: string
+          description: The short description of the job. Maximum of 80 characters.
+        long_description:
+          type: string
+          description: The long description of the job. In order to style the long decription please include HTML styling.
+        ats_external_id:
+          type: string
+          description: The external ID of the job or requisition.
+        location:
+          type: string
+          description: The campaign location
+        job_type:
+          type: string
+          description: The job type. E.g. "Full time", "Part time", "Contract", "Internship", "Volunteer"
+        salary:
+          type: string
+          description: The job salary amount.
+        salary_type:
+          type: string
+          description: The job salary period. E.g. "Hourly", "Daily", "Weekly", "Biweekly", "Monthly", "Annually", "One-time"
+        salary_currency:
+          type: string
+          description: The job salary currency. E.g. "AFN", "ALL", "DZD", "AOA", "ARS", "AMD", "AWG", "AUD", "AZN", "BSD", "BHD", "BDT", "BBD", "BYR", "BZD", "BMD", "BTN", "BOB", "BAM", "BWP", "BRL", "GBP", "BND", "BGN", "BIF", "XOF", "XAF", "XPF", "KHR", "CAD", "CVE", "KYD", "CLP", "CNY", "COP", "KMF", "CDF", "CRC", "HRK", "CUC", "CUP", "CZK", "DKK", "DJF", "DOP", "XCD", "EGP", "SVC", "ETB", "EUR", "FKP", "FJD", "GMD", "GEL", "GHS", "GIP", "GTQ", "GNF", "GYD", "HTG", "HNL", "HKD", "HUF", "ISK", "INR", "IDR", "IRR", "IQD", "ILS", "JMD", "JPY", "JOD", "KZT", "KES", "KWD", "KGS", "LAK", "LBP", "LSL", "LRD", "LYD", "MOP", "MKD", "MGA", "MWK", "MYR", "MVR", "MRO", "MUR", "MXN", "MDL", "MNT", "MAD", "MZN", "MMK", "ANG", "NAD", "NPR", "NZD", "NIO", "NGN", "KPW", "NOK", "OMR", "PKR", "PAB", "PGK", "PYG", "PEN", "PHP", "PLN", "QAR", "RON", "RUB", "RWF", "WST", "STD", "SAR", "RSD", "SCR", "SLL", "SGD", "SBD", "SOS", "ZAR", "KRW", "LKR", "SHP", "SDG", "SRD", "SZL", "SEK", "CHF", "SYP", "TWD", "TZS", "THB", "TOP", "TTD", "TND", "TRY", "TMM", "USD", "UGX", "UAH", "UYU", "AED", "VUV", "VEB", "VND", "YER", "ZMK", "ZWD"
+        created_at:
+          type: string
+          description: The time of the creation of the campaign inside Talkpush.
+        updated_at:
+          type: string
+          description: The time of the last update of the campaign inside Talkpush.
+        landing_page_url:
+          type: string
+          description: The URL for the landing page of the campaign.
+        apply_url:
+          type: string
+          description: The URL for the apply page of the campaign.
+        head_count:
+          type: integer
+          description: The number of positions available for the job.
+        role_type:
+          type: string
+          description: The role type of the job.
+        shift_type:
+          type: string
+          description: The shift type of the job.
+        allow_applications:
+          type: boolean
+          description: If the campaign is accepting new applications.
+    campaign:
+      type: object
+      required:
+      - campaign_title
+      - job_title
+      - street
+      - city
+      - region
+      - country
+      - short_description
+      properties:
+        campaign_title:
+          type: string
+          description: The title of the hiring campaign, only used internally in the CRM.
+        job_title:
+          type: string
+          description: The title of the job that the campaign is for, this is shown to the leads.
+        street:
+          type: string
+          description: The street of the job address.
+        city:
+          type: string
+          description: The city of the job job address.
+        region:
+          type: string
+          description: The region or state of the job address
+        postal_code:
+          type: string
+          description: The postal code of the job address.
+        country:
+          type: string
+          description: The country code or country name of the job address. E.g. "US" or "United States"
+        short_description:
+          type: string
+          description: The short description of the job. Maximum of 80 characters.
+        long_description:
+          type: string
+          description: The long description of the job. In order to style the long decription please include HTML styling.
+        ats_external_id:
+          type: string
+          description: The external ID of the job or requisition.
+        job_type:
+          type: string
+          description: The job type. E.g. "Full time", "Part time", "Contract", "Internship", "Volunteer"
+        salary:
+          type: string
+          description: The job salary amount.
+        salary_type:
+          type: string
+          description: The job salary period. E.g. "Hourly", "Daily", "Weekly", "Biweekly", "Monthly", "Annually", "One-time"
+        salary_currency:
+          type: string
+          description: The job salary currency. E.g. "AFN", "ALL", "DZD", "AOA", "ARS", "AMD", "AWG", "AUD", "AZN", "BSD", "BHD", "BDT", "BBD", "BYR", "BZD", "BMD", "BTN", "BOB", "BAM", "BWP", "BRL", "GBP", "BND", "BGN", "BIF", "XOF", "XAF", "XPF", "KHR", "CAD", "CVE", "KYD", "CLP", "CNY", "COP", "KMF", "CDF", "CRC", "HRK", "CUC", "CUP", "CZK", "DKK", "DJF", "DOP", "XCD", "EGP", "SVC", "ETB", "EUR", "FKP", "FJD", "GMD", "GEL", "GHS", "GIP", "GTQ", "GNF", "GYD", "HTG", "HNL", "HKD", "HUF", "ISK", "INR", "IDR", "IRR", "IQD", "ILS", "JMD", "JPY", "JOD", "KZT", "KES", "KWD", "KGS", "LAK", "LBP", "LSL", "LRD", "LYD", "MOP", "MKD", "MGA", "MWK", "MYR", "MVR", "MRO", "MUR", "MXN", "MDL", "MNT", "MAD", "MZN", "MMK", "ANG", "NAD", "NPR", "NZD", "NIO", "NGN", "KPW", "NOK", "OMR", "PKR", "PAB", "PGK", "PYG", "PEN", "PHP", "PLN", "QAR", "RON", "RUB", "RWF", "WST", "STD", "SAR", "RSD", "SCR", "SLL", "SGD", "SBD", "SOS", "ZAR", "KRW", "LKR", "SHP", "SDG", "SRD", "SZL", "SEK", "CHF", "SYP", "TWD", "TZS", "THB", "TOP", "TTD", "TND", "TRY", "TMM", "USD", "UGX", "UAH", "UYU", "AED", "VUV", "VEB", "VND", "YER", "ZMK", "ZWD"
+        landing_page_url:
+          type: string
+          description: The URL for the landing page of the campaign.
+        apply_url:
+          type: string
+          description: The URL for the apply page of the campaign.
+        head_count:
+          type: integer
+          description: The number of positions available for the job.
+        role_type:
+          type: string
+          description: The role type of the job.
+        shift_type:
+          type: string
+          description: The shift type of the job.
+        allow_applications:
+          type: boolean
+          description: If the campaign is accepting new applications.

@@ -1,0 +1,429 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Requisition Management System API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Requisition Management System
+  description: Collection of endpoints related to RMS Integration
+paths:
+  /rms/callback:
+    post:
+      tags:
+      - Requisition Management System
+      summary: Callback endpoint
+      description: This API endpoint will be used to receive callbacks from RMS when a job requisition is created.
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRequisitionCallback'
+      responses:
+        '200':
+          description: Campaign created successfully
+        '400':
+          description: Bad Request - Invalid or missing required parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: VALIDATION_ERROR
+        '401':
+          description: Unauthorized - Invalid bearer token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: INVALID_BEARER_TOKEN
+        '403':
+          description: Forbidden - RMS integration disabled or templates disabled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: RMS_INTEGRATION_DISABLED
+        '422':
+          description: Unprocessable Entity - Campaign already exists or job profile not mapped
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: CAMPAIGN_ALREADY_EXISTS
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    JobRequisitionCallback:
+      type: object
+      required:
+      - status
+      - ats_external_id
+      - job_profile_id
+      - job_title
+      properties:
+        status:
+          type: string
+          description: Status of the job requisition. Only OPEN status is currently supported.
+          enum:
+          - OPEN
+        ats_external_id:
+          type: string
+          description: Job Requisition ID
+        job_profile_id:
+          type: string
+          description: Job Profile ID. This should be mapped to a Job Profile in Talkpush.
+        job_title:
+          type: string
+          description: Job Requisition Title
+        salary:
+          type: string
+          description: Salary amount
+        salary_type:
+          type: string
+          description: Type of salary calculation
+          enum:
+          - hourly
+          - daily
+          - weekly
+          - biweekly
+          - monthly
+          - annually
+          - one-time
+          example: annually
+        salary_currency:
+          type: string
+          description: Currency code for the salary
+          enum:
+          - AFN
+          - ALL
+          - DZD
+          - AOA
+          - ARS
+          - AMD
+          - AWG
+          - AUD
+          - AZN
+          - BSD
+          - BHD
+          - BDT
+          - BBD
+          - BYR
+          - BZD
+          - BMD
+          - BTN
+          - BOB
+          - BAM
+          - BWP
+          - BRL
+          - GBP
+          - BND
+          - BGN
+          - BIF
+          - XOF
+          - XAF
+          - XPF
+          - KHR
+          - CAD
+          - CVE
+          - KYD
+          - CLP
+          - CNY
+          - COP
+          - KMF
+          - CDF
+          - CRC
+          - HRK
+          - CUC
+          - CUP
+          - CZK
+          - DKK
+          - DJF
+          - DOP
+          - XCD
+          - EGP
+          - SVC
+          - ETB
+          - EUR
+          - FKP
+          - FJD
+          - GMD
+          - GEL
+          - GHS
+          - GIP
+          - GTQ
+          - GNF
+          - GYD
+          - HTG
+          - HNL
+          - HKD
+          - HUF
+          - ISK
+          - INR
+          - IDR
+          - IRR
+          - IQD
+          - ILS
+          - JMD
+          - JPY
+          - JOD
+          - KZT
+          - KES
+          - KWD
+          - KGS
+          - LAK
+          - LBP
+          - LSL
+          - LRD
+          - LYD
+          - MOP
+          - MKD
+          - MGA
+          - MWK
+          - MYR
+          - MVR
+          - MRO
+          - MUR
+          - MXN
+          - MDL
+          - MNT
+          - MAD
+          - MZN
+          - MMK
+          - ANG
+          - NAD
+          - NPR
+          - NZD
+          - NIO
+          - NGN
+          - KPW
+          - NOK
+          - OMR
+          - PKR
+          - PAB
+          - PGK
+          - PYG
+          - PEN
+          - PHP
+          - PLN
+          - QAR
+          - RON
+          - RUB
+          - RWF
+          - WST
+          - STD
+          - SAR
+          - RSD
+          - SCR
+          - SLL
+          - SGD
+          - SBD
+          - SOS
+          - ZAR
+          - KRW
+          - LKR
+          - SHP
+          - SDG
+          - SRD
+          - SZL
+          - SEK
+          - CHF
+          - SYP
+          - TWD
+          - TZS
+          - THB
+          - TOP
+          - TTD
+          - TND
+          - TRY
+          - TMM
+          - USD
+          - UGX
+          - UAH
+          - UYU
+          - AED
+          - VUV
+          - VEB
+          - VND
+          - YER
+          - ZMK
+          - ZWD
+        job_type:
+          type: string
+          description: Type of employment
+          enum:
+          - full_time
+          - part_time
+          - contract
+          - internship
+          - volunteer
+        remote_type:
+          type: string
+          description: Remote work arrangement
+          enum:
+          - fully_remote
+          - wfh_flexible
+          - temporarily_remote
+          example: fully_remote
+        locale:
+          type: string
+          description: Language/locale for the job posting. This should be configured in the company settings.
+          example: en
+        street:
+          type: string
+          description: Street address
+        city:
+          type: string
+          description: City name
+        province:
+          type: string
+          description: Province or state
+        postal_code:
+          type: string
+          description: Postal or ZIP code
+        region:
+          type: string
+          description: Region or area
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code. This should be configured in the company settings.
+          example: PH
+        short_description:
+          type: string
+          description: Brief job description
+        long_description:
+          type: string
+          description: Detailed job description. This can be a plain text or HTML string.
+        head_count:
+          type: string
+          description: Number of positions to fill
+        publish_on_job_listing_page:
+          type: boolean
+          description: Whether to publish the job on the listing page
+        job_industry:
+          type: string
+          description: Industry category for the job
+          enum:
+          - academic
+          - accounting
+          - advertising
+          - aerospace
+          - agriculture
+          - arts_and_culture
+          - automotive
+          - aviation
+          - banking
+          - building_and_construction
+          - charity_and_not_for_profit
+          - chemical
+          - communications
+          - defence_and_military
+          - e_commerce
+          - education
+          - energy
+          - engineering
+          - entertainment
+          - facility_management
+          - fashion
+          - fast_moving_consumer_goods
+          - finance
+          - food
+          - generic
+          - government_and_public_sector
+          - health_and_safety
+          - healthcare
+          - hospitality
+          - information_technology
+          - insurance
+          - language
+          - legal
+          - leisure_and_sport
+          - logistics_and_supply_chain
+          - manufacturing
+          - maritime
+          - media
+          - mining
+          - multilingual
+          - pharmaceuticals
+          - property_and_housing
+          - real_estate
+          - recruitment
+          - retail
+          - science_and_research
+          - sustainability
+          - telecommunications
+          - transport_and_rail
+          - travel_and_tourism
+          example: arts_and_culture
+        job_function:
+          type: string
+          description: Functional area of the job
+          enum:
+          - accounting_auditing
+          - administrative
+          - aerospace_engineering
+          - architecture
+          - aviation
+          - building_supplies_retail
+          - cleaning
+          - coaching
+          - consultancy
+          - creative
+          - customer_service
+          - design
+          - driving_transport
+          - education
+          - engineering
+          - finance
+          - food_kitchen
+          - healthcare
+          - human_resources
+          - insurance
+          - it
+          - journalism
+          - legal
+          - management
+          - marketing
+          - operations
+          - planning_logistics
+          - politics_policies
+          - procurement
+          - property
+          - pr_communications
+          - quality_management
+          - recruitment
+          - retail
+          - sales
+          - science_and_research
+          - skilled_work
+          - social_work
+          - technology
+          - translations
+          - urban_planning
+          example: accounting_auditing
+        allow_reapplication:
+          type: boolean
+          description: Allow re-application while current application is active

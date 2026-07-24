@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Document Tags API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Document Tags API
+  description: Collection of endpoints related to Document Tags (Templates)
+paths:
+  /document_tags:
+    get:
+      tags:
+      - Document Tags API
+      summary: Retrieve all the available document tags(templates) on the company account
+      description: This endpoint let's you retrieve all the available document tags(templates) on the company account.
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      - name: include_default
+        in: query
+        description: Optional. If sent as true the default document tags created with the company are returned. Default to false.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Document tags were returned successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+                properties:
+                  document_tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/document_tag_body'
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+components:
+  schemas:
+    document_tag_body:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the document tag.
+        name:
+          type: string
+          description: The name of the document tag.
+        category:
+          type: string
+          description: The category of the document tag. Values can be 'custom' or 'default'.
+        instruction:
+          type: string
+          description: The instruction of the document tag.
+        created_at:
+          type: string
+          description: The time of the creation of the document tag inside Talkpush.
+        updated_at:
+          type: string
+          description: The time of the last update of the document tag inside Talkpush.

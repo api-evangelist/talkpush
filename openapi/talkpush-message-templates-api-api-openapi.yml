@@ -1,0 +1,444 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Message Templates API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Message Templates API
+  description: Endpoints for managing Message Templates — the structured, token-based messages used by autoflows and integrations for standardised communications (interview invitations, rejection notices, offer letters, onboarding instructions). Templates are returned and accepted with content in Handlebars format (e.g. `{{candidate_name}}`), regardless of how they are stored internally. Use `GET /messaging/tokens` to discover the full list of tokens available in your company.
+paths:
+  /messaging/templates:
+    get:
+      tags:
+      - Message Templates API
+      summary: List message templates
+      description: 'Returns all Message Templates for the company, excluding system-internal `StatusReason` sub-type templates.
+
+
+        Content is always returned in Handlebars format (`{{token_name}}`), even when the underlying template was created through the UI using the legacy DraftJS editor.
+
+
+        **Filtering:** Use `name` (case-insensitive partial match), `type` (`email`, `sms`, `whatsapp`, `messenger`, or `calendar`), and `category` (exact match) to narrow results.
+
+
+        **Pagination:** Use `page` and `per_page` (default 25, max 100). Response headers `X-Total-Count` and `X-Page-Count` describe the full result set.'
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application.
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: Case-insensitive partial-match filter on the template name.
+        required: false
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Filter by template type. Valid values: `email`, `sms`, `whatsapp`, `messenger`, `calendar`.'
+        required: false
+        schema:
+          type: string
+          enum:
+          - email
+          - sms
+          - whatsapp
+          - messenger
+          - calendar
+      - name: category
+        in: query
+        description: Exact-match filter on the template category (e.g. `onboarding`, `scheduling`, `rejection`).
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number (1-based). Defaults to 1.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: per_page
+        in: query
+        description: Page size. Defaults to 25, capped at 100.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 25
+      responses:
+        '200':
+          description: Templates returned successfully.
+          headers:
+            X-Total-Count:
+              description: Total number of templates matching the query (across all pages).
+              schema:
+                type: integer
+            X-Page-Count:
+              description: Total number of pages available given the current `per_page`.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message_templates_list_response'
+        '401':
+          description: Missing, invalid, or inactive API key.
+        '500':
+          description: Internal server error; the response may include an exception message.
+    post:
+      tags:
+      - Message Templates API
+      summary: Create a message template
+      description: 'Creates a new Message Template for the company. The template is immediately available in the UI and can be referenced by autoflows.
+
+
+        **Content format:** The `content` field must use Handlebars syntax for dynamic tokens, e.g. `Hi {{candidate_name}}, your interview for {{job_title}} is confirmed.` All tokens used in `content` are validated against the company''s available tokens (see `GET /messaging/tokens`). Unknown tokens return a **422** with the list of offending token names.
+
+
+        **Type:** Use `email`, `sms`, `whatsapp`, or `messenger`. The `calendar` type is not yet supported via the API.
+
+
+        **Required fields:** `name`, `content`, `type`, `sub_type`, `category`.'
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/message_template_create_request'
+            examples:
+              sms_onboarding:
+                summary: SMS onboarding reminder
+                value:
+                  name: Onboarding Document Reminder
+                  content: 'Hi {{candidate_name}}, we are still waiting for your documents. Please upload them here: {{upload_link}}.'
+                  type: sms
+                  sub_type: reminder
+                  category: onboarding
+                  locale: en
+              email_interview:
+                summary: Email interview invitation
+                value:
+                  name: Interview Invitation
+                  content: 'Dear {{candidate_name}},
+
+
+                    You have been selected for an interview for the {{job_title}} role. Please choose a time: {{scheduler_url}}.'
+                  type: email
+                  sub_type: invitation
+                  category: scheduling
+                  locale: en
+                  settings:
+                    subject_line: Your interview invitation — {{job_title}}
+      responses:
+        '201':
+          description: Template created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message_template_single_response'
+        '401':
+          description: Missing, invalid, or inactive API key.
+        '422':
+          description: 'Validation error. Possible `error` values:
+
+            - `missing_params` — one or more required fields are absent.
+
+            - `invalid_type` — the provided `type` is not one of the allowed values.
+
+            - `invalid_tokens` — the `content` contains tokens not recognised by the system; the `details.invalid_tokens` array lists the offending token names.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message_template_error'
+        '500':
+          description: Internal server error; the response may include an exception message.
+  /messaging/templates/{id}:
+    patch:
+      tags:
+      - Message Templates API
+      summary: Update a message template
+      description: 'Partially updates an existing Message Template. Only the fields provided in the request body are changed; omitted fields are left unchanged.
+
+
+        **Content validation:** If `content` is provided, all Handlebars tokens are re-validated. Unknown tokens return a **422** with the list of offending token names.
+
+
+        **Settings merge:** When `settings` is provided, the new values are merged into the existing settings object. The internal `content_state` key is automatically stripped and never returned.'
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application.
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The ID of the message template to update.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/message_template_update_request'
+            examples:
+              rename:
+                summary: Rename the template
+                value:
+                  name: Updated Template Name
+              update_content:
+                summary: Update content and category
+                value:
+                  content: Hi {{candidate_name}}, your {{job_title}} offer letter is ready.
+                  category: offer
+      responses:
+        '200':
+          description: Template updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message_template_single_response'
+        '401':
+          description: Missing, invalid, or inactive API key.
+        '404':
+          description: Template not found or does not belong to the company.
+        '422':
+          description: 'Validation error. Possible `error` values:
+
+            - `invalid_type` — the provided `type` is not one of the allowed values.
+
+            - `invalid_tokens` — the `content` contains unrecognised tokens; the `details.invalid_tokens` array lists the offending names.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/message_template_error'
+        '500':
+          description: Internal server error; the response may include an exception message.
+components:
+  schemas:
+    message_template_single_response:
+      type: object
+      required:
+      - message_template
+      properties:
+        message_template:
+          $ref: '#/components/schemas/message_template'
+    message_templates_list_response:
+      type: object
+      required:
+      - message_templates
+      properties:
+        message_templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/message_template'
+    token:
+      type: object
+      description: A message token available for use in template content.
+      properties:
+        id:
+          type: string
+          description: The token key used in Handlebars syntax — use this as `{{id}}` in `content`.
+          example: candidate_name
+        display_name:
+          type: string
+          description: Human-readable label shown in the UI.
+          example: Candidate Name
+        description:
+          type: string
+          nullable: true
+          description: Optional description of what the token resolves to at send time. `null` for system tokens.
+          example: null
+      required:
+      - id
+      - display_name
+      - description
+    message_template:
+      type: object
+      description: A Message Template used by autoflows and integrations for standardised communications.
+      properties:
+        id:
+          type: integer
+          description: Database ID of the template.
+        name:
+          type: string
+          description: Display name of the template.
+        content:
+          type: string
+          description: Template body in Handlebars format. Dynamic values are expressed as `{{token_name}}`.
+        type:
+          type: string
+          description: The communication channel this template is designed for.
+          enum:
+          - email
+          - sms
+          - whatsapp
+          - messenger
+          - calendar
+        sub_type:
+          type: string
+          description: Open-ended sub-classification within a type (e.g. `invitation`, `rejection`, `reminder`).
+        locale:
+          type: string
+          description: BCP 47 language tag for the template content (e.g. `en`, `fr`, `es`).
+          example: en
+        category:
+          type: string
+          description: Free-form grouping that spans types, useful for organising templates by workflow stage (e.g. `onboarding`, `scheduling`, `rejection`, `offer`).
+          example: onboarding
+        settings:
+          type: object
+          description: Channel-specific settings (e.g. `subject_line` for email templates). The internal `content_state` key is always excluded.
+          additionalProperties: true
+          example:
+            subject_line: Your interview invitation
+        tokens:
+          type: array
+          description: List of tokens detected in the template content.
+          items:
+            $ref: '#/components/schemas/token'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the template was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the template was last updated.
+      required:
+      - id
+      - name
+      - content
+      - type
+      - sub_type
+      - locale
+      - category
+      - settings
+      - tokens
+      - created_at
+      - updated_at
+    message_template_create_request:
+      type: object
+      required:
+      - name
+      - content
+      - type
+      - sub_type
+      - category
+      properties:
+        name:
+          type: string
+          description: Display name for the template.
+        content:
+          type: string
+          description: Template body in Handlebars format. Use `{{token_id}}` for dynamic values (see `GET /messaging/tokens` for available tokens).
+        type:
+          type: string
+          description: Communication channel. Must be one of `email`, `sms`, `whatsapp`, `messenger`. (`calendar` is not yet supported via the API.)
+          enum:
+          - email
+          - sms
+          - whatsapp
+          - messenger
+        sub_type:
+          type: string
+          description: Open-ended sub-classification (e.g. `invitation`, `rejection`, `reminder`). No fixed enum.
+        category:
+          type: string
+          description: Free-form grouping for the template (e.g. `onboarding`, `scheduling`, `rejection`, `offer`, `general`).
+        locale:
+          type: string
+          description: BCP 47 language tag. Defaults to `en` when omitted.
+          default: en
+          example: en
+        settings:
+          type: object
+          description: Optional channel-specific settings. For email templates, include `subject_line` here.
+          additionalProperties: true
+          example:
+            subject_line: Your interview invitation — {{job_title}}
+    message_template_error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Machine-readable error code.
+          enum:
+          - missing_params
+          - invalid_type
+          - invalid_tokens
+          - validation_failed
+          example: invalid_tokens
+        message:
+          type: string
+          description: Human-readable description of the error.
+          example: content contains unrecognised tokens
+        details:
+          type: object
+          description: Present only for `invalid_tokens` errors.
+          properties:
+            invalid_tokens:
+              type: array
+              items:
+                type: string
+              description: List of unrecognised token names found in `content`.
+              example:
+              - bogus_token
+              - unknown_field
+    message_template_update_request:
+      type: object
+      description: All fields are optional. Only provided fields are updated.
+      properties:
+        name:
+          type: string
+          description: New display name.
+        content:
+          type: string
+          description: New content in Handlebars format. All tokens are re-validated if this field is present.
+        type:
+          type: string
+          description: New channel type.
+          enum:
+          - email
+          - sms
+          - whatsapp
+          - messenger
+        sub_type:
+          type: string
+          description: New sub-classification.
+        category:
+          type: string
+          description: New category.
+        locale:
+          type: string
+          description: New locale tag.
+        settings:
+          type: object
+          description: Settings to merge into the existing settings object. `content_state` is always stripped.
+          additionalProperties: true

@@ -1,0 +1,741 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Leads API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Leads API
+  description: Collection of endpoints related to leads management
+paths:
+  /campaign_invitations:
+    get:
+      tags:
+      - Leads API
+      summary: Retrieve a list of leads matching your search criterias
+      description: "This API endpoint will enable you to search through your lead database programatically  with the same criterias than you would use on the recruiter's leads page.  You can execute 2 kinds of search: \n  * Use the query parameter which is equivalent to typing your search query in a search bar. \n  * Use a combination of parameter to execute an advanced search\n"
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      - name: filter[query]
+        in: query
+        description: Search keywords like application id filter[query]='AP123'. Other search keywords like name, email or phone number.
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number of lead list to return.
+        required: false
+        schema:
+          type: integer
+      - name: filter[campaign_id]
+        in: query
+        description: Campaign id of the campaign.
+        required: false
+        schema:
+          type: integer
+      - name: filter[campaign_id][]
+        in: query
+        description: The result will have all leads listed in all said campaigns. This parameter may be passed campaign_id divided by coma. filter[campaign_id]=1,2,3
+        required: false
+        schema:
+          type: string
+      - name: filter[status_selected]
+        in: query
+        description: This parameter is used to filter the leads by current status. Only leads with a status equal to the filter provided will be returned. Valid statuses are 'pending', 'completed', 'shortlisted', 'on_hold', 'rejected', 'hired', 'no_response' or custom like 'custom_status'. Check the Folders API to get the valid list for the company.
+        required: false
+        schema:
+          type: string
+      - name: filter[creation_start_date]
+        in: query
+        description: Return leads that were created on or after the provided date. Date format must be DD-MM-YYYY.
+        required: false
+        schema:
+          type: string
+      - name: filter[creation_end_date]
+        in: query
+        description: Return leads that were created on or before the provided date. Date format must be DD-MM-YYYY.
+        required: false
+        schema:
+          type: string
+      - name: filter[updated_start_date]
+        in: query
+        description: Return leads that were updated on or after the provided date. Date format must be DD-MM-YYYY.
+        required: false
+        schema:
+          type: string
+      - name: filter[updated_end_date]
+        in: query
+        description: Return leads that were updated on or before the provided date. Date format must be DD-MM-YYYY.
+        required: false
+        schema:
+          type: string
+      - name: filter[source_selected]
+        in: query
+        description: Search results will be filtered by provided source.
+        required: false
+        schema:
+          type: string
+      - name: filter[location_selected]
+        in: query
+        description: Location filter for lead search results.
+        required: false
+        schema:
+          type: string
+      - name: filter[location_radius_selected]
+        in: query
+        description: This will define a radius, in kilometers, from the location selected. All leads inside that radius will be included in the search results.
+        required: false
+        schema:
+          type: integer
+      - name: filter[label_selected]
+        in: query
+        description: The name of a label already created in the system. Search results will include all leads with this label.
+        required: false
+        schema:
+          type: string
+      - name: filter[completion_method_selected]
+        in: query
+        description: Completion method of campaign invitation.
+        required: false
+        schema:
+          type: string
+      - name: filter[resume_selected]
+        in: query
+        description: If attached is set, it will look for leads with resume. Values must be either 'attached' or 'not_attached'
+        required: false
+        schema:
+          type: string
+      - name: filter[scheduled_at_start_date]
+        in: query
+        description: Return leads that were scheduled on or after the provided date. Date format must be DD-MM-YYYY.
+        required: false
+        schema:
+          type: string
+      - name: filter[scheduled_at_end_date]
+        in: query
+        description: Return leads that were scheduled on or before the provided date. Date format must be DD-MM-YYYY.
+        required: false
+        schema:
+          type: string
+      - name: filter[sort_by_selected]
+        in: query
+        description: Sorting of lead results. Allowed values include 'name', 'source', 'location', 'created_at', 'completion_date'.
+        required: false
+        schema:
+          type: string
+      - name: filter[others][custom_attribute]
+        in: query
+        description: This parameter can be used to filter with the custom candidate attributes from the Others fields(jsonb column). If the attribute record with 'custom_attribute' key exists, then the data type (number, text or date) linked to it is used for matching, if it does not exist then it defaults to text. Data types number or text are matched as equal to the value sent and the Date type (format dd-mm-yyyy) matches for a greater or equal value.
+        required: false
+        schema:
+          type: string
+      - name: include_documents
+        in: query
+        description: Optional. If sent as true the documents linked to the leads are returned. Default to false.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: include_answers
+        in: query
+        description: Optional. If sent as true the answers linked to the leads are returned. Default to false.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      - name: include_attachments
+        in: query
+        description: Optional. If sent as true the attachments linked to the leads are returned. Default to false.
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: All leads that match the entered query.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/leads_response'
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaign_invitations/{id}:
+    patch:
+      tags:
+      - Leads API
+      summary: Update a lead's details
+      description: 'Updates the details of an existing lead. In addition to the fields on the candidate, this endpoint accepts an optional `candidate.labels` object to add or remove labels on the candidate in a single request.
+
+
+        **Labels payload (optional):** When `candidate.labels` is provided, it MUST include both an `add` and a `remove` array (send an empty array if you don''t need that side). All names referenced in `add`/`remove` must already exist as company labels (create them first via `POST /company/labels`); if any are missing the whole request fails with 422 and nothing is changed. Names that don''t exist as labels yet cause the whole request to fail with **422**, and no labels are modified — the change is all-or-nothing.'
+      parameters:
+      - name: id
+        in: path
+        description: ID of the lead to update.
+        required: true
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        description: API key of your account.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/campaign_invitation_request'
+      responses:
+        '200':
+          description: Candidate has been successfully updated.
+        '404':
+          description: Campaign Invitation not found for this company
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaigns/{id}/campaign_invitations:
+    post:
+      tags:
+      - Leads API
+      summary: Create a new lead
+      description: This endpoint can be used to insert a new lead in the campaign given in url
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Campaign ID in which you want to add your new lead
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_lead_request'
+        required: true
+      responses:
+        '200':
+          description: Candidate was succesfully added to the campaign. The response will include the lead ID and PIN. If the lead already exists, will return 'Duplicate Candidate already exists'.
+        '400':
+          description: Bad request. Please make sure that required parameters were provided.
+        '404':
+          description: Campaign not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaign_invitations/{id}/interview:
+    post:
+      summary: Complete the interview for a candidate aplication
+      description: 'With this endpoint a candidate can complete the campaign''s interview. <b> DISCLAIMER </b> - Only text, short_text and multiple choice question types supported. No audio or image question type supported.
+
+        '
+      tags:
+      - Leads API
+      parameters:
+      - name: id
+        in: path
+        description: ID of the lead.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/interview_request'
+        description: The JSON body of the request.
+        required: true
+      responses:
+        '200':
+          description: Candidate has been successfully updated.
+        '400':
+          description: Bad request. Please make sure that no invalid parameters were provided. || Please make sure all answers were provided.
+        '404':
+          description: Candidate not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaign_invitations/{id}/comments:
+    post:
+      summary: Create a comment for a lead
+      description: 'With this endpoint you can add comments to the lead''s profile (the campaign invitation).
+
+        '
+      tags:
+      - Leads API
+      parameters:
+      - name: id
+        in: path
+        description: ID of the lead.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comments_request'
+        description: The JSON body of the request.
+        required: true
+      responses:
+        '200':
+          description: Comment was created.
+        '400':
+          description: Bad request. Please make sure that no invalid parameters were provided.
+        '404':
+          description: Campaign Invitation not found | Manager not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaign_invitations/{id}/{status}:
+    put:
+      tags:
+      - Leads API
+      summary: Change lead's status
+      description: Update the lead status
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Lead ID
+        required: true
+        schema:
+          type: integer
+      - name: status
+        in: path
+        description: New status for the lead. If the status is custom, you will need to specify the name of the custom folder with the name parameter
+        required: true
+        schema:
+          type: string
+          enum:
+          - complete
+          - shortlist
+          - reject
+          - on_hold
+          - hire
+          - custom
+      - name: folder
+        in: query
+        description: Custom folder's name. use in combination of custom status
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Candidate has been successfully updated.
+        '404':
+          description: Campaign Invitation not found for this company
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaign_invitations/{id}/move:
+    put:
+      summary: Move a lead to a different campaign
+      description: 'With this endpoint you can move a lead (the campaign invitation) between different campaigns. E.g. a candidate applied for Front end developer but her profile actually suits the fullstack developer position better, in that case you might want to move the application to the fullstack developer campaign.  Applications cannot be moved to the inbox folder of another campaign.
+
+        '
+      tags:
+      - Leads API
+      parameters:
+      - name: id
+        in: path
+        description: ID of the lead.
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/move_campaign_invitation_request'
+        description: The JSON body of the request.
+        required: true
+      responses:
+        '200':
+          description: Candidate was moved to campaign.
+        '400':
+          description: Bad request. Please make sure that no invalid parameters were provided.
+        '403':
+          description: Candidates can not be moved to the Inbox folder.
+        '404':
+          description: Campaign Invitation not found | Campaign not found. | Folder not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaign_invitations/{id}/reassign:
+    put:
+      summary: Reassign a lead to another user
+      description: Inside the Talkpush CRM Leads can be assigned to recruiters, this allows user to easily find their leads. With this endpoint you can change the assigned recruiter of a lead.
+      tags:
+      - Leads API
+      parameters:
+      - name: id
+        in: path
+        description: Lead ID
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reassign_request'
+      responses:
+        '200':
+          description: Campaign Invitation reassigned successfully.
+        '400':
+          description: Bad request. Please make sure that no invalid parameters were provided.
+        '404':
+          description: Lead Id or Asignee email not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /campaign_invitations/{id}/documents:
+    put:
+      summary: Attach a document to a lead
+      description: With this endpoint you can attach a document to a lead. A document tag Id or Name are needed to attach the file to a lead.
+      tags:
+      - Leads API
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Lead ID
+        required: true
+        schema:
+          type: integer
+      - name: document_tag_id
+        in: query
+        description: Document Tag ID. Required if no Document Tag name parameter is used. If sending a Document Tag ID, this is prioritized to search for an existing Document Tag, if it doesn't exist, the respose will be not found and fail to attach a file to the lead.
+        required: false
+        schema:
+          type: integer
+      - name: document_tag_name
+        in: query
+        description: Document Tag Name. Not required unless no Document Tag ID is used. If sending this parameter, a Document Tag ID must not be sent since it's prioritized over the name. If the Document Tag with the name sent is not found, a new Document Tag will be created with the name sent.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: File to be attached to the lead as form-data. It can be sent as raw binary data or a file URL.
+                  type: string
+                  format: binary
+              required:
+              - file
+        required: true
+      responses:
+        '200':
+          description: Document attached successfully to candidate
+        '400':
+          description: Bad request. Please make sure that no invalid parameters were provided.
+        '404':
+          description: Campaign Invitation or Document Tag not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message.
+components:
+  schemas:
+    interview_request:
+      type: object
+      required:
+      - api_key
+      - answers
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/answer_body'
+    campaign_invitation_request:
+      type: object
+      required:
+      - candidate
+      properties:
+        candidate:
+          $ref: '#/components/schemas/lead'
+    lead:
+      required:
+      - email
+      - first_name
+      - last_name
+      properties:
+        first_name:
+          type: string
+          description: candidate's first name
+        last_name:
+          type: string
+          description: candidate's last name
+        email:
+          type: string
+          description: candidate's email address
+        user_phone_number:
+          type: string
+          description: candidate's phone number
+        source:
+          type: string
+          description: Microsite name
+        others:
+          type: object
+          description: Other candidate information. Any key is valid as long as it is in a JSON format
+          additionalProperties: true
+          example:
+            custom_field1: value1
+            custom_field2: value2
+        labels:
+          type: object
+          description: Optional. Add and/or remove labels on this candidate. When provided, BOTH `add` and `remove` must be present (use `[]` for the side you don't need). Names must already exist as company labels — see `POST /company/labels`.
+          required:
+          - add
+          - remove
+          properties:
+            add:
+              type: array
+              items:
+                type: string
+              description: Label names to attach to the candidate. Names already attached are silently ignored (no duplicates).
+            remove:
+              type: array
+              items:
+                type: string
+              description: Label names to detach from the candidate.
+          example:
+            add:
+            - Manager Approved
+            - Priority
+            remove:
+            - Needs Review
+    move_campaign_invitation_request:
+      type: object
+      required:
+      - api_key
+      - campaign_id
+      - folder_id
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        campaign_id:
+          type: string
+          description: The ID of the campaign into which the campaign invitation should be moved.
+        folder_id:
+          type: string
+          description: The ID of the folder into which the campaign inivitation should be moved inside the destination campaign.
+    create_lead_request:
+      type: object
+      required:
+      - api_key
+      - campaign_invitation
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        campaign_invitation:
+          $ref: '#/components/schemas/lead'
+    leads_response_candidates:
+      type: object
+      properties:
+        state:
+          type: string
+          description: The state that the lead is currently in.
+        folder:
+          type: string
+          description: The folder name that the lead is currently in.
+        campaign_id:
+          type: integer
+          description: The ID of the Talkpush campaign in which the lead is.
+        campaign_ats_external_id:
+          type: integer
+          description: The external ID of the campaign this Lead is in, if available.
+        id:
+          type: integer
+          description: The ID of the lead, also called campaign_invitation. This ID is unique to this application.
+        candidate_id:
+          type: integer
+          description: The ID of the candidate, a candidate can have multiple Leads.
+        first_name:
+          type: string
+          description: The first name of the lead.
+        last_name:
+          type: string
+          description: The last name of the lead.
+        campaign_title:
+          type: string
+          description: The title of the campaign.
+        email:
+          type: string
+          description: The email of the lead, if avaialble.
+        user_phone_number:
+          type: string
+          description: The phone number of the lead, if avaialble.
+        school_name:
+          type: string
+          description: The school name of the lead, if avaialble.
+        education:
+          type: string
+          description: The education (such as a degree) of the lead, if avaialble.
+        source:
+          type: string
+          description: The source of the lead.
+        scheduled_at:
+          type: string
+          description: If the candidate has scheduled at a time slot within the recruitment center scheduler or it has been manually set it would appear here.
+        created_at:
+          type: string
+          description: The time of the creation of the lead inside Talkpush.
+        updated_at:
+          type: string
+          description: The time of the last update of the lead inside Talkpush.
+        others:
+          type: object
+          description: An object with the key value pairs that are shown in the other information section of the Lead profile inside the CRM.
+        labels:
+          type: array
+          items:
+            type: string
+          description: An array with the labels added to this Lead.
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              question:
+                type: string
+              transcript:
+                type: string
+              file:
+                type: string
+          description: An array with question, answer and transcript objects that each reflect a interview question set inside the CRM.
+        attachments:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              name:
+                type: string
+              url:
+                type: string
+          description: An array with id, name and url objects that each reflect a file attachment inside the CRM.
+        documents:
+          type: array
+          description: Application document tag group array inside the CRM.
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: Document group tag id.
+              created_at:
+                type: string
+                description: Date when the document tag was created inside the CRM.
+              tag:
+                type: string
+                description: Document group tag name.
+              files:
+                description: Group tag files array inside the CRM.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      description: File id.
+                      type: number
+                    name:
+                      description: File name.
+                      type: string
+                    content_type:
+                      description: File type.
+                      type: string
+                    url:
+                      description: File URL. **The file URL is a public link that has an expiration time of 7 days.**
+                      type: string
+    leads_response:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of leads that match the query criteria.
+        current_page:
+          type: integer
+          description: A page contains 12 leads, this is the indicator of the page that you are looking at.
+        pages:
+          type: integer
+          description: The total number of pages available for the result.
+        candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/leads_response_candidates'
+    reassign_request:
+      type: object
+      required:
+      - api_key
+      - assignee_email
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        assignee_email:
+          type: string
+          description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
+    answer_body:
+      type: object
+      required:
+      - id
+      - answer
+      properties:
+        id:
+          type: number
+          description: The ID of the question.
+        type:
+          type: string
+          description: Question type. DISCLAIMER - Only text, short_text and multiple choice types supported. No audio or image type question supported.
+        answer:
+          type: string
+          description: Answer provided for the question.
+    comments_request:
+      type: object
+      required:
+      - api_key
+      - manager_email
+      - content
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        manager_email:
+          type: string
+          description: Email of the Talkpush CRM user account that is creating the comment.
+        content:
+          type: string
+          description: Text content for the comment in HTML form.

@@ -1,0 +1,1207 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Agents API
+  description: Collection of endpoints related to AI Agents (SmartCall Settings). Agents are configurable AI-powered voice/interview agents that can be linked to campaigns, question sets, and candidate attribute extractions.
+paths:
+  /agents:
+    get:
+      tags:
+      - Agents API
+      summary: Retrieve a list of agents
+      description: Returns a paginated list of AI agents configured in the company account, ordered by most recently updated. Supports optional filtering by category, provider, and active status.
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: category
+        in: query
+        required: false
+        description: 'Filter agents by category. Allowed values: `screen_interview`, `phone_call`, `on_site_interview`, `event_invitation`, `passive_candidate_outreach`, `status_update`, `reminders`.'
+        schema:
+          type: string
+          enum:
+          - screen_interview
+          - phone_call
+          - on_site_interview
+          - event_invitation
+          - passive_candidate_outreach
+          - status_update
+          - reminders
+      - name: provider
+        in: query
+        required: false
+        description: 'Filter agents by provider. Allowed values: `elevenlabs`, `vapi`.'
+        schema:
+          type: string
+          enum:
+          - elevenlabs
+          - vapi
+      - name: is_active
+        in: query
+        required: false
+        description: Filter agents by active status. `true` returns only active agents; `false` returns only inactive agents. Omit to return all.
+        schema:
+          type: boolean
+      - name: page
+        in: query
+        required: false
+        description: Page number of results to return. Defaults to 1.
+        schema:
+          type: integer
+          default: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Number of agents per page. Defaults to 20, maximum 100.
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+      responses:
+        '200':
+          description: Agents returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agents_list_response'
+              example:
+                data:
+                - id: '6'
+                  name: Daniel's Agent
+                  description: Evaluates candidate English proficiency
+                  category: screen_interview
+                  prompt: ''
+                  provider: elevenlabs
+                  provider_agent_id: agent_abc123xyz456
+                  question_set_id: '1'
+                  data_extractions_count: 2
+                  is_active: true
+                  created_at: '2026-02-11T06:33:43+08:00'
+                  updated_at: '2026-04-07T01:33:01+08:00'
+                pagination:
+                  page: 1
+                  per_page: 20
+                  total: 1
+                  total_pages: 1
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+    post:
+      tags:
+      - Agents API
+      summary: Create a new agent
+      description: 'Creates a new AI agent configuration. On success, returns HTTP 201 with the newly created agent details.
+
+
+        The `data_extractions` field in the request uses the candidate attribute **key** string (e.g. `"english_level"`) — unlike the update endpoint, which uses `{ "id": "..." }`. The response returns an array of extraction objects (not the keyed map returned by the show/update endpoints).'
+      parameters:
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agent_create_request'
+            example:
+              agent:
+                name: My New Agent
+                description: Evaluates candidate English proficiency
+                category: screen_interview
+                provider: elevenlabs
+                provider_agent_id: agent_abc123xyz456
+                question_set_id: '1'
+                is_active: true
+                prompt: "This is the prompt for my agent I need:\n {{messenger_interview_url}}"
+                data_extractions:
+                - candidate_attribute: english_level
+                  data_type: string
+                  description: Candidate English proficiency level
+                  number_of_values: 1
+                  allowed_values:
+                  - basic
+                  - intermediate
+                  - advanced
+      responses:
+        '201':
+          description: Agent created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agent_create_response'
+              example:
+                id: '42'
+                name: My New Agent
+                description: Evaluates candidate English proficiency
+                category: screen_interview
+                prompt: 'This is the prompt for my agent I need: Messenger Interview URL'
+                question_set_id: '1'
+                provider: elevenlabs
+                provider_agent_id: agent_abc123xyz456
+                data_extractions:
+                - id: '29'
+                  candidate_attribute: english_level
+                  data_type: string
+                  description: Candidate English proficiency level
+                  number_of_values: 1
+                  allowed_values:
+                  - basic
+                  - intermediate
+                  - advanced
+                is_active: true
+                created_at: '2026-04-24T10:00:00+08:00'
+                updated_at: '2026-04-24T10:00:00+08:00'
+        '422':
+          description: Validation error. Returned when the request body contains invalid data — e.g. an invalid `category`, an invalid `provider`, malformed `data_extractions`, or invalid Handlebars in the prompt.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - 'provider must be one of: elevenlabs, vapi'
+                    - 'category must be one of: screen_interview, phone_call, on_site_interview, event_invitation, passive_candidate_outreach, status_update, reminders'
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /agents/{id}:
+    get:
+      tags:
+      - Agents API
+      summary: Retrieve details of a specific agent
+      description: Returns the full detail of a single agent, including its prompt, provider info, linked question set, and the complete data extractions configuration.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the agent.
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Agent returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agent_detail_response'
+              example:
+                data:
+                  id: '6'
+                  name: Daniel's Agent
+                  description: Evaluates candidate English proficiency
+                  category: screen_interview
+                  prompt: This is the prompt for my agent...
+                  provider: elevenlabs
+                  provider_info:
+                    name: elevenlabs
+                    vendor: ElevenLabs
+                  provider_agent_id: agent_abc123xyz456
+                  question_set_id: '1'
+                  question_set:
+                    id: '1'
+                    title: Set name
+                  data_extractions:
+                    English Level:
+                      type: string
+                      description: Candidate English proficiency level
+                      enum:
+                      - basic
+                      - intermediate
+                      - advanced
+                      candidate_attribute:
+                        id: '29'
+                  is_active: true
+                  created_at: '2026-02-11T06:33:43+08:00'
+                  updated_at: '2026-04-07T01:33:01+08:00'
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+    put:
+      tags:
+      - Agents API
+      summary: Update an existing agent
+      description: Updates an agent's configuration. All fields are optional — only the fields provided will be changed. **Note:** if `data_extractions` is included, it **replaces** the existing extractions entirely (not a partial merge). The same applies to `prompt`.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the agent to update.
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/agent_update_request'
+            example:
+              agent:
+                name: My Agent
+                description: Evaluates candidate English proficiency
+                category: screen_interview
+                provider: elevenlabs
+                provider_agent_id: agent_abc123xyz456
+                question_set_id: '1'
+                is_active: true
+                prompt: "This is the prompt for my agent I need:\n {{messenger_interview_url}}"
+                data_extractions:
+                - candidate_attribute:
+                    id: '29'
+                  description: Candidate English proficiency level
+                  data_type: string
+                  enum_values:
+                  - basic
+                  - intermediate
+                  - advanced
+      responses:
+        '200':
+          description: Agent updated successfully. Returns the full updated agent detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agent_detail_response'
+        '404':
+          description: Agent not found.
+        '422':
+          description: Validation error. Returned when the request body contains invalid data — e.g. an invalid `category`, an invalid `provider`, or malformed `data_extractions`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                    - 'provider must be one of: elevenlabs, vapi'
+                    - 'category must be one of: screen_interview, phone_call, on_site_interview, event_invitation, passive_candidate_outreach, status_update, reminders'
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+    delete:
+      tags:
+      - Agents API
+      summary: Delete an agent
+      description: Permanently deletes the agent identified by `id`. On success, returns HTTP 204 with no response body.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The ID of the agent to delete.
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Agent deleted successfully. No response body is returned.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /agents/{agent_id}/calls:
+    get:
+      tags:
+      - Agents API
+      summary: Retrieve a list of calls for a specific agent
+      description: 'Returns a paginated list of call records handled by the given agent, ordered by most recent first. Each record includes the associated application (candidate / campaign invitation) context, extracted data, interview insights, transcript, and a link to the call recording when available.
+
+
+        Optional filters:
+
+        - `status`: filter by call status.
+
+        - `start_date` + `end_date`: filter by creation date range. Both parameters must be provided together. Any format accepted by `Time.zone.parse` is supported (e.g. `2026-04-01`, `2026-04-01T00:00:00Z`).'
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        description: The ID of the agent whose calls should be returned.
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        description: Filter by call status.
+        schema:
+          type: string
+          enum:
+          - pending
+          - queued
+          - in_progress
+          - ended
+          - completed
+          - declined
+          - voicemail
+          - unfinished
+          - not_taken
+          - failed
+          - dropped
+      - name: start_date
+        in: query
+        required: false
+        description: Start of the creation-date range filter. Must be provided together with `end_date`. Any format parseable by `Time.zone.parse` is accepted (e.g. `2026-04-01`, `2026-04-01T00:00:00Z`).
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        required: false
+        description: End of the creation-date range filter. Must be provided together with `start_date`.
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number of the results to return. Default is 1.
+        schema:
+          type: integer
+          default: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Number of records per page. Default is 20, maximum is 100.
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+      responses:
+        '200':
+          description: Calls returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agent_calls_response'
+              example:
+                data:
+                - company: Acme
+                  company_id: 123
+                  company_tenant: acme
+                  status: completed
+                  summary: Candidate completed the screening interview successfully.
+                  extracted_data:
+                    English Level: advanced
+                  interview_insights:
+                    strengths:
+                    - clear articulation
+                    weaknesses: []
+                  transcript: 'Agent: Hello...
+
+                    Candidate: Hi...'
+                  recording_url: https://cdn.talkpush.com/recordings/abc123.mp3
+                  identifier: call_abc123xyz456
+                  agent:
+                    identifier: agent_abc123xyz456
+                  application:
+                    id: 987654
+                    candidate_id: 123456
+                    campaign_id: 4321
+                    campaign_title: Customer Service Representative
+                    first_name: Jane
+                    last_name: Doe
+                    email: jane.doe@example.com
+                    msisdn: '639171234567'
+                    others:
+                      talkscore_overall: '85'
+                      talkscore_cefr: C1
+                    scheduled_at: '2026-04-10T10:00:00+08:00'
+                pagination:
+                  page: 1
+                  per_page: 20
+                  total: 42
+                  total_pages: 3
+        '400':
+          description: 'Bad request. Possible messages:
+
+            - `start_date and end_date are both required when filtering by date` (when only one of the two date parameters is supplied).
+
+            - `Invalid date format for start_date or end_date` (when a date parameter cannot be parsed).
+
+            - `status must be one of: <allowed values>` (when the provided status is not recognized).'
+        '401':
+          description: Invalid API key.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+  /agents/{agent_id}/changelog:
+    get:
+      tags:
+      - Agents API
+      summary: Retrieve the changelog for a specific agent
+      description: 'Returns a paginated list of audit log entries for the given agent, ordered by most recent first. Each entry describes a single create, update, or destroy event — who made the change, when, and what fields were affected.
+
+
+        For `created` entries the `changes` array is always empty (the initial state is not diffed). For `updated` entries each item in `changes` names the API field that changed and includes both the previous and new value.
+
+
+        **Possible `field` values inside a change entry:**
+
+        - `agent_name` — display name of the agent (stored as `title`)
+
+        - `description` — short description
+
+        - `prompt` — agent prompt, rendered as a plain-text string
+
+        - `data_extractions` — array of `{ "candidate_attribute": "<key>" }` objects
+
+        - `category` — category enum key (e.g. `talkscore_interview`, `phone_calls`, `onsite_interview`, `event_invitation`, `passive_candidate_outreach`, `status_update`, `reminder`)
+
+        - `provider` — provider key (e.g. `elevenlabs`, `vapi`)
+
+        - `provider_agent_id` — provider-side agent identifier
+
+        - `question_set_id` — ID of the linked question set
+
+        - `is_active` — boolean active/inactive flag
+
+
+        **`changed_by` values:**
+
+        - Manager email address when the change was made from the Talkpush CRM
+
+        - `"TalkPush API"` when the change was made via the API'
+      parameters:
+      - name: agent_id
+        in: path
+        required: true
+        description: The ID of the agent whose changelog should be returned.
+        schema:
+          type: integer
+      - name: api_key
+        in: query
+        required: true
+        description: The API key provided for your application.
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number of the results to return. Default is 1.
+        schema:
+          type: integer
+          default: 1
+      - name: per_page
+        in: query
+        required: false
+        description: Number of records per page. Default is 20, maximum is 100.
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+      responses:
+        '200':
+          description: Changelog returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/agent_changelog_response'
+              example:
+                agent_id: '6'
+                data:
+                - id: '4917'
+                  action: updated
+                  changed_at: '2026-04-07T01:33:01Z'
+                  changed_by: TalkPush API
+                  changes:
+                  - field: agent_name
+                    previous_value: Daniel's agent
+                    new_value: Daniel's Agent Updated via Postman
+                  - field: prompt
+                    previous_value: ''
+                    new_value: 'This is the prompt for my agent I need: Messenger Interview URL then Interview Link'
+                  - field: data_extractions
+                    previous_value:
+                    - candidate_attribute: admired_brands
+                    new_value:
+                    - candidate_attribute: admired_brands
+                    - candidate_attribute: bpo_experience
+                  - field: category
+                    previous_value: event_invitation
+                    new_value: talkscore_interview
+                  - field: provider
+                    previous_value: vapi
+                    new_value: elevenlabs
+                  - field: is_active
+                    previous_value: false
+                    new_value: true
+                - id: '4852'
+                  action: created
+                  changed_at: '2026-03-26T10:30:00Z'
+                  changed_by: user@example.com
+                  changes: []
+                pagination:
+                  page: 1
+                  per_page: 20
+                  total: 2
+                  total_pages: 1
+        '401':
+          description: Invalid API key.
+        '404':
+          description: Agent not found.
+        '500':
+          description: Internal server error, we will provide you with the exception message of the application.
+components:
+  schemas:
+    changelog_entry:
+      type: object
+      description: A single audit event recorded for an agent.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the audit entry.
+        action:
+          type: string
+          description: Type of event. `created` — agent was first created; `updated` — one or more fields were changed; `destroyed` — agent was deleted.
+          enum:
+          - created
+          - updated
+          - destroyed
+        changed_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the change occurred.
+        changed_by:
+          type: string
+          description: Who made the change. Contains the manager's email address when the change originated from the Talkpush CRM, or `"TalkPush API"` when the change was made via the API.
+        changes:
+          type: array
+          description: Field-level diff for this event. Always empty for `created` entries.
+          items:
+            $ref: '#/components/schemas/changelog_change'
+      required:
+      - id
+      - action
+      - changed_at
+      - changed_by
+      - changes
+    agent_create_request:
+      type: object
+      required:
+      - agent
+      properties:
+        agent:
+          type: object
+          description: Agent creation payload. All fields except `name` are optional.
+          properties:
+            name:
+              type: string
+              description: Display name of the agent.
+            description:
+              type: string
+              description: Short description of the agent's purpose.
+            category:
+              type: string
+              description: Use-case category of the agent.
+              enum:
+              - screen_interview
+              - phone_call
+              - on_site_interview
+              - event_invitation
+              - passive_candidate_outreach
+              - status_update
+              - reminders
+            provider:
+              type: string
+              description: AI provider powering the agent.
+              enum:
+              - elevenlabs
+              - vapi
+            provider_agent_id:
+              type: string
+              description: The agent identifier on the external provider's platform.
+            question_set_id:
+              type: string
+              description: ID of the question set to link to this agent.
+            is_active:
+              type: boolean
+              description: Set to `true` to create the agent in active (published) state; `false` for inactive (draft). Defaults to inactive when omitted.
+            prompt:
+              type: string
+              description: 'The agent''s prompt. Supports Handlebars-style variables: `{{messenger_interview_url}}`, `{{interview_page_url}}`, `{{messenger_interview_link}}`.'
+            data_extractions:
+              type: array
+              description: 'List of data extraction rules to configure on the agent. Unlike the update endpoint (which uses `{ candidate_attribute: { id } }`), here `candidate_attribute` is the attribute **key** string as returned by the Candidate Attributes API.'
+              items:
+                type: object
+                required:
+                - candidate_attribute
+                - data_type
+                properties:
+                  candidate_attribute:
+                    type: string
+                    description: The `key` of the candidate attribute to map the extracted value to (e.g. `"english_level"`). Use the Candidate Attributes API to look up valid keys.
+                  data_type:
+                    type: string
+                    description: Data type of the extracted value (e.g. `string`, `integer`).
+                  description:
+                    type: string
+                    description: Instructions to the AI on what to extract.
+                  number_of_values:
+                    type: integer
+                    description: Expected number of values to extract. Defaults to the length of `allowed_values` when provided, otherwise 1.
+                  allowed_values:
+                    type: array
+                    items:
+                      type: string
+                    description: Optional list of allowed values for the extraction. When provided, the extraction is constrained to these values and `number_of_values` defaults to their count.
+    agent_calls_pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: Current page number.
+        per_page:
+          type: integer
+          description: Number of records per page.
+        total:
+          type: integer
+          description: Total number of call records matching the query.
+        total_pages:
+          type: integer
+          description: Total number of pages available.
+    agent_update_request:
+      type: object
+      required:
+      - agent
+      properties:
+        agent:
+          type: object
+          description: All fields are optional. Only the fields provided will be updated. If `data_extractions` is sent, it fully replaces the existing extractions.
+          properties:
+            name:
+              type: string
+              description: Display name of the agent.
+            description:
+              type: string
+              description: Short description of the agent's purpose.
+            category:
+              type: string
+              description: Use-case category of the agent.
+              enum:
+              - screen_interview
+              - phone_call
+              - on_site_interview
+              - event_invitation
+              - passive_candidate_outreach
+              - status_update
+              - reminders
+            provider:
+              type: string
+              description: AI provider powering the agent.
+              enum:
+              - elevenlabs
+              - vapi
+            provider_agent_id:
+              type: string
+              description: The agent identifier on the external provider's platform.
+            question_set_id:
+              type: string
+              description: ID of the question set to link to this agent.
+            is_active:
+              type: boolean
+              description: Set to `true` to activate the agent (published); `false` to deactivate it (draft).
+            prompt:
+              type: string
+              description: 'The agent''s prompt. Supports Handlebars-style variables: `{{messenger_interview_url}}`, `{{interview_page_url}}`, `{{messenger_interview_link}}`.'
+            data_extractions:
+              type: array
+              description: Fully replaces all existing data extraction rules when provided. Send an empty array to remove all extractions.
+              items:
+                type: object
+                required:
+                - candidate_attribute
+                - description
+                - data_type
+                properties:
+                  candidate_attribute:
+                    type: object
+                    required:
+                    - id
+                    properties:
+                      id:
+                        type: string
+                        description: ID of the candidate attribute to map the extracted value to.
+                  description:
+                    type: string
+                    description: Instructions to the AI on what to extract.
+                  data_type:
+                    type: string
+                    description: Data type of the extracted value (e.g. `string`, `integer`).
+                  enum_values:
+                    type: array
+                    items:
+                      type: string
+                    description: Optional list of allowed values. Send an empty array for unconstrained extraction.
+    agent_create_response:
+      type: object
+      description: Response body returned after successfully creating an agent (HTTP 201). The `data_extractions` field is an array — unlike the keyed map returned by the show/update endpoints.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the newly created agent.
+        name:
+          type: string
+          nullable: true
+          description: Display name of the agent.
+        description:
+          type: string
+          nullable: true
+          description: Short description of the agent's purpose.
+        category:
+          type: string
+          nullable: true
+          description: Use-case category of the agent.
+          enum:
+          - screen_interview
+          - phone_call
+          - on_site_interview
+          - event_invitation
+          - passive_candidate_outreach
+          - status_update
+          - reminders
+        prompt:
+          type: string
+          description: The agent's prompt string.
+        question_set_id:
+          type: string
+          nullable: true
+          description: ID of the linked question set, if any.
+        provider:
+          type: string
+          nullable: true
+          description: AI provider powering the agent.
+          enum:
+          - elevenlabs
+          - vapi
+        provider_agent_id:
+          type: string
+          nullable: true
+          description: The agent identifier on the external provider's platform.
+        data_extractions:
+          type: array
+          description: List of data extraction rules configured on the agent.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                nullable: true
+                description: ID of the candidate attribute record.
+              candidate_attribute:
+                type: string
+                nullable: true
+                description: Key of the candidate attribute this extraction maps to.
+              data_type:
+                type: string
+                description: Data type of the extracted value.
+              description:
+                type: string
+                nullable: true
+                description: Instructions to the AI on what to extract.
+              number_of_values:
+                type: integer
+                description: Number of values to extract.
+              allowed_values:
+                type: array
+                items:
+                  type: string
+                description: List of allowed values for the extraction. Empty array if unconstrained.
+        is_active:
+          type: boolean
+          description: '`true` if the agent is active (published); `false` if inactive (draft).'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was last updated.
+    agent_changelog_response:
+      type: object
+      description: Response envelope for the agent changelog endpoint.
+      properties:
+        agent_id:
+          type: string
+          description: Unique identifier of the agent.
+        data:
+          type: array
+          description: List of audit entries, ordered newest first.
+          items:
+            $ref: '#/components/schemas/changelog_entry'
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number.
+            per_page:
+              type: integer
+              description: Number of records per page.
+            total:
+              type: integer
+              description: Total number of audit entries for this agent.
+            total_pages:
+              type: integer
+              description: Total number of pages available.
+      required:
+      - agent_id
+      - data
+      - pagination
+    agent_detail_response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/agent_detail'
+      required:
+      - data
+    agent_calls_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/agent_call_body'
+        pagination:
+          $ref: '#/components/schemas/agent_calls_pagination'
+    agent_list_item:
+      type: object
+      description: Compact agent representation returned in the list endpoint.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the agent.
+        name:
+          type: string
+          description: Display name of the agent.
+          nullable: true
+        description:
+          type: string
+          description: Short description of the agent's purpose.
+          nullable: true
+        category:
+          type: string
+          description: Use-case category of the agent.
+          nullable: true
+          enum:
+          - screen_interview
+          - phone_call
+          - on_site_interview
+          - event_invitation
+          - passive_candidate_outreach
+          - status_update
+          - reminders
+        prompt:
+          type: string
+          description: The agent's prompt string. Returns an empty string when the prompt has not been set yet.
+        provider:
+          type: string
+          description: AI provider powering the agent.
+          nullable: true
+          enum:
+          - elevenlabs
+          - vapi
+        provider_agent_id:
+          type: string
+          description: The agent identifier on the external provider's platform.
+          nullable: true
+        question_set_id:
+          type: string
+          description: ID of the linked question set, if any.
+          nullable: true
+        data_extractions_count:
+          type: integer
+          description: Number of data extraction rules configured on this agent.
+        is_active:
+          type: boolean
+          description: '`true` if the agent is active (published); `false` if inactive (draft).'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was last updated.
+    agents_list_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/agent_list_item'
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number.
+            per_page:
+              type: integer
+              description: Number of items per page.
+            total:
+              type: integer
+              description: Total number of agents matching the filters.
+            total_pages:
+              type: integer
+              description: Total number of pages.
+      required:
+      - data
+      - pagination
+    agent_call_body:
+      type: object
+      properties:
+        company:
+          type: string
+          description: Name of the company (tenant) that owns the call.
+        company_id:
+          type: integer
+          description: Numeric ID of the company (tenant).
+        company_tenant:
+          type: string
+          description: Tenant/schema identifier of the company.
+        status:
+          type: string
+          description: Current status of the call.
+          enum:
+          - pending
+          - queued
+          - in_progress
+          - ended
+          - completed
+          - declined
+          - voicemail
+          - unfinished
+          - not_taken
+          - failed
+          - dropped
+        summary:
+          type: string
+          nullable: true
+          description: Natural-language summary of the call produced by the agent.
+        extracted_data:
+          type: object
+          nullable: true
+          description: Structured data extracted from the conversation, keyed by the data-extraction labels configured on the agent.
+          additionalProperties: true
+        interview_insights:
+          type: object
+          nullable: true
+          description: AI-generated analysis of the interview (e.g. strengths, weaknesses, highlights).
+          additionalProperties: true
+        transcript:
+          type: string
+          nullable: true
+          description: Full dialogue transcript between the agent and the candidate.
+        recording_url:
+          type: string
+          nullable: true
+          description: CDN URL of the call recording, when available.
+        identifier:
+          type: string
+          description: Unique identifier of the call record on the provider side.
+        agent:
+          type: object
+          properties:
+            identifier:
+              type: string
+              description: Provider-side identifier of the agent that handled the call (e.g. ElevenLabs / VAPI assistant ID).
+        application:
+          type: object
+          description: Context of the application (campaign invitation) associated with the call.
+          properties:
+            id:
+              type: integer
+              description: Application (campaign invitation) ID.
+            candidate_id:
+              type: integer
+              description: Candidate ID.
+            campaign_id:
+              type: integer
+              description: Campaign ID.
+            campaign_title:
+              type: string
+              description: Title of the campaign.
+            first_name:
+              type: string
+              nullable: true
+            last_name:
+              type: string
+              nullable: true
+            email:
+              type: string
+              nullable: true
+            msisdn:
+              type: string
+              nullable: true
+              description: Candidate phone number in E.164-like format (no leading `+`).
+            others:
+              type: object
+              description: Subset of the application's `others` attributes. Always includes a built-in allowlist (e.g. `candidate_feedback`, `talkscore_overall`, `talkscore_cefr`, `talkscore_reading`, `talkscore_grammar`, `talkscore_vocab`, `talkscore_fluency`, `talkscore_pronunciation`, `talkscore_comprehension`, `talkscore_active_listening`, `talkscore_generated_at`, `ai_interview_report`, `ai_interview_completion_date`, `ai_interview_scheduled_date`) plus any extra keys configured per company via the `ai_call_webhook_application_others` parameter.
+              additionalProperties: true
+            scheduled_at:
+              type: string
+              format: date-time
+              nullable: true
+              description: ISO 8601 timestamp of when the call was scheduled.
+    changelog_change:
+      type: object
+      description: A single field-level change within an audit entry.
+      properties:
+        field:
+          type: string
+          description: 'API name of the field that changed. Possible values: `agent_name`, `description`, `prompt`, `data_extractions`, `category`, `provider`, `provider_agent_id`, `question_set_id`, `is_active`.'
+        previous_value:
+          description: 'Value of the field before the change. Type varies by field: string for `agent_name`, `description`, `prompt`, `provider`, `category`, `provider_agent_id`, `question_set_id`; boolean for `is_active`; array of `{ "candidate_attribute": "<key>" }` objects for `data_extractions`; null when the field had no prior value.'
+          nullable: true
+        new_value:
+          description: Value of the field after the change. Same type conventions as `previous_value`. Null when the field was cleared.
+          nullable: true
+      required:
+      - field
+      - previous_value
+      - new_value
+    agent_detail:
+      type: object
+      description: Full agent representation returned by the show and update endpoints.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the agent.
+        name:
+          type: string
+          description: Display name of the agent.
+          nullable: true
+        description:
+          type: string
+          description: Short description of the agent's purpose.
+          nullable: true
+        category:
+          type: string
+          description: Use-case category of the agent.
+          nullable: true
+          enum:
+          - screen_interview
+          - phone_call
+          - on_site_interview
+          - event_invitation
+          - passive_candidate_outreach
+          - status_update
+          - reminders
+        prompt:
+          type: string
+          description: The agent's full prompt string. Supports Handlebars-style variables such as `{{messenger_interview_url}}`, `{{interview_page_url}}`, and `{{messenger_interview_link}}`.
+        provider:
+          type: string
+          description: AI provider powering the agent.
+          nullable: true
+          enum:
+          - elevenlabs
+          - vapi
+        provider_info:
+          type: object
+          description: Human-readable provider metadata.
+          nullable: true
+          properties:
+            name:
+              type: string
+              description: Provider key (e.g. `elevenlabs`).
+            vendor:
+              type: string
+              description: Provider display name (e.g. `ElevenLabs`).
+        provider_agent_id:
+          type: string
+          description: The agent identifier on the external provider's platform.
+          nullable: true
+        question_set_id:
+          type: string
+          description: ID of the linked question set, if any.
+          nullable: true
+        question_set:
+          type: object
+          description: Linked question set metadata. Present only when a question set is associated.
+          nullable: true
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        data_extractions:
+          type: object
+          description: Map of data extraction rules keyed by the candidate attribute name. Each value defines the extraction schema for that attribute.
+          additionalProperties:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Data type of the extracted value (e.g. `string`, `integer`).
+              description:
+                type: string
+                description: Instructions to the AI on what to extract.
+              enum:
+                type: array
+                items:
+                  type: string
+                description: List of allowed values for the extraction. Empty array if unconstrained.
+              candidate_attribute:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the candidate attribute this extraction maps to.
+        is_active:
+          type: boolean
+          description: '`true` if the agent is active (published); `false` if inactive (draft).'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was last updated.

@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Managers API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Managers API
+  description: Endpoint for listing the company's managers (platform users with role-based permissions). Use the returned IDs to discover valid managers before assigning them to campaign permissions, targeting them in automation, or mirroring the user directory in external tools. Read-only; results are scoped to the authenticated tenant and exclude deactivated managers.
+paths:
+  /managers:
+    get:
+      tags:
+      - Managers API
+      summary: List company managers
+      description: 'Returns the active managers (platform users) for the authenticated company. Deactivated managers are excluded. Results are paginated and can be filtered by role and name.
+
+
+        **Pagination:** Use `page` and `per_page` (default 25, max 100). The response headers `X-Total-Count` (total matching managers) and `X-Page-Count` (total pages) make page traversal straightforward.
+
+
+        **Filtering:** Use `role` for an exact-match filter on the manager''s resolved role name, and `name` for a case-insensitive partial-match filter on the manager''s first/last name. The two filters can be combined.'
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application.
+        required: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        description: Exact-match filter on the manager's role (e.g. `owner`, `manager`, `limited manager`, or a custom role name). Matches the same value returned in the `role` field.
+        required: false
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: Case-insensitive partial-match filter on the manager's first/last name. Must be a string; arrays or other types return 400.
+        required: false
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number (1-based). Defaults to 1.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: per_page
+        in: query
+        description: Page size. Defaults to 25, capped at 100.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 25
+      responses:
+        '200':
+          description: Managers were returned successfully. The response headers `X-Total-Count` and `X-Page-Count` describe the full result set.
+          headers:
+            X-Total-Count:
+              description: Total number of managers matching the query (across all pages).
+              schema:
+                type: integer
+            X-Page-Count:
+              description: Total number of pages available given the current `per_page`.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/managers_list_response'
+        '400':
+          description: Bad request — for example, `name` was sent as something other than a string.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/manager_bad_request_error'
+        '401':
+          description: Missing, invalid, or inactive API key.
+        '500':
+          description: Internal server error; the response may include an exception message.
+components:
+  schemas:
+    managers_list_response:
+      type: object
+      required:
+      - managers
+      properties:
+        managers:
+          type: array
+          items:
+            $ref: '#/components/schemas/manager'
+    manager_bad_request_error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          example: bad_request
+        message:
+          type: string
+          example: Parameter 'name' must be a string.
+    manager:
+      type: object
+      description: A single manager — a platform user belonging to the company, with a role and contact details.
+      properties:
+        id:
+          type: integer
+          description: Database id of the manager.
+        name:
+          type: string
+          description: Manager's full name (first and last name combined, trimmed). Falls back to the email address when no name is set.
+          example: Jane Doe
+        email:
+          type: string
+          description: Manager's email address.
+          example: jane.doe@example.com
+        role:
+          type: string
+          description: Manager's resolved role name (e.g. `owner`, `manager`, `limited manager`, or a custom role).
+          example: owner
+      required:
+      - id
+      - name
+      - email
+      - role

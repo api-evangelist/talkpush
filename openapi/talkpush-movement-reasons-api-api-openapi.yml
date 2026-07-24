@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Movement Reasons API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Movement Reasons API
+  description: Endpoint for listing the company's candidate movement reasons — the configurable Shortlist Reasons and Reject Reasons that recruiters select when shortlisting or rejecting a candidate. Use these IDs/names to mirror reason labels in external dashboards or to map them back to Talkpush when syncing status changes.
+paths:
+  /movement_reasons:
+    get:
+      tags:
+      - Movement Reasons API
+      summary: List movement (shortlist & reject) reasons
+      description: 'Returns the company''s configured **Shortlist Reasons** and **Reject Reasons** — the values recruiters can pick when moving a candidate to a shortlisted or rejected state. Soft-deleted reasons are excluded.
+
+
+        **Filtering:** Use the optional `type` query parameter to narrow the results to a single bucket (`rejected` or `shortlisted`). Omitting it returns both buckets in one response. Any other value returns **422 Unprocessable Entity**.
+
+
+        **Pagination:** Use `page` and `per_page` (default 25, max 100). The response headers `X-Total-Count` (total matching reasons) and `X-Page-Count` (total pages) make page traversal straightforward.'
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application.
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Optional filter restricting the response to a single bucket. Allowed values are `rejected` (Reject Reasons only) or `shortlisted` (Shortlist Reasons only). Any other value returns 422.
+        required: false
+        schema:
+          type: string
+          enum:
+          - rejected
+          - shortlisted
+      - name: page
+        in: query
+        description: Page number (1-based). Defaults to 1.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: per_page
+        in: query
+        description: Page size. Defaults to 25, capped at 100.
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 25
+      responses:
+        '200':
+          description: Movement reasons were returned successfully. The response headers `X-Total-Count` and `X-Page-Count` describe the full result set.
+          headers:
+            X-Total-Count:
+              description: Total number of movement reasons matching the query (across all pages).
+              schema:
+                type: integer
+            X-Page-Count:
+              description: Total number of pages available given the current `per_page`.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movement_reasons_list_response'
+        '401':
+          description: Missing, invalid, or inactive API key.
+        '422':
+          description: Validation error — `type` was provided but is not one of `rejected` or `shortlisted`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/movement_reason_validation_error'
+        '500':
+          description: Internal server error; the response may include an exception message.
+components:
+  schemas:
+    movement_reasons_list_response:
+      type: object
+      required:
+      - movement_reasons
+      properties:
+        movement_reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/movement_reason'
+    movement_reason_validation_error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          example: unprocessable_entity
+        message:
+          type: string
+          example: 'Invalid type ''foo''. Must be one of: rejected, shortlisted.'
+    movement_reason:
+      type: object
+      description: A single movement reason — a configurable Shortlist or Reject reason used when changing a candidate's status.
+      properties:
+        id:
+          type: integer
+          description: Database id of the movement reason.
+        name:
+          type: string
+          description: Display name of the reason in Title Case (the underlying stored name is converted, e.g. `failed_background_check` becomes `Failed Background Check`).
+          example: Failed Background Check
+        type:
+          type: string
+          description: Bucket the reason belongs to. `rejected` corresponds to Reject Reasons; `shortlisted` corresponds to Shortlist Reasons.
+          enum:
+          - rejected
+          - shortlisted
+      required:
+      - id
+      - name
+      - type

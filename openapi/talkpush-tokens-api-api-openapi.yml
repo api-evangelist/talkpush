@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+
+
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
+
+    '
+  version: '2.0'
+  title: Talkpush Agents API Tokens API API
+  contact:
+    email: admin@talkpush.com
+servers:
+- url: https://company_subdomain.talkpush.com/api/talkpush_services
+tags:
+- name: Tokens API
+  description: Endpoint for discovering the message tokens available for use inside Message Templates. Returns both system-level reserved tokens (e.g. `candidate_name`, `job_title`) and any custom tokens configured for the company.
+paths:
+  /messaging/tokens:
+    get:
+      tags:
+      - Tokens API
+      summary: List available message tokens
+      description: 'Returns all tokens that can be used inside a Message Template''s `content` field. The list includes:
+
+
+        - **System tokens** — built-in reserved words (e.g. `candidate_name`, `job_title`, `scheduler_url`) that are resolved at send time.
+
+        - **Custom tokens** — company-defined tokens created by your team.
+
+
+        Use the `id` of a token as the Handlebars key in template content: `{{candidate_name}}`, `{{job_title}}`, etc.
+
+
+        **Filtering:** Use `display_name` for a case-insensitive partial-match filter to quickly find the token you need.'
+      parameters:
+      - name: api_key
+        in: query
+        description: The API key provided for your application.
+        required: true
+        schema:
+          type: string
+      - name: display_name
+        in: query
+        description: Case-insensitive partial-match filter on the token display name (e.g. `candidate` returns all candidate-related tokens).
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tokens returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokens_list_response'
+        '401':
+          description: Missing, invalid, or inactive API key.
+        '500':
+          description: Internal server error; the response may include an exception message.
+components:
+  schemas:
+    tokens_list_response:
+      type: object
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/token'
+    token:
+      type: object
+      description: A message token available for use in template content.
+      properties:
+        id:
+          type: string
+          description: The token key used in Handlebars syntax — use this as `{{id}}` in `content`.
+          example: candidate_name
+        display_name:
+          type: string
+          description: Human-readable label shown in the UI.
+          example: Candidate Name
+        description:
+          type: string
+          nullable: true
+          description: Optional description of what the token resolves to at send time. `null` for system tokens.
+          example: null
+      required:
+      - id
+      - display_name
+      - description
