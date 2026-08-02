@@ -1,0 +1,120 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/talkpush-openapi.json
+notes: >-
+  Entity graph derived from the Talkpush API v2.0 OpenAPI paths and component
+  schemas. The core domain is a recruiting CRM: Campaigns hold Leads (called
+  "campaign invitations"), each Lead wraps a Candidate; AI Agents run Calls and
+  Interviews; Messaging is driven by Templates, Quick Replies and Tokens.
+entities:
+- name: Campaign
+  description: A recruiting process / job application container.
+  schema: campaign
+  paths: ['/campaigns', '/campaigns/{id}']
+- name: Lead
+  description: A candidate's application to a campaign (a "campaign invitation").
+  schema: lead
+  paths: ['/campaign_invitations', '/campaign_invitations/{id}']
+- name: Candidate
+  description: The person applying; embedded within a Lead, carries attributes and labels.
+  schema: leads_response_candidates
+- name: Folder
+  description: A stage/bucket within a campaign or company account.
+  schema: folder_body
+  paths: ['/company/folders', '/campaigns/{id}/folders']
+- name: Agent
+  description: An AI calling/interview agent (e.g. ElevenLabs, Vapi provider).
+  schema: agent_detail
+  paths: ['/agents', '/agents/{id}']
+- name: Call
+  description: A call record produced by an agent, with transcript and extractions.
+  schema: call_body
+  paths: ['/calls', '/agents/{agent_id}/calls']
+- name: MessageTemplate
+  description: A reusable Handlebars message template (email/sms/whatsapp/messenger).
+  schema: message_template
+  paths: ['/messaging/templates', '/messaging/templates/{id}']
+- name: QuickReply
+  description: A quick-reply template that can be sent to a lead via a channel.
+  schema: quick_reply
+  paths: [/messaging/quick_replies, /messaging/messages]
+- name: Token
+  description: A system or custom token usable inside message-template content.
+  schema: token
+  paths: [/messaging/tokens]
+- name: CandidateAttribute
+  description: A default or custom attribute definition on candidates.
+  schema: candidate_attribute
+  paths: [/company/candidate_attributes]
+- name: Label
+  description: A company-level label assignable to candidates.
+  schema: label
+  paths: [/company/labels]
+- name: MovementReason
+  description: Configured shortlist/reject reasons for moving candidates.
+  schema: movement_reason
+  paths: [/movement_reasons]
+- name: DocumentTag
+  description: A document-tag template used when attaching documents to a lead.
+  schema: document_tag_body
+  paths: [/document_tags]
+- name: Manager
+  description: A platform user (recruiter/manager) in the company account.
+  schema: manager
+  paths: [/managers]
+relationships:
+- from: Campaign
+  type: has_many
+  to: Lead
+  via: campaign_id
+  evidence: POST /campaigns/{id}/campaign_invitations creates a lead under a campaign.
+- from: Lead
+  type: has_one
+  to: Candidate
+  via: candidate
+  evidence: leads_response_candidates embedded in lead.
+- from: Lead
+  type: belongs_to
+  to: Campaign
+  via: campaign_id
+  evidence: PUT /campaign_invitations/{id}/move moves a lead between campaigns.
+- from: Campaign
+  type: has_many
+  to: Folder
+  via: campaign_id
+  evidence: GET /campaigns/{id}/folders; POST /campaigns/{campaign_id}/folders/{folder_id}.
+- from: Lead
+  type: has_many
+  to: Comment
+  via: campaign_invitation_id
+  evidence: POST /campaign_invitations/{id}/comments.
+- from: Lead
+  type: assigned_to
+  to: Manager
+  via: reassign
+  evidence: PUT /campaign_invitations/{id}/reassign changes the assigned recruiter.
+- from: Agent
+  type: has_many
+  to: Call
+  via: agent_id
+  evidence: GET /agents/{agent_id}/calls.
+- from: Candidate
+  type: has_many
+  to: Label
+  via: candidate.labels
+  evidence: PATCH /campaign_invitations/{id} candidate.labels add/remove.
+- from: Candidate
+  type: has_many
+  to: CandidateAttribute
+  via: others
+  evidence: candidate attributes writable via the leads `others` payload.
+- from: MessageTemplate
+  type: references
+  to: Token
+  via: content
+  evidence: template content Handlebars tokens validated against /messaging/tokens.
+- from: Agent
+  type: references
+  to: CandidateAttribute
+  via: data_extractions
+  evidence: agent data_extractions reference candidate attribute keys.

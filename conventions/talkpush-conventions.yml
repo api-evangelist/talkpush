@@ -1,0 +1,62 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.talkpush.com/reference/get_company-labels
+docs: https://docs.talkpush.com/docs/getting-started
+authentication:
+  style: api-key-query
+  parameter: api_key
+  in: query
+  see: authentication/talkpush-authentication.yml
+pagination:
+  style: page-number
+  request_params:
+  - name: page
+    description: 1-based page number.
+  - name: per_page
+    description: Items per page. Default 25, maximum 100.
+  response_headers:
+  - name: X-Total-Count
+    description: Total number of matching records across all pages.
+  - name: X-Page-Count
+    description: Total number of pages available.
+  notes: >-
+    Page-number pagination is documented on list endpoints such as
+    GET /company/labels, GET /messaging/templates, GET /movement_reasons and
+    GET /managers, which return X-Total-Count and X-Page-Count headers. Some
+    resource lists (agents, calls) are described as paginated and ordered by most
+    recently updated.
+filtering:
+  notes: >-
+    Many list endpoints accept a `name` query parameter for case-insensitive
+    partial-match filtering, plus resource-specific exact-match filters (e.g.
+    `type`, `category`, `role`, `status`, `start_date`/`end_date`). The leads
+    endpoint (GET /campaign_invitations) supports a `query` free-text search or a
+    combination of advanced-search parameters.
+idempotency:
+  supported: false
+  notes: >-
+    No idempotency-key header or documented idempotent-retry contract is
+    published. Duplicate-prevention is handled resource-side via 409 Conflict on
+    unique constraints (e.g. duplicate labels, duplicate candidate-attribute
+    keys) rather than a client-supplied idempotency key.
+error_envelope:
+  format: json
+  problem_json: false
+  notes: >-
+    Errors are returned as HTTP status codes (400, 401, 403, 404, 409, 422, 500)
+    with a JSON body. Validation failures on labels, candidate attributes,
+    message templates and movement reasons return 422 with the offending field
+    names; conflicts return 409. Not RFC 9457 problem+json.
+  see: errors/talkpush-problem-types.yml
+versioning:
+  scheme: none-in-path
+  current: '2.0'
+  notes: >-
+    The OpenAPI info version is 2.0 (title "Talkpush API"). The base path is
+    /api/talkpush_services with no version segment in the URL.
+rate_limiting:
+  documented: false
+  notes: No published rate-limit headers or quota policy found in the docs.
+content_types:
+  request: application/json
+  response: application/json

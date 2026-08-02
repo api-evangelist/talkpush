@@ -1,0 +1,33 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Talkpush API
+  version: 1.0.0
+extends: openapi/talkpush-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-api-evangelist-source: https://docs.talkpush.com
+    x-authentication: authentication/talkpush-authentication.yml
+- target: $.components
+  update:
+    securitySchemes:
+      ApiKeyQuery:
+        type: apiKey
+        in: query
+        name: api_key
+        description: >-
+          Company-scoped API key passed as a query parameter on every request.
+          Reconstructed by API Evangelist from the Talkpush getting-started docs;
+          the harvested spec declares api_key only as an operation parameter.
+- target: $
+  update:
+    security:
+    - ApiKeyQuery: []
+- target: $.info
+  update:
+    x-agent-readiness:
+      llms_txt: llms/talkpush-llms.txt
+      mcp_candidate: mcp/talkpush-mcp.yml
+      conventions: conventions/talkpush-conventions.yml
+      error_catalog: errors/talkpush-problem-types.yml

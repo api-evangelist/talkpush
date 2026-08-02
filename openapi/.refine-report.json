@@ -1,0 +1,42 @@
+{
+  "provider": "talkpush",
+  "sources": [
+    "talkpush-agents-api-api-openapi.yml",
+    "talkpush-calls-api-api-openapi.yml",
+    "talkpush-campaigns-api-api-openapi.yml",
+    "talkpush-candidate-attributes-api-api-openapi.yml",
+    "talkpush-document-tags-api-api-openapi.yml",
+    "talkpush-folders-api-api-openapi.yml",
+    "talkpush-labels-api-api-openapi.yml",
+    "talkpush-leads-api-api-openapi.yml",
+    "talkpush-managers-api-api-openapi.yml",
+    "talkpush-message-templates-api-api-openapi.yml",
+    "talkpush-messaging-api-api-openapi.yml",
+    "talkpush-movement-reasons-api-api-openapi.yml",
+    "talkpush-requisition-management-system-api-openapi.yml",
+    "talkpush-tokens-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "talkpush-agents-api-api-openapi.yml",
+    "talkpush-calls-api-api-openapi.yml",
+    "talkpush-campaigns-api-api-openapi.yml",
+    "talkpush-candidate-attributes-api-api-openapi.yml",
+    "talkpush-document-tags-api-api-openapi.yml",
+    "talkpush-folders-api-api-openapi.yml",
+    "talkpush-labels-api-api-openapi.yml",
+    "talkpush-leads-api-api-openapi.yml",
+    "talkpush-managers-api-api-openapi.yml",
+    "talkpush-message-templates-api-api-openapi.yml",
+    "talkpush-messaging-api-api-openapi.yml",
+    "talkpush-movement-reasons-api-api-openapi.yml",
+    "talkpush-requisition-management-system-api-openapi.yml",
+    "talkpush-tokens-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "talkpush-campaigns-api-api-openapi.yml: dangling $ref: #/components/requestBodies/campaign_request"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

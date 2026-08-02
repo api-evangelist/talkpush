@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/talkpush-openapi.json
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: Published API described by an OpenAPI 3.0.0 document (Talkpush API v2.0).
+- id: apikey-auth
+  conforms: true
+  evidence: Every operation requires an api_key query parameter.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securitySchemes; company-level API key only.
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are HTTP status + JSON body, not application/problem+json.
+- id: pagination
+  conforms: true
+  evidence: page/per_page params with X-Total-Count and X-Page-Count response headers.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key contract documented.
+- id: json-api
+  conforms: false
+- id: webhooks
+  conforms: partial
+  evidence: >-
+    Exposes an inbound RMS callback receiver (POST /rms/callback) for
+    requisition-management systems; no documented outbound webhook/event catalog.

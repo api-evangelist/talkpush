@@ -1,0 +1,48 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/talkpush-openapi.json
+format: http-status-json
+envelope:
+  problem_json: false
+  notes: >-
+    Errors surface as an HTTP status code with a JSON body. Validation errors
+    (422) enumerate the offending field or token names; conflicts (409) indicate
+    a uniqueness violation. Not RFC 9457 application/problem+json.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: The request was malformed or a required parameter was missing/invalid.
+  seen_on: [POST /company/labels, GET /managers]
+- status: 401
+  title: Unauthorized
+  meaning: Missing or invalid api_key query parameter.
+  remediation: Pass a valid api_key issued for your company workspace on every call.
+- status: 403
+  title: Forbidden
+  meaning: The API key is valid but not permitted to perform this operation.
+- status: 404
+  title: Not Found
+  meaning: The referenced resource (lead, campaign, agent, template, folder) does not exist.
+- status: 409
+  title: Conflict
+  meaning: >-
+    A uniqueness constraint was violated. Returned when creating a label whose
+    name already exists, or a candidate attribute whose normalized key already
+    exists (a second record is not created).
+  seen_on: [POST /company/labels, POST /company/candidate_attributes]
+- status: 422
+  title: Unprocessable Entity
+  meaning: >-
+    Validation failed. Examples: a label name containing "," "#" or "?";
+    a message-template content referencing unknown Handlebars tokens (the
+    response lists the offending tokens); a lead label add/remove referencing
+    names that do not yet exist as company labels (all-or-nothing, nothing is
+    changed); an invalid movement-reason type filter.
+  seen_on:
+  - PATCH /campaign_invitations/{id}
+  - POST /company/labels
+  - POST /messaging/templates
+  - GET /movement_reasons
+- status: 500
+  title: Internal Server Error
+  meaning: An unexpected server-side error occurred.

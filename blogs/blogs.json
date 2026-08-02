@@ -1,0 +1,14 @@
+{
+  "repo": "talkpush",
+  "feeds": [
+    {
+      "source": "https://help.talkpush.com/en/",
+      "feed_url": "https://help.talkpush.com/en/feed.xml",
+      "title": "",
+      "saved": 7,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 7,
+  "fetched": "2026-08-01T15:49:00Z"
+}

@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.talkpush.com/docs/getting-started
+docs: https://docs.talkpush.com/docs/getting-started
+summary:
+  types: [apiKey]
+  api_key_in: [query]
+  oauth2_flows: []
+  notes: >-
+    The Talkpush API authenticates every request with an API key passed as the
+    query parameter `api_key`. The key is scoped to a company workspace; the base
+    URL is your company workspace subdomain, e.g.
+    https://{subdomain}.talkpush.com/api/talkpush_services. Keys are issued by
+    TalkPush support (cs@talkpush.com / admin@talkpush.com) and are not
+    self-service. No OAuth, OpenID Connect, or per-scope authorization surface is
+    documented; access is company-level via the single API key.
+schemes:
+- name: ApiKeyQuery
+  type: apiKey
+  in: query
+  parameter: api_key
+  required: true
+  description: >-
+    The API key provided for your application, passed as a query parameter on
+    every API call. Contact TalkPush support to obtain or rotate a key.
+  sources: [openapi/talkpush-openapi.json]

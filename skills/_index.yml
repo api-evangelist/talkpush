@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/talkpush-openapi.json
+skills:
+- file: talkpush-source-and-manage-lead.md
+  name: Source and manage a recruiting lead
+  api: openapi/talkpush-openapi.json
+  operations:
+  - POST /campaigns/{id}/campaign_invitations
+  - GET /campaign_invitations
+  - PATCH /campaign_invitations/{id}
+  - POST /campaign_invitations/{id}/comments
+  - PUT /campaign_invitations/{id}/{status}
+  - PUT /campaign_invitations/{id}/move
+  - PUT /campaign_invitations/{id}/reassign
+- file: talkpush-manage-campaign.md
+  name: Create and manage a recruiting campaign
+  api: openapi/talkpush-openapi.json
+  operations:
+  - POST /campaigns
+  - GET /campaigns
+  - GET /campaigns/{id}
+  - PUT /campaigns/{id}
+  - GET /campaigns/{id}/questions
+  - GET /campaigns/{id}/folders
+  - POST /campaigns/{campaign_id}/folders/{folder_id}
+  - PUT /campaigns/{id}/archive
+  - PUT /campaigns/{id}/activate
+- file: talkpush-configure-ai-agent.md
+  name: Configure an AI calling agent and review its calls
+  api: openapi/talkpush-openapi.json
+  operations:
+  - GET /agents
+  - POST /agents
+  - GET /agents/{id}
+  - PUT /agents/{id}
+  - DELETE /agents/{id}
+  - GET /agents/{agent_id}/calls
+  - GET /agents/{agent_id}/changelog

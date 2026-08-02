@@ -1,7 +1,18 @@
 aid: talkpush
 name: TalkPush
-description: TalkPush is a company surfaced as a portfolio company of seedcamp and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  TalkPush is a conversational recruiting and recruitment-automation CRM that
+  helps high-volume employers source, screen, and engage job candidates across
+  messaging channels (WhatsApp, SMS, Messenger, email) and AI voice agents. Its
+  public REST API — the Talkpush API v2.0 — lets you plug external lead sources
+  and HR/ATS technology into the platform: create and search leads (campaign
+  invitations), manage recruiting campaigns and folders, run and complete
+  interviews, send quick-reply and message templates, configure AI calling
+  agents, and manage company labels, candidate attributes, movement reasons, and
+  managers. Authentication is via an api_key query parameter, and the docs are
+  published on a ReadMe developer hub with an llms.txt index for AI agents.
+  Surfaced as a Seedcamp portfolio company and enriched by the API Evangelist
+  pipeline from TalkPush's own published developer documentation.
 url: https://raw.githubusercontent.com/api-evangelist/talkpush/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,17 +20,336 @@ x-backed-by:
 - seedcamp
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+image: https://files.readme.io/2a5f3f7-small-logov1.png
 tags:
 - Company
-apis: []
+- Recruiting
+- Recruitment Automation
+- Human Resources
+- Hiring
+- Applicant Tracking
+- Conversational AI
+- Messaging
+- CRM
+apis:
+- aid: talkpush:talkpush-agents-api-api
+  name: TalkPush Agents API API
+  description: >-
+    Collection of endpoints related to AI Agents (SmartCall Settings). Agents are configurable AI-powered
+    voice/interview agents that can be linked to campaigns, question sets, and candidate attribute extractions.
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Agents API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-agents-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-calls-api-api
+  name: TalkPush Calls API API
+  description: Collection of endpoints related to calls data
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Calls API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-calls-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-campaigns-api-api
+  name: TalkPush Campaigns API API
+  description: Collection of endpoints related to Talkpush Campaigns
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Campaigns API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-campaigns-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-candidate-attributes-api-api
+  name: TalkPush Candidate Attributes API API
+  description: >-
+    List and create candidate (lead) custom attribute definitions at the company level. Definitions appear
+    in the recruiter UI and can be written on leads via the `others` field using the attribute key. Both
+    built-in (`default`) and custom attributes are returned on list.
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Candidate Attributes API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-candidate-attributes-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-document-tags-api-api
+  name: TalkPush Document Tags API API
+  description: Collection of endpoints related to Document Tags (Templates)
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Document Tags API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-document-tags-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-folders-api-api
+  name: TalkPush Folders API API
+  description: Collection of endpoints related to folders
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Folders API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-folders-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-labels-api-api
+  name: TalkPush Labels API API
+  description: >-
+    Collection of endpoints related to candidate labels. Labels are simple, company-wide tags that recruiters
+    use to flag and filter candidates (for example: "Priority", "Referral", "Needs Review"). The same
+    labels are visible in the Talkpush UI; anything added via the API immediately appears in the UI and
+    on the candidate's `labels` field returned by the Leads API.
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Labels API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-labels-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-leads-api-api
+  name: TalkPush Leads API API
+  description: Collection of endpoints related to leads management
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Leads API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-leads-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-managers-api-api
+  name: TalkPush Managers API API
+  description: >-
+    Endpoint for listing the company's managers (platform users with role-based permissions). Use the
+    returned IDs to discover valid managers before assigning them to campaign permissions, targeting them
+    in automation, or mirroring the user directory in external tools. Read-only; results are scoped to
+    the authenticated tenant and exclude deactivated managers.
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Managers API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-managers-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-message-templates-api-api
+  name: TalkPush Message Templates API API
+  description: >-
+    Endpoints for managing Message Templates — the structured, token-based messages used by autoflows
+    and integrations for standardised communications (interview invitations, rejection notices, offer
+    letters, onboarding instructions). Templates are returned and accepted with content in Handlebars
+    format (e.g. `{{candidate_name}}`), regardless of how they are stored internally. Use `GET /messaging/tokens`
+    to discover the full list of tokens available in your company.
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Message Templates API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-message-templates-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-messaging-api-api
+  name: TalkPush Messaging API API
+  description: Collection of endpoints related to sending messages
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Messaging API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-messaging-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-movement-reasons-api-api
+  name: TalkPush Movement Reasons API API
+  description: >-
+    Endpoint for listing the company's candidate movement reasons — the configurable Shortlist Reasons
+    and Reject Reasons that recruiters select when shortlisting or rejecting a candidate. Use these IDs/names
+    to mirror reason labels in external dashboards or to map them back to Talkpush when syncing status
+    changes.
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Movement Reasons API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-movement-reasons-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-requisition-management-system-api
+  name: TalkPush Requisition Management System API
+  description: Collection of endpoints related to RMS Integration
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Requisition Management System
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-requisition-management-system-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
+- aid: talkpush:talkpush-tokens-api-api
+  name: TalkPush Tokens API API
+  description: >-
+    Endpoint for discovering the message tokens available for use inside Message Templates. Returns both
+    system-level reserved tokens (e.g. `candidate_name`, `job_title`) and any custom tokens configured
+    for the company.
+  humanURL: https://docs.talkpush.com/docs/getting-started
+  baseURL: https://your-company.talkpush.com/api/talkpush_services
+  tags:
+  - Tokens API
+  properties:
+  - type: OpenAPI
+    url: openapi/talkpush-tokens-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.talkpush.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.talkpush.com/reference/get_campaigns
+  - type: Authentication
+    url: authentication/talkpush-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/talkpush-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/talkpush-agentic-access.yml
 - type: Website
-  url: http://talkpush.com
+  url: https://www.talkpush.com
+- type: DeveloperPortal
+  url: https://docs.talkpush.com
+- type: Documentation
+  url: https://docs.talkpush.com/docs/getting-started
+- type: APIReference
+  url: https://docs.talkpush.com/reference/get_campaigns
+- type: GettingStarted
+  url: https://docs.talkpush.com/docs/getting-started
+- type: LLMsTxt
+  url: llms/talkpush-llms.txt
+- type: Support
+  url: https://help.talkpush.com/en/
+- type: HelpCenter
+  url: https://help.talkpush.com/en/
+- type: Blog
+  url: https://www.talkpush.com/talkpush-blog-all
+- type: Pricing
+  url: https://www.talkpush.com/pricing
+- type: TermsOfService
+  url: https://talkpush.com/terms/
+- type: PrivacyPolicy
+  url: https://talkpush.com/privacy/
+- type: GitHubOrganization
+  url: https://github.com/talkpush
+- type: Integrations
+  url: https://www.talkpush.com/integrations
+- type: Authentication
+  url: authentication/talkpush-authentication.yml
+- type: MCPServer
+  url: mcp/talkpush-mcp.yml
+- type: ErrorCatalog
+  url: errors/talkpush-problem-types.yml
+- type: Conventions
+  url: conventions/talkpush-conventions.yml
+- type: DataModel
+  url: data-model/talkpush-data-model.yml
+- type: Conformance
+  url: conformance/talkpush-conformance.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1

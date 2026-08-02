@@ -1,0 +1,146 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/talkpush-openapi.json
+notes: >-
+  Candidate MCP tool surface derived one-to-one from the Talkpush API v2.0
+  OpenAPI operations. TalkPush does not publish an official hosted MCP server;
+  this is a proposed mapping (tool name = ReadMe reference operation id). Every
+  tool authenticates with the company api_key query parameter.
+server:
+  name: talkpush
+  transport: http
+  url: null
+tools:
+- name: get_campaign_invitations
+  description: Retrieve a list of leads matching search criteria.
+  source_operation: openapi/talkpush-openapi.json#GET /campaign_invitations
+- name: patch_campaign_invitation
+  description: Update a lead's details (and add/remove labels).
+  source_operation: openapi/talkpush-openapi.json#PATCH /campaign_invitations/{id}
+- name: create_lead
+  description: Create a new lead in a campaign.
+  source_operation: openapi/talkpush-openapi.json#POST /campaigns/{id}/campaign_invitations
+- name: complete_interview
+  description: Complete the interview for a candidate application.
+  source_operation: openapi/talkpush-openapi.json#POST /campaign_invitations/{id}/interview
+- name: create_lead_comment
+  description: Create a comment on a lead.
+  source_operation: openapi/talkpush-openapi.json#POST /campaign_invitations/{id}/comments
+- name: change_lead_status
+  description: Change a lead's status.
+  source_operation: openapi/talkpush-openapi.json#PUT /campaign_invitations/{id}/{status}
+- name: move_lead
+  description: Move a lead to a different campaign.
+  source_operation: openapi/talkpush-openapi.json#PUT /campaign_invitations/{id}/move
+- name: reassign_lead
+  description: Reassign a lead to another recruiter.
+  source_operation: openapi/talkpush-openapi.json#PUT /campaign_invitations/{id}/reassign
+- name: attach_lead_document
+  description: Attach a document to a lead.
+  source_operation: openapi/talkpush-openapi.json#PUT /campaign_invitations/{id}/documents
+- name: list_quick_replies
+  description: Retrieve available quick-reply templates.
+  source_operation: openapi/talkpush-openapi.json#GET /messaging/quick_replies
+- name: send_message
+  description: Send a quick-reply template to a lead via a channel.
+  source_operation: openapi/talkpush-openapi.json#POST /messaging/messages
+- name: list_campaigns
+  description: Retrieve all active campaigns.
+  source_operation: openapi/talkpush-openapi.json#GET /campaigns
+- name: create_campaign
+  description: Create a new campaign.
+  source_operation: openapi/talkpush-openapi.json#POST /campaigns
+- name: list_archived_campaigns
+  description: Retrieve all archived campaigns.
+  source_operation: openapi/talkpush-openapi.json#GET /campaigns/archive
+- name: search_campaigns
+  description: Retrieve active campaigns matching search criteria.
+  source_operation: openapi/talkpush-openapi.json#GET /campaigns/search/{criteria}
+- name: get_campaign
+  description: Retrieve a specific active campaign.
+  source_operation: openapi/talkpush-openapi.json#GET /campaigns/{id}
+- name: update_campaign
+  description: Update an existing campaign.
+  source_operation: openapi/talkpush-openapi.json#PUT /campaigns/{id}
+- name: get_campaign_questions
+  description: Retrieve questions for a campaign.
+  source_operation: openapi/talkpush-openapi.json#GET /campaigns/{id}/questions
+- name: get_campaign_folders
+  description: Retrieve folders associated to a campaign.
+  source_operation: openapi/talkpush-openapi.json#GET /campaigns/{id}/folders
+- name: archive_campaign
+  description: Archive an existing campaign.
+  source_operation: openapi/talkpush-openapi.json#PUT /campaigns/{id}/archive
+- name: activate_campaign
+  description: Activate an archived campaign.
+  source_operation: openapi/talkpush-openapi.json#PUT /campaigns/{id}/activate
+- name: associate_campaign_folder
+  description: Associate a campaign with a custom folder.
+  source_operation: openapi/talkpush-openapi.json#POST /campaigns/{campaign_id}/folders/{folder_id}
+- name: list_company_folders
+  description: Retrieve all available company folders.
+  source_operation: openapi/talkpush-openapi.json#GET /company/folders
+- name: create_company_folder
+  description: Create a custom folder.
+  source_operation: openapi/talkpush-openapi.json#POST /company/folders
+- name: list_document_tags
+  description: Retrieve available document tags.
+  source_operation: openapi/talkpush-openapi.json#GET /document_tags
+- name: list_calls
+  description: Retrieve calls within a date range.
+  source_operation: openapi/talkpush-openapi.json#GET /calls
+- name: list_candidate_attributes
+  description: List all candidate attribute definitions.
+  source_operation: openapi/talkpush-openapi.json#GET /company/candidate_attributes
+- name: create_candidate_attribute
+  description: Create a custom candidate attribute.
+  source_operation: openapi/talkpush-openapi.json#POST /company/candidate_attributes
+- name: list_agents
+  description: Retrieve AI agents configured in the account.
+  source_operation: openapi/talkpush-openapi.json#GET /agents
+- name: create_agent
+  description: Create a new AI agent.
+  source_operation: openapi/talkpush-openapi.json#POST /agents
+- name: get_agent
+  description: Retrieve details of a specific agent.
+  source_operation: openapi/talkpush-openapi.json#GET /agents/{id}
+- name: update_agent
+  description: Update an existing agent.
+  source_operation: openapi/talkpush-openapi.json#PUT /agents/{id}
+- name: delete_agent
+  description: Delete an agent.
+  source_operation: openapi/talkpush-openapi.json#DELETE /agents/{id}
+- name: list_agent_calls
+  description: Retrieve calls handled by a specific agent.
+  source_operation: openapi/talkpush-openapi.json#GET /agents/{agent_id}/calls
+- name: get_agent_changelog
+  description: Retrieve the audit changelog for a specific agent.
+  source_operation: openapi/talkpush-openapi.json#GET /agents/{agent_id}/changelog
+- name: list_labels
+  description: List company labels.
+  source_operation: openapi/talkpush-openapi.json#GET /company/labels
+- name: create_label
+  description: Create a company label.
+  source_operation: openapi/talkpush-openapi.json#POST /company/labels
+- name: list_message_templates
+  description: List message templates.
+  source_operation: openapi/talkpush-openapi.json#GET /messaging/templates
+- name: create_message_template
+  description: Create a message template.
+  source_operation: openapi/talkpush-openapi.json#POST /messaging/templates
+- name: update_message_template
+  description: Update a message template.
+  source_operation: openapi/talkpush-openapi.json#PATCH /messaging/templates/{id}
+- name: list_message_tokens
+  description: List available message tokens.
+  source_operation: openapi/talkpush-openapi.json#GET /messaging/tokens
+- name: list_movement_reasons
+  description: List shortlist & reject reasons.
+  source_operation: openapi/talkpush-openapi.json#GET /movement_reasons
+- name: list_managers
+  description: List company managers.
+  source_operation: openapi/talkpush-openapi.json#GET /managers
+- name: rms_callback
+  description: Inbound callback receiver for requisition-management systems.
+  source_operation: openapi/talkpush-openapi.json#POST /rms/callback
