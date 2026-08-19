@@ -1,0 +1,475 @@
+{
+  "item": [
+    {
+      "id": "f84b9e92-5129-4a02-b845-a0d512d23ec5",
+      "name": "Candidate Attributes API",
+      "description": {
+        "content": "List and create candidate (lead) custom attribute definitions at the company level. Definitions appear in the recruiter UI and can be written on leads via the `others` field using the attribute key. Both built-in (`default`) and custom attributes are returned on list.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3c985f8c-05ca-42af-94dd-d3a1f3d6324d",
+          "name": "List all candidate attribute definitions",
+          "request": {
+            "name": "List all candidate attribute definitions",
+            "description": {
+              "content": "Returns every attribute definition for the company, including default (system) and custom attributes, ordered by `name`. Use this to drive integrations and to discover keys for the leads `others` payload.\n\nEach item includes type, suggested values, visibility flags, and whether the attribute is a default (built-in) field (`default: true`) or a custom one (`default: false`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "candidate_attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "024e18ad-40e6-40d2-84d0-33c45b32f338",
+              "name": "Attribute definitions were returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"candidate_attributes\": [\n    {\n      \"id\": 4996,\n      \"name\": \"string\",\n      \"data_type\": \"string\",\n      \"suggested_values\": [\n        \"string\",\n        \"string\"\n      ],\n      \"allow_only_suggested_values\": false,\n      \"auto_add_to_all_candidates\": false,\n      \"always_show_across_applications\": true,\n      \"private\": true,\n      \"restrict_to_owners\": false,\n      \"default\": true,\n      \"description\": \"string\"\n    },\n    {\n      \"id\": 3581,\n      \"name\": \"string\",\n      \"data_type\": \"string\",\n      \"suggested_values\": [\n        \"string\",\n        \"string\"\n      ],\n      \"allow_only_suggested_values\": false,\n      \"auto_add_to_all_candidates\": false,\n      \"always_show_across_applications\": true,\n      \"private\": true,\n      \"restrict_to_owners\": false,\n      \"default\": true,\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8265dba1-ae7f-4118-92e2-4cbc6e5cd93d",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "720506bd-f5cf-4813-b05c-23676a62ec3c",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66dedc5b-29a3-4fc2-8cd0-d00d523963e8",
+          "name": "Create a custom candidate attribute",
+          "request": {
+            "name": "Create a custom candidate attribute",
+            "description": {
+              "content": "Creates a new **custom** attribute definition. It becomes available in the UI immediately and is writable on leads through the `others` field using the persisted key (custom keys are stored with an `others.` prefix where applicable).\n\n**Duplicate prevention:** If the normalized `key` already exists for an attribute, the API returns **409 Conflict** (not a second record).\n\n**Required fields:** `name` and `key` (see request schema). `data_type` defaults to `text` when omitted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "candidate_attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"candidate_attribute\": {\n    \"name\": \"<string>\",\n    \"key\": \"<string>\",\n    \"data_type\": \"text\",\n    \"description\": \"<string>\",\n    \"suggested_values\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"allow_only_suggested_values\": \"<boolean>\",\n    \"auto_add_to_all_candidates\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c29e56d2-7221-4a3b-9e2e-f9de322817db",
+              "name": "The attribute was created successfully. The body contains the full definition under `candidate_attribute`, including `id`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate_attribute\": {\n    \"name\": \"Signing Status\",\n    \"key\": \"signing_status\",\n    \"data_type\": \"text\",\n    \"description\": \"Document signing status\",\n    \"suggested_values\": [\n      \"pending\",\n      \"viewed\",\n      \"completed\",\n      \"declined\"\n    ],\n    \"allow_only_suggested_values\": true,\n    \"auto_add_to_all_candidates\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"candidate_attribute\": {\n    \"id\": 724,\n    \"name\": \"string\",\n    \"data_type\": \"string\",\n    \"suggested_values\": [\n      \"string\",\n      \"string\"\n    ],\n    \"allow_only_suggested_values\": false,\n    \"auto_add_to_all_candidates\": false,\n    \"always_show_across_applications\": true,\n    \"private\": true,\n    \"restrict_to_owners\": false,\n    \"default\": true,\n    \"description\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ac3698a-83e0-47e8-8173-8af86117b070",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate_attribute\": {\n    \"name\": \"Signing Status\",\n    \"key\": \"signing_status\",\n    \"data_type\": \"text\",\n    \"description\": \"Document signing status\",\n    \"suggested_values\": [\n      \"pending\",\n      \"viewed\",\n      \"completed\",\n      \"declined\"\n    ],\n    \"allow_only_suggested_values\": true,\n    \"auto_add_to_all_candidates\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca44c192-cc61-43e6-93e4-a242051ee4d8",
+              "name": "Conflict: an attribute with this key already exists (after key normalization).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate_attribute\": {\n    \"name\": \"Signing Status\",\n    \"key\": \"signing_status\",\n    \"data_type\": \"text\",\n    \"description\": \"Document signing status\",\n    \"suggested_values\": [\n      \"pending\",\n      \"viewed\",\n      \"completed\",\n      \"declined\"\n    ],\n    \"allow_only_suggested_values\": true,\n    \"auto_add_to_all_candidates\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"A candidate attribute with this key already exists\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff92f473-4504-43ef-96df-c4569434033f",
+              "name": "Validation error. Common cases: missing `name` or `key`, or model validation failures.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate_attribute\": {\n    \"name\": \"Signing Status\",\n    \"key\": \"signing_status\",\n    \"data_type\": \"text\",\n    \"description\": \"Document signing status\",\n    \"suggested_values\": [\n      \"pending\",\n      \"viewed\",\n      \"completed\",\n      \"declined\"\n    ],\n    \"allow_only_suggested_values\": true,\n    \"auto_add_to_all_candidates\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c13e9c27-6ffb-4540-8f01-e0f5e4a49658",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "candidate_attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate_attribute\": {\n    \"name\": \"Signing Status\",\n    \"key\": \"signing_status\",\n    \"data_type\": \"text\",\n    \"description\": \"Document signing status\",\n    \"suggested_values\": [\n      \"pending\",\n      \"viewed\",\n      \"completed\",\n      \"declined\"\n    ],\n    \"allow_only_suggested_values\": true,\n    \"auto_add_to_all_candidates\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dcbdadd7-1062-4ddb-8dc2-8b76baeebcfd",
+    "name": "Talkpush Agents API Candidate Attributes API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

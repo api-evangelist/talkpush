@@ -2,11 +2,9 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/talkpush-openapi.json
-notes: >-
-  Candidate MCP tool surface derived one-to-one from the Talkpush API v2.0
-  OpenAPI operations. TalkPush does not publish an official hosted MCP server;
-  this is a proposed mapping (tool name = ReadMe reference operation id). Every
-  tool authenticates with the company api_key query parameter.
+notes: Candidate MCP tool surface derived one-to-one from the Talkpush API v2.0 OpenAPI operations. TalkPush
+  does not publish an official hosted MCP server; this is a proposed mapping (tool name = ReadMe reference
+  operation id). Every tool authenticates with the company api_key query parameter.
 server:
   name: talkpush
   transport: http
@@ -144,3 +142,9 @@ tools:
 - name: rms_callback
   description: Inbound callback receiver for requisition-management systems.
   source_operation: openapi/talkpush-openapi.json#POST /rms/callback
+deployment:
+  mode: none
+  verified: derived
+  tools: 44
+  checked: '2026-08-12'
+  source: catalog MCP census

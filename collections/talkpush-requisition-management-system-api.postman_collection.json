@@ -1,0 +1,332 @@
+{
+  "item": [
+    {
+      "id": "9986a60a-8603-4ae1-8422-573bf912e5d2",
+      "name": "Requisition Management System",
+      "description": {
+        "content": "Collection of endpoints related to RMS Integration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "66ede77c-a368-4058-b28e-8137e72c021c",
+          "name": "Callback endpoint",
+          "request": {
+            "name": "Callback endpoint",
+            "description": {
+              "content": "This API endpoint will be used to receive callbacks from RMS when a job requisition is created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rms",
+                "callback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"ats_external_id\": \"<string>\",\n  \"job_profile_id\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"salary\": \"<string>\",\n  \"salary_type\": \"<string>\",\n  \"salary_currency\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"remote_type\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"province\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"region\": \"<string>\",\n  \"country\": \"<string>\",\n  \"short_description\": \"<string>\",\n  \"long_description\": \"<string>\",\n  \"head_count\": \"<string>\",\n  \"publish_on_job_listing_page\": \"<boolean>\",\n  \"job_industry\": \"<string>\",\n  \"job_function\": \"<string>\",\n  \"allow_reapplication\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87b0668d-9635-4dc6-9b5f-9554314e9084",
+              "name": "Campaign created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rms",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"ats_external_id\": \"<string>\",\n  \"job_profile_id\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"salary\": \"<string>\",\n  \"salary_type\": \"annually\",\n  \"salary_currency\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"remote_type\": \"fully_remote\",\n  \"locale\": \"en\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"province\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"region\": \"<string>\",\n  \"country\": \"PH\",\n  \"short_description\": \"<string>\",\n  \"long_description\": \"<string>\",\n  \"head_count\": \"<string>\",\n  \"publish_on_job_listing_page\": \"<boolean>\",\n  \"job_industry\": \"arts_and_culture\",\n  \"job_function\": \"accounting_auditing\",\n  \"allow_reapplication\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "81d012fd-3023-48e2-9b5f-11d92e4227fb",
+              "name": "Bad Request - Invalid or missing required parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rms",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"ats_external_id\": \"<string>\",\n  \"job_profile_id\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"salary\": \"<string>\",\n  \"salary_type\": \"annually\",\n  \"salary_currency\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"remote_type\": \"fully_remote\",\n  \"locale\": \"en\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"province\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"region\": \"<string>\",\n  \"country\": \"PH\",\n  \"short_description\": \"<string>\",\n  \"long_description\": \"<string>\",\n  \"head_count\": \"<string>\",\n  \"publish_on_job_listing_page\": \"<boolean>\",\n  \"job_industry\": \"arts_and_culture\",\n  \"job_function\": \"accounting_auditing\",\n  \"allow_reapplication\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"VALIDATION_ERROR\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a8b8aab-95c7-43fb-a50f-784cff570b93",
+              "name": "Unauthorized - Invalid bearer token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rms",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"ats_external_id\": \"<string>\",\n  \"job_profile_id\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"salary\": \"<string>\",\n  \"salary_type\": \"annually\",\n  \"salary_currency\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"remote_type\": \"fully_remote\",\n  \"locale\": \"en\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"province\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"region\": \"<string>\",\n  \"country\": \"PH\",\n  \"short_description\": \"<string>\",\n  \"long_description\": \"<string>\",\n  \"head_count\": \"<string>\",\n  \"publish_on_job_listing_page\": \"<boolean>\",\n  \"job_industry\": \"arts_and_culture\",\n  \"job_function\": \"accounting_auditing\",\n  \"allow_reapplication\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"INVALID_BEARER_TOKEN\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de11d386-e616-4b09-bc3c-cb196fb29d48",
+              "name": "Forbidden - RMS integration disabled or templates disabled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rms",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"ats_external_id\": \"<string>\",\n  \"job_profile_id\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"salary\": \"<string>\",\n  \"salary_type\": \"annually\",\n  \"salary_currency\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"remote_type\": \"fully_remote\",\n  \"locale\": \"en\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"province\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"region\": \"<string>\",\n  \"country\": \"PH\",\n  \"short_description\": \"<string>\",\n  \"long_description\": \"<string>\",\n  \"head_count\": \"<string>\",\n  \"publish_on_job_listing_page\": \"<boolean>\",\n  \"job_industry\": \"arts_and_culture\",\n  \"job_function\": \"accounting_auditing\",\n  \"allow_reapplication\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"RMS_INTEGRATION_DISABLED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41d23e27-3ee2-48d3-a421-131ccfa071db",
+              "name": "Unprocessable Entity - Campaign already exists or job profile not mapped",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rms",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"ats_external_id\": \"<string>\",\n  \"job_profile_id\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"salary\": \"<string>\",\n  \"salary_type\": \"annually\",\n  \"salary_currency\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"remote_type\": \"fully_remote\",\n  \"locale\": \"en\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"province\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"region\": \"<string>\",\n  \"country\": \"PH\",\n  \"short_description\": \"<string>\",\n  \"long_description\": \"<string>\",\n  \"head_count\": \"<string>\",\n  \"publish_on_job_listing_page\": \"<boolean>\",\n  \"job_industry\": \"arts_and_culture\",\n  \"job_function\": \"accounting_auditing\",\n  \"allow_reapplication\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"CAMPAIGN_ALREADY_EXISTS\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffa08eec-6f94-4af5-a0be-22d5a0788cd4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rms",
+                    "callback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"<string>\",\n  \"ats_external_id\": \"<string>\",\n  \"job_profile_id\": \"<string>\",\n  \"job_title\": \"<string>\",\n  \"salary\": \"<string>\",\n  \"salary_type\": \"annually\",\n  \"salary_currency\": \"<string>\",\n  \"job_type\": \"<string>\",\n  \"remote_type\": \"fully_remote\",\n  \"locale\": \"en\",\n  \"street\": \"<string>\",\n  \"city\": \"<string>\",\n  \"province\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"region\": \"<string>\",\n  \"country\": \"PH\",\n  \"short_description\": \"<string>\",\n  \"long_description\": \"<string>\",\n  \"head_count\": \"<string>\",\n  \"publish_on_job_listing_page\": \"<boolean>\",\n  \"job_industry\": \"arts_and_culture\",\n  \"job_function\": \"accounting_auditing\",\n  \"allow_reapplication\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2d70cea3-296e-42f4-b8f3-7611f95b3ef4",
+    "name": "Talkpush Agents API Requisition Management System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

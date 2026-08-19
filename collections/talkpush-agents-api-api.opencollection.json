@@ -1,0 +1,261 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agents API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a list of agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/agents",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Filter agents by category. Allowed values: `screen_interview`, `phone_call`, `on_site_interview`, `event_invitation`, `passive_candidate_outreach`, `status_update`, `reminders`."
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "Filter agents by provider. Allowed values: `elevenlabs`, `vapi`."
+              },
+              {
+                "name": "is_active",
+                "value": "",
+                "type": "query",
+                "description": "Filter agents by active status. `true` returns only active agents; `false` returns only inactive agents. Omit to return all."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of results to return. Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of agents per page. Defaults to 20, maximum 100."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of AI agents configured in the company account, ordered by most recently updated. Supports optional filtering by category, provider, and active status."
+        },
+        {
+          "info": {
+            "name": "Create a new agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/agents",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new AI agent configuration. On success, returns HTTP 201 with the newly created agent details.\n\nThe `data_extractions` field in the request uses the candidate attribute **key** string (e.g. `\"english_level\"`) — unlike the update endpoint, which uses `{ \"id\": \"...\" }`. The response returns an array of extraction objects (not the keyed map returned by the show/update endpoints)."
+        },
+        {
+          "info": {
+            "name": "Retrieve details of a specific agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/agents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the agent."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ]
+          },
+          "docs": "Returns the full detail of a single agent, including its prompt, provider info, linked question set, and the complete data extractions configuration."
+        },
+        {
+          "info": {
+            "name": "Update an existing agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/agents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the agent to update."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an agent's configuration. All fields are optional — only the fields provided will be changed. **Note:** if `data_extractions` is included, it **replaces** the existing extractions entirely (not a partial merge). The same applies to `prompt`."
+        },
+        {
+          "info": {
+            "name": "Delete an agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/agents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the agent to delete."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ]
+          },
+          "docs": "Permanently deletes the agent identified by `id`. On success, returns HTTP 204 with no response body."
+        },
+        {
+          "info": {
+            "name": "Retrieve a list of calls for a specific agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/agents/:agent_id/calls",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the agent whose calls should be returned."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by call status."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start of the creation-date range filter. Must be provided together with `end_date`. Any format parseable by `Time.zone.parse` is accepted (e.g. `2026-04-01`, `2026-04-01T00:00:00Z`)."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End of the creation-date range filter. Must be provided together with `start_date`."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the results to return. Default is 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Default is 20, maximum is 100."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of call records handled by the given agent, ordered by most recent first. Each record includes the associated application (candidate / campaign invitation) context, extracted data, interview insights, transcript, and a link to the call recording when available.\n\nOptional filters:\n- `status`: filter by call status.\n- `start_date` + `end_date`: filter by creation date range. Both parameters must be provided together. Any format accepted by `Time.zone.parse` is supported (e"
+        },
+        {
+          "info": {
+            "name": "Retrieve the changelog for a specific agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/agents/:agent_id/changelog",
+            "params": [
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the agent whose changelog should be returned."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the results to return. Default is 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page. Default is 20, maximum is 100."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of audit log entries for the given agent, ordered by most recent first. Each entry describes a single create, update, or destroy event — who made the change, when, and what fields were affected.\n\nFor `created` entries the `changes` array is always empty (the initial state is not diffed). For `updated` entries each item in `changes` names the API field that changed and includes both the previous and new value.\n\n**Possible `field` values inside a change entry:**\n- `agent_n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

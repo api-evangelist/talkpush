@@ -1,0 +1,300 @@
+{
+  "item": [
+    {
+      "id": "ec4e8399-7550-47fd-addd-9eb52a6ace5c",
+      "name": "Movement Reasons API",
+      "description": {
+        "content": "Endpoint for listing the company's candidate movement reasons — the configurable Shortlist Reasons and Reject Reasons that recruiters select when shortlisting or rejecting a candidate. Use these IDs/names to mirror reason labels in external dashboards or to map them back to Talkpush when syncing status changes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ebfda5f3-12ff-4bfb-8157-1e71f6453b0d",
+          "name": "List movement (shortlist & reject) reasons",
+          "request": {
+            "name": "List movement (shortlist & reject) reasons",
+            "description": {
+              "content": "Returns the company's configured **Shortlist Reasons** and **Reject Reasons** — the values recruiters can pick when moving a candidate to a shortlisted or rejected state. Soft-deleted reasons are excluded.\n\n**Filtering:** Use the optional `type` query parameter to narrow the results to a single bucket (`rejected` or `shortlisted`). Omitting it returns both buckets in one response. Any other value returns **422 Unprocessable Entity**.\n\n**Pagination:** Use `page` and `per_page` (default 25, max 100). The response headers `X-Total-Count` (total matching reasons) and `X-Page-Count` (total pages) make page traversal straightforward.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "movement_reasons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Optional filter restricting the response to a single bucket. Allowed values are `rejected` (Reject Reasons only) or `shortlisted` (Shortlist Reasons only). Any other value returns 422."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based). Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Page size. Defaults to 25, capped at 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "db917758-f453-4f95-b2b1-eae6a43469e9",
+              "name": "Movement reasons were returned successfully. The response headers `X-Total-Count` and `X-Page-Count` describe the full result set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "movement_reasons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total number of movement reasons matching the query (across all pages).",
+                  "key": "X-Total-Count",
+                  "value": "6338"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total number of pages available given the current `per_page`.",
+                  "key": "X-Page-Count",
+                  "value": "6338"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"movement_reasons\": [\n    {\n      \"id\": 220,\n      \"name\": \"Failed Background Check\",\n      \"type\": \"rejected\"\n    },\n    {\n      \"id\": 2739,\n      \"name\": \"Failed Background Check\",\n      \"type\": \"rejected\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28f10082-e0b4-42f2-9182-0779a65e5842",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "movement_reasons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "16569f29-e106-4221-ae85-a8942b7a05f0",
+              "name": "Validation error — `type` was provided but is not one of `rejected` or `shortlisted`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "movement_reasons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unprocessable_entity\",\n  \"message\": \"Invalid type 'foo'. Must be one of: rejected, shortlisted.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7def574-724e-4f36-a625-6d68cdba15db",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "movement_reasons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7f15fb55-ea28-4c1e-96c0-930b5a602db2",
+    "name": "Talkpush Agents API Movement Reasons API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

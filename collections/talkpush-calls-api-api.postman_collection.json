@@ -1,0 +1,282 @@
+{
+  "item": [
+    {
+      "id": "25f2201e-2c0e-492d-812b-8fc761e06901",
+      "name": "Calls API",
+      "description": {
+        "content": "Collection of endpoints related to calls data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ad67e83-17ba-4136-94d3-e0e9f82758d1",
+          "name": "Retrieve a list of calls within a date range",
+          "request": {
+            "name": "Retrieve a list of calls within a date range",
+            "description": {
+              "content": "This endpoint returns a paginated list of calls within the specified date range. Each call record includes the associated app_id. The start_date and end_date parameters are required and must be in DD-MM-YYYY format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "calls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "(Required) Start of the date range filter. Date format must be DD-MM-YYYY (e.g., 01-02-2026). Required."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "(Required) End of the date range filter. Date format must be DD-MM-YYYY (e.g., 13-02-2026). Required."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of the results to return. Default is 1."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1a0a74c0-fa4a-4bd8-a889-c4733749dc51",
+              "name": "Calls were returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"start_date\": \"string\",\n  \"end_date\": \"string\",\n  \"pagination\": {\n    \"page\": 2018,\n    \"per_page\": 2466,\n    \"total_records\": 9569,\n    \"total_pages\": 1757\n  },\n  \"calls\": [\n    {\n      \"call_id\": \"string\",\n      \"app_id\": \"string\",\n      \"call_type\": \"string\",\n      \"direction\": \"string\",\n      \"from_number\": \"string\",\n      \"to_number\": \"string\",\n      \"status\": \"string\",\n      \"duration_seconds\": 224,\n      \"started_at\": \"1959-09-24T07:01:31.033Z\",\n      \"ended_at\": \"1978-09-08T22:52:04.889Z\",\n      \"manager_email\": \"string\",\n      \"candidate_id\": \"string\",\n      \"campaign_id\": \"string\",\n      \"recording_url\": \"string\"\n    },\n    {\n      \"call_id\": \"string\",\n      \"app_id\": \"string\",\n      \"call_type\": \"string\",\n      \"direction\": \"string\",\n      \"from_number\": \"string\",\n      \"to_number\": \"string\",\n      \"status\": \"string\",\n      \"duration_seconds\": 386,\n      \"started_at\": \"1964-12-23T20:04:38.791Z\",\n      \"ended_at\": \"1963-06-23T10:53:50.367Z\",\n      \"manager_email\": \"string\",\n      \"candidate_id\": \"string\",\n      \"campaign_id\": \"string\",\n      \"recording_url\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "578e7966-0598-4b6d-ab30-f289e68b6b01",
+              "name": "Bad request. Possible messages:\n- 'start_date and end_date are required' (when required date parameters are missing).\n- 'Invalid date format. Use DD-MM-YYYY (e.g., 01-02-2026)' (when date parameters are not in the expected format).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "83a3a700-dbbe-44f6-bc3f-30b708852114",
+              "name": "Invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a374bc92-9077-41d6-810f-3e1cbb9b2e55",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c284ee95-036a-44e1-afbc-a59977a41bb1",
+    "name": "Talkpush Agents API Calls API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

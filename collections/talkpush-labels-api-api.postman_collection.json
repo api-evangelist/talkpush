@@ -1,0 +1,643 @@
+{
+  "item": [
+    {
+      "id": "7b6d3a60-050a-4bca-8416-3c529af4d40b",
+      "name": "Labels API",
+      "description": {
+        "content": "Collection of endpoints related to candidate labels. Labels are simple, company-wide tags that recruiters use to flag and filter candidates (for example: \"Priority\", \"Referral\", \"Needs Review\"). The same labels are visible in the Talkpush UI; anything added via the API immediately appears in the UI and on the candidate's `labels` field returned by the Leads API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f24afb60-490a-4cbd-ba88-d439d54a8510",
+          "name": "List company labels",
+          "request": {
+            "name": "List company labels",
+            "description": {
+              "content": "Returns labels configured for the company account. Results are paginated and can be filtered by name. The system-reserved `Deleted` label is excluded.\n\n**Pagination:** Use `page` and `per_page` (default 25, max 100). The response includes the headers `X-Total-Count` (total matching labels) and `X-Page-Count` (total number of pages) to make page traversal straightforward.\n\n**Filtering:** Use `name` for a case-insensitive partial-match filter — handy for companies with thousands of labels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Case-insensitive partial-match filter on the label name. Must be a string; arrays or other types return 400."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based). Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Page size. Defaults to 25, capped at 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77a9c7f6-d013-4f65-b38b-64f092c58471",
+              "name": "Labels were returned successfully. The response headers `X-Total-Count` and `X-Page-Count` describe the full result set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total number of labels matching the query (across all pages).",
+                  "key": "X-Total-Count",
+                  "value": "3415"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total number of pages available given the current `per_page`.",
+                  "key": "X-Page-Count",
+                  "value": "3415"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"labels\": [\n    {\n      \"id\": 2095,\n      \"name\": \"string\",\n      \"created_at\": \"2017-03-11T06:23:47.464Z\",\n      \"updated_at\": \"2000-07-02T14:18:12.203Z\"\n    },\n    {\n      \"id\": 791,\n      \"name\": \"string\",\n      \"created_at\": \"1973-08-02T02:50:28.356Z\",\n      \"updated_at\": \"1994-06-19T23:34:34.042Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62778c5c-614b-4561-b1fc-7bb23d5d300b",
+              "name": "Bad request — for example, `name` was sent as something other than a string.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"bad_request\",\n  \"message\": \"Parameter label.name is required.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f25a47fe-22b6-4944-a547-46d6e3070c02",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5678dc2-217a-4ffc-b713-f3ddc317b5c7",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72671775-abb0-4c51-8260-716532110793",
+          "name": "Create a label",
+          "request": {
+            "name": "Create a label",
+            "description": {
+              "content": "Creates a new label for the company. The label becomes available in the UI immediately and can be assigned to candidates via `PATCH /campaign_invitations/{id}`.\n\n**Duplicate prevention:** If a label with the same name already exists, the API returns **409 Conflict**. This is enforced both before saving and after, so a concurrent create with the same name still maps cleanly to 409 (never a 422 validation error).\n\n**Name rules:** Names are trimmed of surrounding whitespace. Names containing `,`, `#` or `?` are rejected with 422.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "labels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": {\n    \"name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed442d4e-db8c-4831-80ba-999a0fa5eebd",
+              "name": "Label created. The body contains the new label under `label`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": {\n    \"name\": \"Manager Approved\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"label\": {\n    \"id\": 4486,\n    \"name\": \"string\",\n    \"created_at\": \"2022-12-07T19:52:19.586Z\",\n    \"updated_at\": \"1998-06-09T20:33:36.695Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c85e58da-62d4-47ad-866f-1f2d564b9f98",
+              "name": "Bad request — `label.name` was missing or was not a string.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": {\n    \"name\": \"Manager Approved\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"bad_request\",\n  \"message\": \"Parameter label.name is required.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "751788a6-b05c-4ba4-941d-8ef87e881a01",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": {\n    \"name\": \"Manager Approved\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cb606fee-397b-4e4a-a945-e41efc38f706",
+              "name": "A label with this name already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": {\n    \"name\": \"Manager Approved\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"conflict\",\n  \"message\": \"A label with name Priority already exists.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a81162f-14f6-48e2-a176-ccf54cfc9d0a",
+              "name": "Validation error — for example, the name contains a forbidden character (`,`, `#` or `?`).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": {\n    \"name\": \"Manager Approved\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unprocessable_entity\",\n  \"message\": \"Name is invalid\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "259166d2-4094-4bd1-aff3-08f797223d3f",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "labels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": {\n    \"name\": \"Manager Approved\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4e7347be-6f36-41a8-bf87-e13c154f7f07",
+    "name": "Talkpush Agents API Labels API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Tokens API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokens API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List available message tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/messaging/tokens",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "display_name",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive partial-match filter on the token display name (e.g. `candidate` returns all candidate-related tokens)."
+              }
+            ]
+          },
+          "docs": "Returns all tokens that can be used inside a Message Template's `content` field. The list includes:\n\n- **System tokens** — built-in reserved words (e.g. `candidate_name`, `job_title`, `scheduler_url`) that are resolved at send time.\n- **Custom tokens** — company-defined tokens created by your team.\n\nUse the `id` of a token as the Handlebars key in template content: `{{candidate_name}}`, `{{job_title}}`, etc.\n\n**Filtering:** Use `display_name` for a case-insensitive partial-match filter to quickl"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

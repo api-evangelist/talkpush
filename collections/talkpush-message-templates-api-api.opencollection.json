@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Message Templates API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Message Templates API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List message templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/messaging/templates",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive partial-match filter on the template name."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by template type. Valid values: `email`, `sms`, `whatsapp`, `messenger`, `calendar`."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Exact-match filter on the template category (e.g. `onboarding`, `scheduling`, `rejection`)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based). Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Page size. Defaults to 25, capped at 100."
+              }
+            ]
+          },
+          "docs": "Returns all Message Templates for the company, excluding system-internal `StatusReason` sub-type templates.\n\nContent is always returned in Handlebars format (`{{token_name}}`), even when the underlying template was created through the UI using the legacy DraftJS editor.\n\n**Filtering:** Use `name` (case-insensitive partial match), `type` (`email`, `sms`, `whatsapp`, `messenger`, or `calendar`), and `category` (exact match) to narrow results.\n\n**Pagination:** Use `page` and `per_page` (default 25,"
+        },
+        {
+          "info": {
+            "name": "Create a message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/messaging/templates",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Message Template for the company. The template is immediately available in the UI and can be referenced by autoflows.\n\n**Content format:** The `content` field must use Handlebars syntax for dynamic tokens, e.g. `Hi {{candidate_name}}, your interview for {{job_title}} is confirmed.` All tokens used in `content` are validated against the company's available tokens (see `GET /messaging/tokens`). Unknown tokens return a **422** with the list of offending token names.\n\n**Type:** Use `em"
+        },
+        {
+          "info": {
+            "name": "Update a message template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/messaging/templates/:id",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the message template to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates an existing Message Template. Only the fields provided in the request body are changed; omitted fields are left unchanged.\n\n**Content validation:** If `content` is provided, all Handlebars tokens are re-validated. Unknown tokens return a **422** with the list of offending token names.\n\n**Settings merge:** When `settings` is provided, the new values are merged into the existing settings object. The internal `content_state` key is automatically stripped and never returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

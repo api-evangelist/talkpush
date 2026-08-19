@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Campaigns API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all active campaigns of the account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The campaign type filter. E.g. job_application, inquiry, single_time_engagement, onboarding, exit_interview"
+              }
+            ]
+          },
+          "docs": "This endpoint returns a list of all the active campaigns in the company account. The campaigns can be filtered by type parameter (optional), **if no type is defined, by the default, the result will include ONLY job_application type campaigns**."
+        },
+        {
+          "info": {
+            "name": "Create a new campaign inside your Talkpush account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns"
+          },
+          "docs": "This endpoint lets you create a new campaign inside Talkpush. Not all the information required to set up a fully operational campaign can be provided via the API.  Permission settings, questions, message, smart filters and notifications need to set up from the campaign settings inside the CRM. \nA common use case for this endpoint would be the automatic creation of a campaign inside Talkpush when a user creates a job requisiton inside an integrated ATS.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve all archive campaigns of the account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/archive",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ]
+          },
+          "docs": "This endpoint returns a list with all the archive campaigns in the company account."
+        },
+        {
+          "info": {
+            "name": "Retrieve details of active campaigns that match the search criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/search/:criteria",
+            "params": [
+              {
+                "name": "criteria",
+                "value": "",
+                "type": "path",
+                "description": "The campaign ID, Ats external id or title."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ]
+          },
+          "docs": "This endpoint returns a list of active campaigns that match the search criteria in the company account."
+        },
+        {
+          "info": {
+            "name": "Retrieve details of a specific active campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The campaign ID."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ]
+          },
+          "docs": "This endpoint returns a specific campaigns details in the company account."
+        },
+        {
+          "info": {
+            "name": "Update a campaign inside your Talkpush account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The campaign to which the folder should be associated."
+              }
+            ]
+          },
+          "docs": "This endpoint lets you update an exixting campaign inside Talkpush. Not all the information required to update the campaign.  Permission settings, questions, message, smart filters and notifications need to be updated from the campaign settings inside the CRM. \n"
+        },
+        {
+          "info": {
+            "name": "Get questions for a specific campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:id/questions",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The campaign to which the question should be associated."
+              }
+            ]
+          },
+          "docs": "This endpoint let's you retrieve all the questions that are associated to a campaign for which you provide the ID in the path. <b> DISCLAIMER </b> - Only text, short_text and multiple choice types supported. No audio or image type question supported."
+        },
+        {
+          "info": {
+            "name": "Retrieve all the folders that are associated to a campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:id/folders",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The campaign to which the folder should be associated."
+              }
+            ]
+          },
+          "docs": "This endpoint let's you see what folders are associated to the campaign for which you provide the ID in the path"
+        },
+        {
+          "info": {
+            "name": "Archive an existing campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:id/archive",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of which campaign should be archived."
+              }
+            ]
+          },
+          "docs": "This endpoint let's you archive a campaign for which you provide the ID in the path"
+        },
+        {
+          "info": {
+            "name": "Activate an archived campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:id/activate",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of which campaign should be activated."
+              }
+            ]
+          },
+          "docs": "This endpoint let's you activate a archived campaign for which you provide the ID in the path"
+        },
+        {
+          "info": {
+            "name": "Associate a campaign with a custom folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:campaign_id/folders/:folder_id",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path",
+                "description": "The campaign to which the folder should be associated."
+              },
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "path",
+                "description": "The custom folder that should be associated with the campaign."
+              }
+            ]
+          },
+          "docs": "In order for custom folders to become available in a given campaign they need to be associated with the campaign. This is not necessary for custom folders that are enabled as default folders, which are by default associated to all campaigns."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

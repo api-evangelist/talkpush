@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Labels API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Labels API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List company labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/company/labels",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive partial-match filter on the label name. Must be a string; arrays or other types return 400."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based). Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Page size. Defaults to 25, capped at 100."
+              }
+            ]
+          },
+          "docs": "Returns labels configured for the company account. Results are paginated and can be filtered by name. The system-reserved `Deleted` label is excluded.\n\n**Pagination:** Use `page` and `per_page` (default 25, max 100). The response includes the headers `X-Total-Count` (total matching labels) and `X-Page-Count` (total number of pages) to make page traversal straightforward.\n\n**Filtering:** Use `name` for a case-insensitive partial-match filter — handy for companies with thousands of labels."
+        },
+        {
+          "info": {
+            "name": "Create a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/company/labels",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new label for the company. The label becomes available in the UI immediately and can be assigned to candidates via `PATCH /campaign_invitations/{id}`.\n\n**Duplicate prevention:** If a label with the same name already exists, the API returns **409 Conflict**. This is enforced both before saving and after, so a concurrent create with the same name still maps cleanly to 409 (never a 422 validation error).\n\n**Name rules:** Names are trimmed of surrounding whitespace. Names containing `,`, `"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

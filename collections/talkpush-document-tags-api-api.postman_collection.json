@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "92429e94-f447-46c5-a726-016a7001814b",
+      "name": "Document Tags API",
+      "description": {
+        "content": "Collection of endpoints related to Document Tags (Templates)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f502544c-fd0f-466c-bf7e-efdd310fefca",
+          "name": "Retrieve all the available document tags(templates) on the company account",
+          "request": {
+            "name": "Retrieve all the available document tags(templates) on the company account",
+            "description": {
+              "content": "This endpoint let's you retrieve all the available document tags(templates) on the company account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_default",
+                  "value": "<boolean>",
+                  "description": "Optional. If sent as true the default document tags created with the company are returned. Default to false."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15cbce95-bd1d-4b0d-92f8-aa0f5e0407db",
+              "name": "Document tags were returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_default",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"document_tags\": [\n    {\n      \"id\": 6808,\n      \"name\": \"string\",\n      \"category\": \"string\",\n      \"instruction\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"id\": 7341,\n      \"name\": \"string\",\n      \"category\": \"string\",\n      \"instruction\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8e1870f-ffa6-4efe-b86a-5dd18f8b83c9",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_tags"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_default",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cac6e70d-6f84-4d40-a0d9-0cf18deceae2",
+    "name": "Talkpush Agents API Document Tags API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

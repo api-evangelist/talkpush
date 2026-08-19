@@ -1,0 +1,383 @@
+{
+  "item": [
+    {
+      "id": "e2910a22-789a-4df3-a6fa-e463ef12f5e6",
+      "name": "Messaging API",
+      "description": {
+        "content": "Collection of endpoints related to sending messages",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b76410af-5976-42a8-8bb5-ca7e148dfefe",
+          "name": "Retrieve all the available Quick Reply templates",
+          "request": {
+            "name": "Retrieve all the available Quick Reply templates",
+            "description": {
+              "content": "This endpoint let's you retrieve all the available Quick Reply templates, view their content, title and the ID which you will require in order to send a message via the /messaging endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messaging",
+                "quick_replies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bde0789f-ba2c-4cab-863c-b788c3b01317",
+              "name": "Quick Replies were returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "quick_replies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"quick_replies\": [\n    {\n      \"id\": 377,\n      \"title\": \"string\",\n      \"content\": \"string\"\n    },\n    {\n      \"id\": 5320,\n      \"title\": \"string\",\n      \"content\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b3050d2-a253-4bba-a7d5-92129697448f",
+              "name": "Quick Replies not found for this company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "quick_replies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5be1efd-d372-46b8-8a35-8f13eb2335c1",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "quick_replies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a0209c3-508d-4d64-8174-8bc1846729a3",
+          "name": "Send a quick reply template to a lead.",
+          "request": {
+            "name": "Send a quick reply template to a lead.",
+            "description": {
+              "content": "This endpoint lets you send a quick reply template to a given lead, via a determined channel. The ID of a quick reply template can be retrieved either inside the CRM's Quick Reply Management Screen or via the /messaging/quick_replies endpoint specified below.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messaging",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"message\": {\n    \"campaign_invitation_id\": \"<integer>\",\n    \"channel\": \"<string>\",\n    \"quick_reply_id\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21b04f4c-c5a8-4e3b-9870-1aeda341678b",
+              "name": "Message is being sent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"message\": {\n    \"campaign_invitation_id\": \"<integer>\",\n    \"channel\": \"<string>\",\n    \"quick_reply_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3fc96882-9e73-4653-bb2b-5577b67369a4",
+              "name": "Bad request. Please make sure that no invalid parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"message\": {\n    \"campaign_invitation_id\": \"<integer>\",\n    \"channel\": \"<string>\",\n    \"quick_reply_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "49f6595a-3ed7-477d-b04b-811417f409d7",
+              "name": "Campaign Invitation not found | Quick Reply not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"message\": {\n    \"campaign_invitation_id\": \"<integer>\",\n    \"channel\": \"<string>\",\n    \"quick_reply_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "836580b3-c3d4-4f37-9f23-e06c082e0c88",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"message\": {\n    \"campaign_invitation_id\": \"<integer>\",\n    \"channel\": \"<string>\",\n    \"quick_reply_id\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1b6b6096-7100-4862-8b37-52b87ddbb95b",
+    "name": "Talkpush Agents API Messaging API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

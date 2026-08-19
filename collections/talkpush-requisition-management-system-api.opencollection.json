@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Requisition Management System API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Requisition Management System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Callback endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/rms/callback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This API endpoint will be used to receive callbacks from RMS when a job requisition is created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

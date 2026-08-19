@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Messaging API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messaging API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all the available Quick Reply templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/messaging/quick_replies",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              }
+            ]
+          },
+          "docs": "This endpoint let's you retrieve all the available Quick Reply templates, view their content, title and the ID which you will require in order to send a message via the /messaging endpoint."
+        },
+        {
+          "info": {
+            "name": "Send a quick reply template to a lead.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/messaging/messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint lets you send a quick reply template to a given lead, via a determined channel. The ID of a quick reply template can be retrieved either inside the CRM's Quick Reply Management Screen or via the /messaging/quick_replies endpoint specified below.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1931 @@
+{
+  "item": [
+    {
+      "id": "b7fc8106-c828-4ee0-8159-c7efe4d6890d",
+      "name": "Campaigns API",
+      "description": {
+        "content": "Collection of endpoints related to Talkpush Campaigns",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "816cdafd-90ef-4bd2-8aa9-a4487e4ce4f3",
+          "name": "Retrieve all active campaigns of the account",
+          "request": {
+            "name": "Retrieve all active campaigns of the account",
+            "description": {
+              "content": "This endpoint returns a list of all the active campaigns in the company account. The campaigns can be filtered by type parameter (optional), **if no type is defined, by the default, the result will include ONLY job_application type campaigns**.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "The campaign type filter. E.g. job_application, inquiry, single_time_engagement, onboarding, exit_interview"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "68c5c7a9-5066-4286-972c-538b794409a8",
+              "name": "Campaigns were returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"campaigns\": [\n    {\n      \"id\": 3184.9954569726833,\n      \"campaign_title\": \"string\",\n      \"campaign_type\": \"string\",\n      \"job_title\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country\": \"string\",\n      \"short_description\": \"string\",\n      \"long_description\": \"string\",\n      \"ats_external_id\": \"string\",\n      \"location\": \"string\",\n      \"job_type\": \"string\",\n      \"salary\": \"string\",\n      \"salary_type\": \"string\",\n      \"salary_currency\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"apply_url\": \"string\",\n      \"head_count\": 7037,\n      \"role_type\": \"string\",\n      \"shift_type\": \"string\",\n      \"allow_applications\": false\n    },\n    {\n      \"id\": 2889.6658958669964,\n      \"campaign_title\": \"string\",\n      \"campaign_type\": \"string\",\n      \"job_title\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country\": \"string\",\n      \"short_description\": \"string\",\n      \"long_description\": \"string\",\n      \"ats_external_id\": \"string\",\n      \"location\": \"string\",\n      \"job_type\": \"string\",\n      \"salary\": \"string\",\n      \"salary_type\": \"string\",\n      \"salary_currency\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"apply_url\": \"string\",\n      \"head_count\": 3837,\n      \"role_type\": \"string\",\n      \"shift_type\": \"string\",\n      \"allow_applications\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f528f484-e790-408f-80d6-65ec70bc9299",
+              "name": "Campaigns not found for this company.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0db7c124-bb99-4eab-b399-1efa9554e007",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a346635-579a-49cf-8e27-c5a9365d8d3f",
+          "name": "Create a new campaign inside your Talkpush account",
+          "request": {
+            "name": "Create a new campaign inside your Talkpush account",
+            "description": {
+              "content": "This endpoint lets you create a new campaign inside Talkpush. Not all the information required to set up a fully operational campaign can be provided via the API.  Permission settings, questions, message, smart filters and notifications need to set up from the campaign settings inside the CRM. \nA common use case for this endpoint would be the automatic creation of a campaign inside Talkpush when a user creates a job requisiton inside an integrated ATS.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null,
+            "body": {}
+          },
+          "response": [
+            {
+              "id": "ce7b05fe-75e4-4dab-8f60-3d4f3655a23b",
+              "name": "Campaign created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dcd3437f-5946-4673-b304-29e3f5ede67b",
+              "name": "Bad request. Please make sure that no invalid parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "806d46c4-cd88-4c91-8b6c-29e233963c4e",
+              "name": "Country not found. Will return the list of available countries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "643ff094-b787-4989-9f35-9dab7bad9790",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4325be5-ef67-4a0d-b0aa-b1c700b1deee",
+          "name": "Retrieve all archive campaigns of the account",
+          "request": {
+            "name": "Retrieve all archive campaigns of the account",
+            "description": {
+              "content": "This endpoint returns a list with all the archive campaigns in the company account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9c70a26-264d-4dd6-984b-8230cb09203d",
+              "name": "Campaigns were returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"campaigns\": [\n    {\n      \"id\": 1269.499152253183,\n      \"campaign_title\": \"string\",\n      \"campaign_type\": \"string\",\n      \"job_title\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country\": \"string\",\n      \"short_description\": \"string\",\n      \"long_description\": \"string\",\n      \"ats_external_id\": \"string\",\n      \"location\": \"string\",\n      \"job_type\": \"string\",\n      \"salary\": \"string\",\n      \"salary_type\": \"string\",\n      \"salary_currency\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"apply_url\": \"string\",\n      \"head_count\": 3843,\n      \"role_type\": \"string\",\n      \"shift_type\": \"string\",\n      \"allow_applications\": false\n    },\n    {\n      \"id\": 9872.979615938822,\n      \"campaign_title\": \"string\",\n      \"campaign_type\": \"string\",\n      \"job_title\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country\": \"string\",\n      \"short_description\": \"string\",\n      \"long_description\": \"string\",\n      \"ats_external_id\": \"string\",\n      \"location\": \"string\",\n      \"job_type\": \"string\",\n      \"salary\": \"string\",\n      \"salary_type\": \"string\",\n      \"salary_currency\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"apply_url\": \"string\",\n      \"head_count\": 9623,\n      \"role_type\": \"string\",\n      \"shift_type\": \"string\",\n      \"allow_applications\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9fbe337-ec4b-4d18-87f5-e138cbefa139",
+              "name": "No archive campaigns found for this company.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "032d4a08-9f6d-449d-926d-038ec553a734",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43ebad12-2dc1-45bf-8d5e-ed81e0afe7c1",
+          "name": "Retrieve details of active campaigns that match the search criteria",
+          "request": {
+            "name": "Retrieve details of active campaigns that match the search criteria",
+            "description": {
+              "content": "This endpoint returns a list of active campaigns that match the search criteria in the company account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                "search",
+                ":criteria"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "criteria",
+                  "description": "(Required) The campaign ID, Ats external id or title."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2271ba41-3a7f-46c5-b84a-e29552236a8b",
+              "name": "Campaigns were returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "search",
+                    ":criteria"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "criteria",
+                      "description": "(Required) The campaign ID, Ats external id or title."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"campaigns\": [\n    {\n      \"id\": 1269.499152253183,\n      \"campaign_title\": \"string\",\n      \"campaign_type\": \"string\",\n      \"job_title\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country\": \"string\",\n      \"short_description\": \"string\",\n      \"long_description\": \"string\",\n      \"ats_external_id\": \"string\",\n      \"location\": \"string\",\n      \"job_type\": \"string\",\n      \"salary\": \"string\",\n      \"salary_type\": \"string\",\n      \"salary_currency\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"apply_url\": \"string\",\n      \"head_count\": 3843,\n      \"role_type\": \"string\",\n      \"shift_type\": \"string\",\n      \"allow_applications\": false\n    },\n    {\n      \"id\": 9872.979615938822,\n      \"campaign_title\": \"string\",\n      \"campaign_type\": \"string\",\n      \"job_title\": \"string\",\n      \"street\": \"string\",\n      \"city\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country\": \"string\",\n      \"short_description\": \"string\",\n      \"long_description\": \"string\",\n      \"ats_external_id\": \"string\",\n      \"location\": \"string\",\n      \"job_type\": \"string\",\n      \"salary\": \"string\",\n      \"salary_type\": \"string\",\n      \"salary_currency\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"landing_page_url\": \"string\",\n      \"apply_url\": \"string\",\n      \"head_count\": 9623,\n      \"role_type\": \"string\",\n      \"shift_type\": \"string\",\n      \"allow_applications\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3018c2f-956a-4a4b-a65a-72a65e052140",
+              "name": "Campaigns not match the criteria.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "search",
+                    ":criteria"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "criteria",
+                      "description": "(Required) The campaign ID, Ats external id or title."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2937bf9e-5c66-4f84-b6b6-d61bb00f5cc8",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    "search",
+                    ":criteria"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "criteria",
+                      "description": "(Required) The campaign ID, Ats external id or title."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebdcbf67-d0ea-48d1-a35b-c771a9dbe331",
+          "name": "Retrieve details of a specific active campaign",
+          "request": {
+            "name": "Retrieve details of a specific active campaign",
+            "description": {
+              "content": "This endpoint returns a specific campaigns details in the company account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The campaign ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03c4abb3-5b25-4cea-91a1-74900e3a5709",
+              "name": "Campaign was returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"campaign_title\": \"string\",\n  \"job_title\": \"string\",\n  \"street\": \"string\",\n  \"city\": \"string\",\n  \"region\": \"string\",\n  \"country\": \"string\",\n  \"short_description\": \"string\",\n  \"postal_code\": \"string\",\n  \"long_description\": \"string\",\n  \"ats_external_id\": \"string\",\n  \"job_type\": \"string\",\n  \"salary\": \"string\",\n  \"salary_type\": \"string\",\n  \"salary_currency\": \"string\",\n  \"landing_page_url\": \"string\",\n  \"apply_url\": \"string\",\n  \"head_count\": 8571,\n  \"role_type\": \"string\",\n  \"shift_type\": \"string\",\n  \"allow_applications\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71283735-7cce-4f9e-bda5-8e7c2ec90401",
+              "name": "Campaign not found for this company.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1a8b6d82-b1cc-4b66-acad-380e5bd5f15c",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign ID."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc3d5bb1-8841-4d58-be42-876d46044082",
+          "name": "Update a campaign inside your Talkpush account",
+          "request": {
+            "name": "Update a campaign inside your Talkpush account",
+            "description": {
+              "content": "This endpoint lets you update an exixting campaign inside Talkpush. Not all the information required to update the campaign.  Permission settings, questions, message, smart filters and notifications need to be updated from the campaign settings inside the CRM. \n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The campaign to which the folder should be associated."
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null,
+            "body": {}
+          },
+          "response": [
+            {
+              "id": "d7bc127d-54aa-4eae-96f5-df7d3888f8fc",
+              "name": "Campaign updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25df652d-29b9-42ae-8fb2-424ff4e7e04c",
+              "name": "Campaign not found. | Country not found. Will return the list of available countries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "698fd0b3-36bf-4447-8016-3b296e058dec",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d0e2f52-2dbb-431a-8ce5-419727278eed",
+          "name": "Get questions for a specific campaign",
+          "request": {
+            "name": "Get questions for a specific campaign",
+            "description": {
+              "content": "This endpoint let's you retrieve all the questions that are associated to a campaign for which you provide the ID in the path. <b> DISCLAIMER </b> - Only text, short_text and multiple choice types supported. No audio or image type question supported.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "questions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The campaign to which the question should be associated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4dba82e0-1700-4733-ba6e-de17d395ef44",
+              "name": "Questions were returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the question should be associated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"questions\": [\n    {\n      \"id\": 2010,\n      \"type\": \"string\",\n      \"question_text\": \"string\",\n      \"data_point\": \"string\",\n      \"options\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"id\": 907,\n      \"type\": \"string\",\n      \"question_text\": \"string\",\n      \"data_point\": \"string\",\n      \"options\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab3662cb-25b8-45c4-a7ae-a0640828cef9",
+              "name": "Invalid Campaign Id. Or Questions not found for this campaign.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the question should be associated."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3817e90-a1d9-4925-9656-58fac7725952",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the question should be associated."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9df69d7f-c9a9-4448-b9f1-e878a1b1fe81",
+          "name": "Retrieve all the folders that are associated to a campaign",
+          "request": {
+            "name": "Retrieve all the folders that are associated to a campaign",
+            "description": {
+              "content": "This endpoint let's you see what folders are associated to the campaign for which you provide the ID in the path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The campaign to which the folder should be associated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f252aac7-7344-4484-9f8d-19e7dc80bf8d",
+              "name": "Folders were returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"folders\": [\n    {\n      \"id\": 6141.331860030707,\n      \"folder_name\": \"string\",\n      \"default\": true\n    },\n    {\n      \"id\": 6827.676148500806,\n      \"folder_name\": \"string\",\n      \"default\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b60898c-8830-43b1-8200-c04972951867",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b82f7582-83fb-42cb-b8d7-31ac74824de3",
+          "name": "Archive an existing campaign",
+          "request": {
+            "name": "Archive an existing campaign",
+            "description": {
+              "content": "This endpoint let's you archive a campaign for which you provide the ID in the path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of which campaign should be archived."
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52fd1024-2c45-4ca3-b4ae-0d983f3e1b40",
+              "name": "Campaign was archived successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of which campaign should be archived."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a28ea417-ac77-4c3d-94e5-266575f12203",
+              "name": "Campaign not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of which campaign should be archived."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "085cc0ca-797f-4ef5-8932-abab3699d902",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of which campaign should be archived."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdc12799-56ea-406f-a4af-f83e13f00fb0",
+          "name": "Activate an archived campaign",
+          "request": {
+            "name": "Activate an archived campaign",
+            "description": {
+              "content": "This endpoint let's you activate a archived campaign for which you provide the ID in the path",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of which campaign should be activated."
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb56d45a-ea57-4731-bf84-c654735b7315",
+              "name": "Campaign was activated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of which campaign should be activated."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f20dee38-2557-4c7f-aee9-2248ecd0a60b",
+              "name": "Campaign not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of which campaign should be activated."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "161bb706-b29c-4932-b64d-1dc70c685dca",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of which campaign should be activated."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0cabc6d-ee7e-4263-bc61-5b398b0b2307",
+          "name": "Associate a campaign with a custom folder",
+          "request": {
+            "name": "Associate a campaign with a custom folder",
+            "description": {
+              "content": "In order for custom folders to become available in a given campaign they need to be associated with the campaign. This is not necessary for custom folders that are enabled as default folders, which are by default associated to all campaigns.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":campaign_id",
+                "folders",
+                ":folder_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "campaign_id",
+                  "description": "(Required) The campaign to which the folder should be associated."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "folder_id",
+                  "description": "(Required) The custom folder that should be associated with the campaign."
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c99548f-228f-424a-8b05-c73253e9862a",
+              "name": "Campaign & Folder associated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "folders",
+                    ":folder_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) The custom folder that should be associated with the campaign."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bed0c7e8-3034-4d94-aebf-f60c8db3e1bc",
+              "name": "Campaign not found | Folder not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "folders",
+                    ":folder_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) The custom folder that should be associated with the campaign."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e2e0a11-2adf-4a67-b6f5-8deb57d956d9",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":campaign_id",
+                    "folders",
+                    ":folder_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "campaign_id",
+                      "description": "(Required) The campaign to which the folder should be associated."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "folder_id",
+                      "description": "(Required) The custom folder that should be associated with the campaign."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c417045e-e2ca-4b20-8a3a-0ff025a5f865",
+    "name": "Talkpush Agents API Campaigns API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

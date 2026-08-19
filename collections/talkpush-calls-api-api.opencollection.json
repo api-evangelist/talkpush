@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Calls API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calls API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a list of calls within a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/calls",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start of the date range filter. Date format must be DD-MM-YYYY (e.g., 01-02-2026). Required."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "End of the date range filter. Date format must be DD-MM-YYYY (e.g., 13-02-2026). Required."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of the results to return. Default is 1."
+              }
+            ]
+          },
+          "docs": "This endpoint returns a paginated list of calls within the specified date range. Each call record includes the associated app_id. The start_date and end_date parameters are required and must be in DD-MM-YYYY format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

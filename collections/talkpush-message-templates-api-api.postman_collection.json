@@ -1,0 +1,865 @@
+{
+  "item": [
+    {
+      "id": "0053e0ff-f0de-44e7-91f9-41e4d4b6c42e",
+      "name": "Message Templates API",
+      "description": {
+        "content": "Endpoints for managing Message Templates — the structured, token-based messages used by autoflows and integrations for standardised communications (interview invitations, rejection notices, offer letters, onboarding instructions). Templates are returned and accepted with content in Handlebars format (e.g. `{{candidate_name}}`), regardless of how they are stored internally. Use `GET /messaging/tokens` to discover the full list of tokens available in your company.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "19c4e778-7081-41f3-a7bf-d2ddf53fca1e",
+          "name": "List message templates",
+          "request": {
+            "name": "List message templates",
+            "description": {
+              "content": "Returns all Message Templates for the company, excluding system-internal `StatusReason` sub-type templates.\n\nContent is always returned in Handlebars format (`{{token_name}}`), even when the underlying template was created through the UI using the legacy DraftJS editor.\n\n**Filtering:** Use `name` (case-insensitive partial match), `type` (`email`, `sms`, `whatsapp`, `messenger`, or `calendar`), and `category` (exact match) to narrow results.\n\n**Pagination:** Use `page` and `per_page` (default 25, max 100). Response headers `X-Total-Count` and `X-Page-Count` describe the full result set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messaging",
+                "templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Case-insensitive partial-match filter on the template name."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by template type. Valid values: `email`, `sms`, `whatsapp`, `messenger`, `calendar`."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Exact-match filter on the template category (e.g. `onboarding`, `scheduling`, `rejection`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based). Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Page size. Defaults to 25, capped at 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ac6c1c6-0e71-47f1-a9f2-fcf53260e862",
+              "name": "Templates returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total number of templates matching the query (across all pages).",
+                  "key": "X-Total-Count",
+                  "value": "6391"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total number of pages available given the current `per_page`.",
+                  "key": "X-Page-Count",
+                  "value": "6391"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message_templates\": [\n    {\n      \"id\": 1471,\n      \"name\": \"string\",\n      \"content\": \"string\",\n      \"type\": \"whatsapp\",\n      \"sub_type\": \"string\",\n      \"locale\": \"en\",\n      \"category\": \"onboarding\",\n      \"settings\": {\n        \"subject_line\": \"Your interview invitation\"\n      },\n      \"tokens\": [\n        {\n          \"id\": \"candidate_name\",\n          \"display_name\": \"Candidate Name\",\n          \"description\": null\n        },\n        {\n          \"id\": \"candidate_name\",\n          \"display_name\": \"Candidate Name\",\n          \"description\": null\n        }\n      ],\n      \"created_at\": \"2000-05-22T18:31:24.477Z\",\n      \"updated_at\": \"2006-10-15T22:49:00.259Z\"\n    },\n    {\n      \"id\": 5283,\n      \"name\": \"string\",\n      \"content\": \"string\",\n      \"type\": \"calendar\",\n      \"sub_type\": \"string\",\n      \"locale\": \"en\",\n      \"category\": \"onboarding\",\n      \"settings\": {\n        \"subject_line\": \"Your interview invitation\"\n      },\n      \"tokens\": [\n        {\n          \"id\": \"candidate_name\",\n          \"display_name\": \"Candidate Name\",\n          \"description\": null\n        },\n        {\n          \"id\": \"candidate_name\",\n          \"display_name\": \"Candidate Name\",\n          \"description\": null\n        }\n      ],\n      \"created_at\": \"1994-01-17T23:59:55.609Z\",\n      \"updated_at\": \"2007-10-14T08:46:31.620Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de6599ca-5f15-4517-9922-06b12f5c9d28",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "77622aa9-ac98-48ce-877f-a50838432d82",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16f18e6e-cfd4-4136-96a1-9ca5bdba91af",
+          "name": "Create a message template",
+          "request": {
+            "name": "Create a message template",
+            "description": {
+              "content": "Creates a new Message Template for the company. The template is immediately available in the UI and can be referenced by autoflows.\n\n**Content format:** The `content` field must use Handlebars syntax for dynamic tokens, e.g. `Hi {{candidate_name}}, your interview for {{job_title}} is confirmed.` All tokens used in `content` are validated against the company's available tokens (see `GET /messaging/tokens`). Unknown tokens return a **422** with the list of offending token names.\n\n**Type:** Use `email`, `sms`, `whatsapp`, or `messenger`. The `calendar` type is not yet supported via the API.\n\n**Required fields:** `name`, `content`, `type`, `sub_type`, `category`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messaging",
+                "templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"content\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sub_type\": \"<string>\",\n  \"category\": \"<string>\",\n  \"locale\": \"en\",\n  \"settings\": {\n    \"key_0\": true,\n    \"key_1\": true,\n    \"key_2\": 1834\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ebea6600-7e52-4b8f-9f8a-b53c272fb463",
+              "name": "Template created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Onboarding Document Reminder\",\n  \"content\": \"Hi {{candidate_name}}, we are still waiting for your documents. Please upload them here: {{upload_link}}.\",\n  \"type\": \"sms\",\n  \"sub_type\": \"reminder\",\n  \"category\": \"onboarding\",\n  \"locale\": \"en\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message_template\": {\n    \"id\": 4632,\n    \"name\": \"string\",\n    \"content\": \"string\",\n    \"type\": \"email\",\n    \"sub_type\": \"string\",\n    \"locale\": \"en\",\n    \"category\": \"onboarding\",\n    \"settings\": {\n      \"subject_line\": \"Your interview invitation\"\n    },\n    \"tokens\": [\n      {\n        \"id\": \"candidate_name\",\n        \"display_name\": \"Candidate Name\",\n        \"description\": null\n      },\n      {\n        \"id\": \"candidate_name\",\n        \"display_name\": \"Candidate Name\",\n        \"description\": null\n      }\n    ],\n    \"created_at\": \"1964-05-05T11:49:49.562Z\",\n    \"updated_at\": \"1999-01-26T16:43:38.210Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6646a77b-d158-472a-9d6c-04f58e56766e",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Onboarding Document Reminder\",\n  \"content\": \"Hi {{candidate_name}}, we are still waiting for your documents. Please upload them here: {{upload_link}}.\",\n  \"type\": \"sms\",\n  \"sub_type\": \"reminder\",\n  \"category\": \"onboarding\",\n  \"locale\": \"en\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5bb197da-00db-4e13-9ce9-c161ecffeb36",
+              "name": "Validation error. Possible `error` values:\n- `missing_params` — one or more required fields are absent.\n- `invalid_type` — the provided `type` is not one of the allowed values.\n- `invalid_tokens` — the `content` contains tokens not recognised by the system; the `details.invalid_tokens` array lists the offending token names.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Onboarding Document Reminder\",\n  \"content\": \"Hi {{candidate_name}}, we are still waiting for your documents. Please upload them here: {{upload_link}}.\",\n  \"type\": \"sms\",\n  \"sub_type\": \"reminder\",\n  \"category\": \"onboarding\",\n  \"locale\": \"en\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_tokens\",\n  \"message\": \"content contains unrecognised tokens\",\n  \"details\": {\n    \"invalid_tokens\": [\n      \"bogus_token\",\n      \"unknown_field\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f2fa69e-87b5-47fb-b9af-39a9c6062d16",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Onboarding Document Reminder\",\n  \"content\": \"Hi {{candidate_name}}, we are still waiting for your documents. Please upload them here: {{upload_link}}.\",\n  \"type\": \"sms\",\n  \"sub_type\": \"reminder\",\n  \"category\": \"onboarding\",\n  \"locale\": \"en\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95abb1ac-fad1-41d7-b37d-ef49a20846d6",
+          "name": "Update a message template",
+          "request": {
+            "name": "Update a message template",
+            "description": {
+              "content": "Partially updates an existing Message Template. Only the fields provided in the request body are changed; omitted fields are left unchanged.\n\n**Content validation:** If `content` is provided, all Handlebars tokens are re-validated. Unknown tokens return a **422** with the list of offending token names.\n\n**Settings merge:** When `settings` is provided, the new values are merged into the existing settings object. The internal `content_state` key is automatically stripped and never returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messaging",
+                "templates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the message template to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"content\": \"<string>\",\n  \"type\": \"<string>\",\n  \"sub_type\": \"<string>\",\n  \"category\": \"<string>\",\n  \"locale\": \"<string>\",\n  \"settings\": {\n    \"key_0\": false,\n    \"key_1\": 4694.990240995277\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "09cce17e-5c7a-4f46-954d-74513a20e4a5",
+              "name": "Template updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the message template to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated Template Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message_template\": {\n    \"id\": 4632,\n    \"name\": \"string\",\n    \"content\": \"string\",\n    \"type\": \"email\",\n    \"sub_type\": \"string\",\n    \"locale\": \"en\",\n    \"category\": \"onboarding\",\n    \"settings\": {\n      \"subject_line\": \"Your interview invitation\"\n    },\n    \"tokens\": [\n      {\n        \"id\": \"candidate_name\",\n        \"display_name\": \"Candidate Name\",\n        \"description\": null\n      },\n      {\n        \"id\": \"candidate_name\",\n        \"display_name\": \"Candidate Name\",\n        \"description\": null\n      }\n    ],\n    \"created_at\": \"1964-05-05T11:49:49.562Z\",\n    \"updated_at\": \"1999-01-26T16:43:38.210Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be6cd69e-c213-4e9f-bd4b-8a15bad7dbc2",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the message template to update."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated Template Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "77c85b4d-8e50-4ae4-80e3-37cef789f2d6",
+              "name": "Template not found or does not belong to the company.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the message template to update."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated Template Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ffc3f72e-7d80-4b2e-bfa9-ad7aa57db743",
+              "name": "Validation error. Possible `error` values:\n- `invalid_type` — the provided `type` is not one of the allowed values.\n- `invalid_tokens` — the `content` contains unrecognised tokens; the `details.invalid_tokens` array lists the offending names.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the message template to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated Template Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"invalid_tokens\",\n  \"message\": \"content contains unrecognised tokens\",\n  \"details\": {\n    \"invalid_tokens\": [\n      \"bogus_token\",\n      \"unknown_field\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae893b82-6563-4b58-b984-510e695d2825",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the message template to update."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated Template Name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a269f3f1-d9df-41ea-b177-1c4e88fef949",
+    "name": "Talkpush Agents API Message Templates API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

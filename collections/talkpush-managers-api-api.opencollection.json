@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Managers API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Managers API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List company managers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/managers",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "Exact-match filter on the manager's role (e.g. `owner`, `manager`, `limited manager`, or a custom role name). Matches the same value returned in the `role` field."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Case-insensitive partial-match filter on the manager's first/last name. Must be a string; arrays or other types return 400."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based). Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Page size. Defaults to 25, capped at 100."
+              }
+            ]
+          },
+          "docs": "Returns the active managers (platform users) for the authenticated company. Deactivated managers are excluded. Results are paginated and can be filtered by role and name.\n\n**Pagination:** Use `page` and `per_page` (default 25, max 100). The response headers `X-Total-Count` (total matching managers) and `X-Page-Count` (total pages) make page traversal straightforward.\n\n**Filtering:** Use `role` for an exact-match filter on the manager's resolved role name, and `name` for a case-insensitive partia"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

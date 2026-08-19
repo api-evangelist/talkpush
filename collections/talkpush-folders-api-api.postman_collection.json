@@ -1,0 +1,375 @@
+{
+  "item": [
+    {
+      "id": "134d420b-486e-4903-b53d-a542c561d446",
+      "name": "Folders API",
+      "description": {
+        "content": "Collection of endpoints related to folders",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f29abff3-cfc5-40c5-bd26-8312e2ce20f8",
+          "name": "Retrieve all the available folders on the company account",
+          "request": {
+            "name": "Retrieve all the available folders on the company account",
+            "description": {
+              "content": "This endpoint let's you retrieve all the available folders on the company account and shows whether these are default folders. This is useful for example if you want to display the them inside your ATS.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a7253d8-68d3-4eb9-8e84-73502f741e5e",
+              "name": "Folders were returned successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"folders\": [\n    {\n      \"id\": 7846.561887061706,\n      \"folder_name\": \"string\",\n      \"default\": false\n    },\n    {\n      \"id\": 1598.8418388013993,\n      \"folder_name\": \"string\",\n      \"default\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "917cca79-3140-4efa-917b-497d1e6cfcb4",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36fa50b1-4a16-4428-9291-5cccec4b979a",
+          "name": "Create custom folders",
+          "request": {
+            "name": "Create custom folders",
+            "description": {
+              "content": "This endpoint let's you create custom folders in the company account. A common scenario for this endpoint would be to create a custom folder whenever you create a new recruitment process step inside the ATS.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "company",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"folder\": {\n    \"id\": \"<number>\",\n    \"folder_name\": \"<string>\",\n    \"default\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8728a73-3abe-42e2-a170-78514f730dd7",
+              "name": "Custom Folder was created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"folder\": {\n    \"id\": \"<number>\",\n    \"folder_name\": \"<string>\",\n    \"default\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82af3d52-0761-40ff-a528-ccaf2fbd470c",
+              "name": "Bad request. Please make sure that no invalid parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"folder\": {\n    \"id\": \"<number>\",\n    \"folder_name\": \"<string>\",\n    \"default\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "11ffd920-f522-4d8c-af6f-ae02d7df6d7a",
+              "name": "Conflict. The folder name sent already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"folder\": {\n    \"id\": \"<number>\",\n    \"folder_name\": \"<string>\",\n    \"default\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "84c8d761-92a0-4460-901d-220a540082ee",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "company",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"folder\": {\n    \"id\": \"<number>\",\n    \"folder_name\": \"<string>\",\n    \"default\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0d851fd8-519f-45b3-9ffc-0c03e44bceef",
+    "name": "Talkpush Agents API Folders API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,403 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Leads API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Leads API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a list of leads matching your search criterias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              },
+              {
+                "name": "filter[query]",
+                "value": "",
+                "type": "query",
+                "description": "Search keywords like application id filter[query]='AP123'. Other search keywords like name, email or phone number."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of lead list to return."
+              },
+              {
+                "name": "filter[campaign_id]",
+                "value": "",
+                "type": "query",
+                "description": "Campaign id of the campaign."
+              },
+              {
+                "name": "filter[campaign_id][]",
+                "value": "",
+                "type": "query",
+                "description": "The result will have all leads listed in all said campaigns. This parameter may be passed campaign_id divided by coma. filter[campaign_id]=1,2,3"
+              },
+              {
+                "name": "filter[status_selected]",
+                "value": "",
+                "type": "query",
+                "description": "This parameter is used to filter the leads by current status. Only leads with a status equal to the filter provided will be returned. Valid statuses are 'pending', 'completed', 'shortlisted', 'on_hold', 'rejected', 'hired', 'no_response' or custom like 'custom_status'. Check the Folders API to get the valid list for the company."
+              },
+              {
+                "name": "filter[creation_start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Return leads that were created on or after the provided date. Date format must be DD-MM-YYYY."
+              },
+              {
+                "name": "filter[creation_end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Return leads that were created on or before the provided date. Date format must be DD-MM-YYYY."
+              },
+              {
+                "name": "filter[updated_start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Return leads that were updated on or after the provided date. Date format must be DD-MM-YYYY."
+              },
+              {
+                "name": "filter[updated_end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Return leads that were updated on or before the provided date. Date format must be DD-MM-YYYY."
+              },
+              {
+                "name": "filter[source_selected]",
+                "value": "",
+                "type": "query",
+                "description": "Search results will be filtered by provided source."
+              },
+              {
+                "name": "filter[location_selected]",
+                "value": "",
+                "type": "query",
+                "description": "Location filter for lead search results."
+              },
+              {
+                "name": "filter[location_radius_selected]",
+                "value": "",
+                "type": "query",
+                "description": "This will define a radius, in kilometers, from the location selected. All leads inside that radius will be included in the search results."
+              },
+              {
+                "name": "filter[label_selected]",
+                "value": "",
+                "type": "query",
+                "description": "The name of a label already created in the system. Search results will include all leads with this label."
+              },
+              {
+                "name": "filter[completion_method_selected]",
+                "value": "",
+                "type": "query",
+                "description": "Completion method of campaign invitation."
+              },
+              {
+                "name": "filter[resume_selected]",
+                "value": "",
+                "type": "query",
+                "description": "If attached is set, it will look for leads with resume. Values must be either 'attached' or 'not_attached'"
+              },
+              {
+                "name": "filter[scheduled_at_start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Return leads that were scheduled on or after the provided date. Date format must be DD-MM-YYYY."
+              },
+              {
+                "name": "filter[scheduled_at_end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Return leads that were scheduled on or before the provided date. Date format must be DD-MM-YYYY."
+              },
+              {
+                "name": "filter[sort_by_selected]",
+                "value": "",
+                "type": "query",
+                "description": "Sorting of lead results. Allowed values include 'name', 'source', 'location', 'created_at', 'completion_date'."
+              },
+              {
+                "name": "filter[others][custom_attribute]",
+                "value": "",
+                "type": "query",
+                "description": "This parameter can be used to filter with the custom candidate attributes from the Others fields(jsonb column). If the attribute record with 'custom_attribute' key exists, then the data type (number, text or date) linked to it is used for matching, if it does not exist then it defaults to text. Data types number or text are matched as equal to the value sent and the Date type (format dd-mm-yyyy) matches for a greater or equal value."
+              },
+              {
+                "name": "include_documents",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If sent as true the documents linked to the leads are returned. Default to false."
+              },
+              {
+                "name": "include_answers",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If sent as true the answers linked to the leads are returned. Default to false."
+              },
+              {
+                "name": "include_attachments",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If sent as true the attachments linked to the leads are returned. Default to false."
+              }
+            ]
+          },
+          "docs": "This API endpoint will enable you to search through your lead database programatically  with the same criterias than you would use on the recruiter's leads page.  You can execute 2 kinds of search: \n  * Use the query parameter which is equivalent to typing your search query in a search bar. \n  * Use a combination of parameter to execute an advanced search\n"
+        },
+        {
+          "info": {
+            "name": "Update a lead's details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the lead to update."
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "API key of your account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing lead. In addition to the fields on the candidate, this endpoint accepts an optional `candidate.labels` object to add or remove labels on the candidate in a single request.\n\n**Labels payload (optional):** When `candidate.labels` is provided, it MUST include both an `add` and a `remove` array (send an empty array if you don't need that side). All names referenced in `add`/`remove` must already exist as company labels (create them first via `POST /company/labels`)"
+        },
+        {
+          "info": {
+            "name": "Create a new lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaigns/:id/campaign_invitations",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Campaign ID in which you want to add your new lead"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint can be used to insert a new lead in the campaign given in url"
+        },
+        {
+          "info": {
+            "name": "Complete the interview for a candidate aplication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations/:id/interview",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the lead."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "With this endpoint a candidate can complete the campaign's interview. <b> DISCLAIMER </b> - Only text, short_text and multiple choice question types supported. No audio or image question type supported.\n"
+        },
+        {
+          "info": {
+            "name": "Create a comment for a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations/:id/comments",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the lead."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "With this endpoint you can add comments to the lead's profile (the campaign invitation).\n"
+        },
+        {
+          "info": {
+            "name": "Change lead's status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations/:id/:status",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Lead ID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "path",
+                "description": "New status for the lead. If the status is custom, you will need to specify the name of the custom folder with the name parameter"
+              },
+              {
+                "name": "folder",
+                "value": "",
+                "type": "query",
+                "description": "Custom folder's name. use in combination of custom status"
+              }
+            ]
+          },
+          "docs": "Update the lead status"
+        },
+        {
+          "info": {
+            "name": "Move a lead to a different campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations/:id/move",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the lead."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "With this endpoint you can move a lead (the campaign invitation) between different campaigns. E.g. a candidate applied for Front end developer but her profile actually suits the fullstack developer position better, in that case you might want to move the application to the fullstack developer campaign.  Applications cannot be moved to the inbox folder of another campaign.\n"
+        },
+        {
+          "info": {
+            "name": "Reassign a lead to another user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations/:id/reassign",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Lead ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inside the Talkpush CRM Leads can be assigned to recruiters, this allows user to easily find their leads. With this endpoint you can change the assigned recruiter of a lead."
+        },
+        {
+          "info": {
+            "name": "Attach a document to a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/campaign_invitations/:id/documents",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Lead ID"
+              },
+              {
+                "name": "document_tag_id",
+                "value": "",
+                "type": "query",
+                "description": "Document Tag ID. Required if no Document Tag name parameter is used. If sending a Document Tag ID, this is prioritized to search for an existing Document Tag, if it doesn't exist, the respose will be not found and fail to attach a file to the lead."
+              },
+              {
+                "name": "document_tag_name",
+                "value": "",
+                "type": "query",
+                "description": "Document Tag Name. Not required unless no Document Tag ID is used. If sending this parameter, a Document Tag ID must not be sent since it's prioritized over the name. If the Document Tag with the name sent is not found, a new Document Tag will be created with the name sent."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "With this endpoint you can attach a document to a lead. A document tag Id or Name are needed to attach the file to a lead."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

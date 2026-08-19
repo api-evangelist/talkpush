@@ -1,0 +1,204 @@
+{
+  "item": [
+    {
+      "id": "d09e20e0-40f8-4fc6-ae55-7d7ae8df74bc",
+      "name": "Tokens API",
+      "description": {
+        "content": "Endpoint for discovering the message tokens available for use inside Message Templates. Returns both system-level reserved tokens (e.g. `candidate_name`, `job_title`) and any custom tokens configured for the company.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6528baea-a300-442b-b9e2-7daf6f830589",
+          "name": "List available message tokens",
+          "request": {
+            "name": "List available message tokens",
+            "description": {
+              "content": "Returns all tokens that can be used inside a Message Template's `content` field. The list includes:\n\n- **System tokens** — built-in reserved words (e.g. `candidate_name`, `job_title`, `scheduler_url`) that are resolved at send time.\n- **Custom tokens** — company-defined tokens created by your team.\n\nUse the `id` of a token as the Handlebars key in template content: `{{candidate_name}}`, `{{job_title}}`, etc.\n\n**Filtering:** Use `display_name` for a case-insensitive partial-match filter to quickly find the token you need.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "messaging",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "display_name",
+                  "value": "<string>",
+                  "description": "Case-insensitive partial-match filter on the token display name (e.g. `candidate` returns all candidate-related tokens)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8500dbce-2455-46ff-893a-265ca7f673f2",
+              "name": "Tokens returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "display_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tokens\": [\n    {\n      \"id\": \"candidate_name\",\n      \"display_name\": \"Candidate Name\",\n      \"description\": null\n    },\n    {\n      \"id\": \"candidate_name\",\n      \"display_name\": \"Candidate Name\",\n      \"description\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6df5bf14-09a2-4298-8b30-8b0a28ac64b5",
+              "name": "Missing, invalid, or inactive API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "display_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fbcf1806-44c8-4880-9c35-98a3eb911085",
+              "name": "Internal server error; the response may include an exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "messaging",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "display_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "45abc0e2-cdf1-43bc-a3d2-76e6f0bde15a",
+    "name": "Talkpush Agents API Tokens API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

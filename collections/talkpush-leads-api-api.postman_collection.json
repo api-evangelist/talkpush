@@ -1,0 +1,2511 @@
+{
+  "item": [
+    {
+      "id": "9483e21d-c99c-497f-9ede-75e82498a132",
+      "name": "Leads API",
+      "description": {
+        "content": "Collection of endpoints related to leads management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d535ab2f-1cc2-4ea2-8f65-90c509360dbc",
+          "name": "Retrieve a list of leads matching your search criterias",
+          "request": {
+            "name": "Retrieve a list of leads matching your search criterias",
+            "description": {
+              "content": "This API endpoint will enable you to search through your lead database programatically  with the same criterias than you would use on the recruiter's leads page.  You can execute 2 kinds of search: \n  * Use the query parameter which is equivalent to typing your search query in a search bar. \n  * Use a combination of parameter to execute an advanced search\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[query]",
+                  "value": "<string>",
+                  "description": "Search keywords like application id filter[query]='AP123'. Other search keywords like name, email or phone number."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number of lead list to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[campaign_id]",
+                  "value": "<integer>",
+                  "description": "Campaign id of the campaign."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[campaign_id][]",
+                  "value": "<string>",
+                  "description": "The result will have all leads listed in all said campaigns. This parameter may be passed campaign_id divided by coma. filter[campaign_id]=1,2,3"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status_selected]",
+                  "value": "<string>",
+                  "description": "This parameter is used to filter the leads by current status. Only leads with a status equal to the filter provided will be returned. Valid statuses are 'pending', 'completed', 'shortlisted', 'on_hold', 'rejected', 'hired', 'no_response' or custom like 'custom_status'. Check the Folders API to get the valid list for the company."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[creation_start_date]",
+                  "value": "<string>",
+                  "description": "Return leads that were created on or after the provided date. Date format must be DD-MM-YYYY."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[creation_end_date]",
+                  "value": "<string>",
+                  "description": "Return leads that were created on or before the provided date. Date format must be DD-MM-YYYY."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[updated_start_date]",
+                  "value": "<string>",
+                  "description": "Return leads that were updated on or after the provided date. Date format must be DD-MM-YYYY."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[updated_end_date]",
+                  "value": "<string>",
+                  "description": "Return leads that were updated on or before the provided date. Date format must be DD-MM-YYYY."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[source_selected]",
+                  "value": "<string>",
+                  "description": "Search results will be filtered by provided source."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[location_selected]",
+                  "value": "<string>",
+                  "description": "Location filter for lead search results."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[location_radius_selected]",
+                  "value": "<integer>",
+                  "description": "This will define a radius, in kilometers, from the location selected. All leads inside that radius will be included in the search results."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[label_selected]",
+                  "value": "<string>",
+                  "description": "The name of a label already created in the system. Search results will include all leads with this label."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[completion_method_selected]",
+                  "value": "<string>",
+                  "description": "Completion method of campaign invitation."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[resume_selected]",
+                  "value": "<string>",
+                  "description": "If attached is set, it will look for leads with resume. Values must be either 'attached' or 'not_attached'"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[scheduled_at_start_date]",
+                  "value": "<string>",
+                  "description": "Return leads that were scheduled on or after the provided date. Date format must be DD-MM-YYYY."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[scheduled_at_end_date]",
+                  "value": "<string>",
+                  "description": "Return leads that were scheduled on or before the provided date. Date format must be DD-MM-YYYY."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sort_by_selected]",
+                  "value": "<string>",
+                  "description": "Sorting of lead results. Allowed values include 'name', 'source', 'location', 'created_at', 'completion_date'."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[others][custom_attribute]",
+                  "value": "<string>",
+                  "description": "This parameter can be used to filter with the custom candidate attributes from the Others fields(jsonb column). If the attribute record with 'custom_attribute' key exists, then the data type (number, text or date) linked to it is used for matching, if it does not exist then it defaults to text. Data types number or text are matched as equal to the value sent and the Date type (format dd-mm-yyyy) matches for a greater or equal value."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_documents",
+                  "value": "<boolean>",
+                  "description": "Optional. If sent as true the documents linked to the leads are returned. Default to false."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_answers",
+                  "value": "<boolean>",
+                  "description": "Optional. If sent as true the answers linked to the leads are returned. Default to false."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_attachments",
+                  "value": "<boolean>",
+                  "description": "Optional. If sent as true the attachments linked to the leads are returned. Default to false."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a7cb8702-b0c4-48d4-b8c5-a63e986361c0",
+              "name": "All leads that match the entered query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[query]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[campaign_id]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[campaign_id][]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[creation_start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[creation_end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[updated_start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[updated_end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[source_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[location_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[location_radius_selected]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[label_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[completion_method_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resume_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[scheduled_at_start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[scheduled_at_end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sort_by_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[others][custom_attribute]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_documents",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_answers",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_attachments",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"total\": 5263,\n  \"current_page\": 6457,\n  \"pages\": 5741,\n  \"candidates\": [\n    {\n      \"state\": \"string\",\n      \"folder\": \"string\",\n      \"campaign_id\": 8136,\n      \"campaign_ats_external_id\": 8069,\n      \"id\": 2852,\n      \"candidate_id\": 7221,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"campaign_title\": \"string\",\n      \"email\": \"string\",\n      \"user_phone_number\": \"string\",\n      \"school_name\": \"string\",\n      \"education\": \"string\",\n      \"source\": \"string\",\n      \"scheduled_at\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"others\": {},\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"answers\": [\n        {\n          \"question\": \"string\",\n          \"transcript\": \"string\",\n          \"file\": \"string\"\n        },\n        {\n          \"question\": \"string\",\n          \"transcript\": \"string\",\n          \"file\": \"string\"\n        }\n      ],\n      \"attachments\": [\n        {\n          \"id\": 1723.9245780594347,\n          \"name\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"id\": 1720.6679483782793,\n          \"name\": \"string\",\n          \"url\": \"string\"\n        }\n      ],\n      \"documents\": [\n        {\n          \"id\": 182.34834623709227,\n          \"created_at\": \"string\",\n          \"tag\": \"string\",\n          \"files\": [\n            {\n              \"id\": 8828.364462628278,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            },\n            {\n              \"id\": 7599.302250083324,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            }\n          ]\n        },\n        {\n          \"id\": 5856.380506625421,\n          \"created_at\": \"string\",\n          \"tag\": \"string\",\n          \"files\": [\n            {\n              \"id\": 6377.578863649326,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            },\n            {\n              \"id\": 3929.762133225886,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"state\": \"string\",\n      \"folder\": \"string\",\n      \"campaign_id\": 5612,\n      \"campaign_ats_external_id\": 2111,\n      \"id\": 9148,\n      \"candidate_id\": 9514,\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"campaign_title\": \"string\",\n      \"email\": \"string\",\n      \"user_phone_number\": \"string\",\n      \"school_name\": \"string\",\n      \"education\": \"string\",\n      \"source\": \"string\",\n      \"scheduled_at\": \"string\",\n      \"created_at\": \"string\",\n      \"updated_at\": \"string\",\n      \"others\": {},\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"answers\": [\n        {\n          \"question\": \"string\",\n          \"transcript\": \"string\",\n          \"file\": \"string\"\n        },\n        {\n          \"question\": \"string\",\n          \"transcript\": \"string\",\n          \"file\": \"string\"\n        }\n      ],\n      \"attachments\": [\n        {\n          \"id\": 9461.313712375117,\n          \"name\": \"string\",\n          \"url\": \"string\"\n        },\n        {\n          \"id\": 9859.192118485566,\n          \"name\": \"string\",\n          \"url\": \"string\"\n        }\n      ],\n      \"documents\": [\n        {\n          \"id\": 9753.224919926084,\n          \"created_at\": \"string\",\n          \"tag\": \"string\",\n          \"files\": [\n            {\n              \"id\": 4347.006657234622,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            },\n            {\n              \"id\": 6697.629180066532,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            }\n          ]\n        },\n        {\n          \"id\": 7649.33200647036,\n          \"created_at\": \"string\",\n          \"tag\": \"string\",\n          \"files\": [\n            {\n              \"id\": 8778.473956125517,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            },\n            {\n              \"id\": 9127.588912591962,\n              \"name\": \"string\",\n              \"content_type\": \"string\",\n              \"url\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8c6c854-0606-4dc5-824d-7547dfd30bb7",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[query]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[campaign_id]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[campaign_id][]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[creation_start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[creation_end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[updated_start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[updated_end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[source_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[location_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[location_radius_selected]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[label_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[completion_method_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resume_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[scheduled_at_start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[scheduled_at_end_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sort_by_selected]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[others][custom_attribute]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_documents",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_answers",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include_attachments",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9721388d-2695-40a6-8df0-9b3d79a51621",
+          "name": "Update a lead's details",
+          "request": {
+            "name": "Update a lead's details",
+            "description": {
+              "content": "Updates the details of an existing lead. In addition to the fields on the candidate, this endpoint accepts an optional `candidate.labels` object to add or remove labels on the candidate in a single request.\n\n**Labels payload (optional):** When `candidate.labels` is provided, it MUST include both an `add` and a `remove` array (send an empty array if you don't need that side). All names referenced in `add`/`remove` must already exist as company labels (create them first via `POST /company/labels`); if any are missing the whole request fails with 422 and nothing is changed. Names that don't exist as labels yet cause the whole request to fail with **422**, and no labels are modified — the change is all-or-nothing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) API key of your account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the lead to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"candidate\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"key_0\": 274.37872896453496\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4acc4648-ef53-4557-996c-97daac7aab04",
+              "name": "Candidate has been successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead to update."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"custom_field1\": \"value1\",\n      \"custom_field2\": \"value2\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fc5f9055-641c-4b5c-9587-c36cfb271e3c",
+              "name": "Campaign Invitation not found for this company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead to update."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"custom_field1\": \"value1\",\n      \"custom_field2\": \"value2\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91788141-65fd-4339-98d7-34bd65dbc66f",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead to update."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"candidate\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"custom_field1\": \"value1\",\n      \"custom_field2\": \"value2\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96225882-2210-494d-ba02-b5d007c37f24",
+          "name": "Create a new lead",
+          "request": {
+            "name": "Create a new lead",
+            "description": {
+              "content": "This endpoint can be used to insert a new lead in the campaign given in url",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaigns",
+                ":id",
+                "campaign_invitations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Campaign ID in which you want to add your new lead"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_invitation\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"key_0\": \"string\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1859a745-3765-4fc8-bffd-645bcc1aeced",
+              "name": "Candidate was succesfully added to the campaign. The response will include the lead ID and PIN. If the lead already exists, will return 'Duplicate Candidate already exists'.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "campaign_invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Campaign ID in which you want to add your new lead"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_invitation\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"custom_field1\": \"value1\",\n      \"custom_field2\": \"value2\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "355b9803-5a38-4007-b34b-f51a528fd96b",
+              "name": "Bad request. Please make sure that required parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "campaign_invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Campaign ID in which you want to add your new lead"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_invitation\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"custom_field1\": \"value1\",\n      \"custom_field2\": \"value2\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78611bc3-31b4-4661-98c6-b4c914de55ee",
+              "name": "Campaign not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "campaign_invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Campaign ID in which you want to add your new lead"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_invitation\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"custom_field1\": \"value1\",\n      \"custom_field2\": \"value2\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e71bd790-5ccb-4e0f-8dab-bbf41775835e",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaigns",
+                    ":id",
+                    "campaign_invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Campaign ID in which you want to add your new lead"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_invitation\": {\n    \"email\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"user_phone_number\": \"<string>\",\n    \"source\": \"<string>\",\n    \"others\": {\n      \"custom_field1\": \"value1\",\n      \"custom_field2\": \"value2\"\n    },\n    \"labels\": {\n      \"add\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8116174-a68b-47fb-8b3e-91b2f2466cda",
+          "name": "Complete the interview for a candidate aplication",
+          "request": {
+            "name": "Complete the interview for a candidate aplication",
+            "description": {
+              "content": "With this endpoint a candidate can complete the campaign's interview. <b> DISCLAIMER </b> - Only text, short_text and multiple choice question types supported. No audio or image question type supported.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations",
+                ":id",
+                "interview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the lead."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"answers\": [\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b29b9b55-4553-4c35-92f0-2cebf2130c27",
+              "name": "Candidate has been successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "interview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"answers\": [\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb7f3391-27a9-4913-817f-20d903e20121",
+              "name": "Bad request. Please make sure that no invalid parameters were provided. || Please make sure all answers were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "interview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"answers\": [\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4222528d-919c-421a-8c9e-d37b3c9eedfe",
+              "name": "Candidate not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "interview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"answers\": [\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0903617f-cbdd-401e-82bc-66bf64d985ea",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "interview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"answers\": [\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<number>\",\n      \"answer\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24e1c5e4-cb37-4e72-8779-fd4e0d5e6c65",
+          "name": "Create a comment for a lead",
+          "request": {
+            "name": "Create a comment for a lead",
+            "description": {
+              "content": "With this endpoint you can add comments to the lead's profile (the campaign invitation).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations",
+                ":id",
+                "comments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the lead."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"manager_email\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "582b71e3-6e39-47c7-af88-993f797b06ad",
+              "name": "Comment was created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"manager_email\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c909619-7016-45f5-9463-09ae19cfa7cf",
+              "name": "Bad request. Please make sure that no invalid parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"manager_email\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7cbbcc76-760a-49ca-b91e-5d3b15f1c0d2",
+              "name": "Campaign Invitation not found | Manager not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"manager_email\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0134ac4-10dd-499f-92bb-6b1774157136",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "comments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"manager_email\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61628dc7-6515-4966-b5d8-274de2c8b633",
+          "name": "Change lead's status",
+          "request": {
+            "name": "Change lead's status",
+            "description": {
+              "content": "Update the lead status",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations",
+                ":id",
+                ":status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "folder",
+                  "value": "<string>",
+                  "description": "Custom folder's name. use in combination of custom status"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Lead ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "status",
+                  "description": "(Required) New status for the lead. If the status is custom, you will need to specify the name of the custom folder with the name parameter"
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a347bc19-0e07-4c6c-8935-84a05de1735a",
+              "name": "Candidate has been successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    ":status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "folder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "status",
+                      "description": "(Required) New status for the lead. If the status is custom, you will need to specify the name of the custom folder with the name parameter"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9b9a4156-d18f-4638-a4f0-60e5acf10c34",
+              "name": "Campaign Invitation not found for this company",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    ":status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "folder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "status",
+                      "description": "(Required) New status for the lead. If the status is custom, you will need to specify the name of the custom folder with the name parameter"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f83aa678-b885-4a0f-9f42-31c484e4c007",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    ":status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "folder",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "status",
+                      "description": "(Required) New status for the lead. If the status is custom, you will need to specify the name of the custom folder with the name parameter"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe4ebca1-18eb-4d60-b2b2-4eb01d1314d3",
+          "name": "Move a lead to a different campaign",
+          "request": {
+            "name": "Move a lead to a different campaign",
+            "description": {
+              "content": "With this endpoint you can move a lead (the campaign invitation) between different campaigns. E.g. a candidate applied for Front end developer but her profile actually suits the fullstack developer position better, in that case you might want to move the application to the fullstack developer campaign.  Applications cannot be moved to the inbox folder of another campaign.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations",
+                ":id",
+                "move"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) ID of the lead."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"folder_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76fd5508-5f66-44c2-858c-479c3ea98a13",
+              "name": "Candidate was moved to campaign.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "move"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"folder_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "95b89e18-18fb-4610-a64d-7514b5b46fe4",
+              "name": "Bad request. Please make sure that no invalid parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "move"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"folder_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25d9317d-4ae8-47f9-b2a3-2c1d1c5be155",
+              "name": "Candidates can not be moved to the Inbox folder.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "move"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"folder_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a2ad597a-5df5-410f-a95c-40bfe2013850",
+              "name": "Campaign Invitation not found | Campaign not found. | Folder not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "move"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"folder_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b21c7514-0209-4b24-b768-1292304cc8b1",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "move"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) ID of the lead."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"campaign_id\": \"<string>\",\n  \"folder_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e44e081-81b3-47cf-9938-9e4a07ff0597",
+          "name": "Reassign a lead to another user",
+          "request": {
+            "name": "Reassign a lead to another user",
+            "description": {
+              "content": "Inside the Talkpush CRM Leads can be assigned to recruiters, this allows user to easily find their leads. With this endpoint you can change the assigned recruiter of a lead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations",
+                ":id",
+                "reassign"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Lead ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"api_key\": \"<string>\",\n  \"assignee_email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e2f9295-8a8a-4b7c-a08f-8c1390caa659",
+              "name": "Campaign Invitation reassigned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "reassign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"assignee_email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b27fc4cc-fc37-4e13-a96e-8a2eeef570c4",
+              "name": "Bad request. Please make sure that no invalid parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "reassign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"assignee_email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9513f36-fa4f-4bc4-8862-5ae98b75af11",
+              "name": "Lead Id or Asignee email not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "reassign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"assignee_email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5db26e5d-f567-43d2-9564-b4a2dcc61c2a",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "reassign"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"api_key\": \"<string>\",\n  \"assignee_email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d768a39-fff0-4656-8f55-3f3d0716bd57",
+          "name": "Attach a document to a lead",
+          "request": {
+            "name": "Attach a document to a lead",
+            "description": {
+              "content": "With this endpoint you can attach a document to a lead. A document tag Id or Name are needed to attach the file to a lead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "campaign_invitations",
+                ":id",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "document_tag_id",
+                  "value": "<integer>",
+                  "description": "Document Tag ID. Required if no Document Tag name parameter is used. If sending a Document Tag ID, this is prioritized to search for an existing Document Tag, if it doesn't exist, the respose will be not found and fail to attach a file to the lead."
+                },
+                {
+                  "disabled": false,
+                  "key": "document_tag_name",
+                  "value": "<string>",
+                  "description": "Document Tag Name. Not required unless no Document Tag ID is used. If sending this parameter, a Document Tag ID must not be sent since it's prioritized over the name. If the Document Tag with the name sent is not found, a new Document Tag will be created with the name sent."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Lead ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) File to be attached to the lead as form-data. It can be sent as raw binary data or a file URL."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9b0e86fd-c27c-4c46-9230-672ea7debbd6",
+              "name": "Document attached successfully to candidate",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_tag_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "document_tag_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be attached to the lead as form-data. It can be sent as raw binary data or a file URL.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d45d7781-481d-4ab8-b125-88acfdb49297",
+              "name": "Bad request. Please make sure that no invalid parameters were provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_tag_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "document_tag_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be attached to the lead as form-data. It can be sent as raw binary data or a file URL.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee59a7fe-a055-4781-a681-b3bf4f74573d",
+              "name": "Campaign Invitation or Document Tag not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_tag_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "document_tag_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be attached to the lead as form-data. It can be sent as raw binary data or a file URL.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d38dd621-4938-4974-9e2a-dc64a5cb3d4c",
+              "name": "Internal server error, we will provide you with the exception message.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "campaign_invitations",
+                    ":id",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_tag_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "document_tag_name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Lead ID"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) File to be attached to the lead as form-data. It can be sent as raw binary data or a file URL.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ff571a22-834f-4f12-bd75-8a108f54c009",
+    "name": "Talkpush Agents API Leads API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

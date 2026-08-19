@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Movement Reasons API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Movement Reasons API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List movement (shortlist & reject) reasons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/movement_reasons",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter restricting the response to a single bucket. Allowed values are `rejected` (Reject Reasons only) or `shortlisted` (Shortlist Reasons only). Any other value returns 422."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1-based). Defaults to 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Page size. Defaults to 25, capped at 100."
+              }
+            ]
+          },
+          "docs": "Returns the company's configured **Shortlist Reasons** and **Reject Reasons** — the values recruiters can pick when moving a candidate to a shortlisted or rejected state. Soft-deleted reasons are excluded.\n\n**Filtering:** Use the optional `type` query parameter to narrow the results to a single bucket (`rejected` or `shortlisted`). Omitting it returns both buckets in one response. Any other value returns **422 Unprocessable Entity**.\n\n**Pagination:** Use `page` and `per_page` (default 25, max 10"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

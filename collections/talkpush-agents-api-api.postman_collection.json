@@ -1,0 +1,1737 @@
+{
+  "item": [
+    {
+      "id": "a93a1321-820b-4031-9ae0-42c92684f1ee",
+      "name": "Agents API",
+      "description": {
+        "content": "Collection of endpoints related to AI Agents (SmartCall Settings). Agents are configurable AI-powered voice/interview agents that can be linked to campaigns, question sets, and candidate attribute extractions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5d2f0933-05d5-4485-a272-e9ee6a45ab5b",
+          "name": "Retrieve a list of agents",
+          "request": {
+            "name": "Retrieve a list of agents",
+            "description": {
+              "content": "Returns a paginated list of AI agents configured in the company account, ordered by most recently updated. Supports optional filtering by category, provider, and active status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Filter agents by category. Allowed values: `screen_interview`, `phone_call`, `on_site_interview`, `event_invitation`, `passive_candidate_outreach`, `status_update`, `reminders`."
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "Filter agents by provider. Allowed values: `elevenlabs`, `vapi`."
+                },
+                {
+                  "disabled": false,
+                  "key": "is_active",
+                  "value": "<boolean>",
+                  "description": "Filter agents by active status. `true` returns only active agents; `false` returns only inactive agents. Omit to return all."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of results to return. Defaults to 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of agents per page. Defaults to 20, maximum 100."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2571cff-102b-4453-849b-ea313424b528",
+              "name": "Agents returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"6\",\n      \"name\": \"Daniel's Agent\",\n      \"description\": \"Evaluates candidate English proficiency\",\n      \"category\": \"screen_interview\",\n      \"prompt\": \"\",\n      \"provider\": \"elevenlabs\",\n      \"provider_agent_id\": \"agent_abc123xyz456\",\n      \"question_set_id\": \"1\",\n      \"data_extractions_count\": 2,\n      \"is_active\": true,\n      \"created_at\": \"2026-02-11T06:33:43+08:00\",\n      \"updated_at\": \"2026-04-07T01:33:01+08:00\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"per_page\": 20,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9017a827-1a49-46a3-9629-bdf62ec0eae2",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee9dbc89-dcc4-4e2c-9f07-efe01706efc2",
+          "name": "Create a new agent",
+          "request": {
+            "name": "Create a new agent",
+            "description": {
+              "content": "Creates a new AI agent configuration. On success, returns HTTP 201 with the newly created agent details.\n\nThe `data_extractions` field in the request uses the candidate attribute **key** string (e.g. `\"english_level\"`) — unlike the update endpoint, which uses `{ \"id\": \"...\" }`. The response returns an array of extraction objects (not the keyed map returned by the show/update endpoints).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"category\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"provider_agent_id\": \"<string>\",\n    \"question_set_id\": \"<string>\",\n    \"is_active\": \"<boolean>\",\n    \"prompt\": \"<string>\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"description\": \"<string>\",\n        \"number_of_values\": \"<integer>\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"candidate_attribute\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"description\": \"<string>\",\n        \"number_of_values\": \"<integer>\",\n        \"allowed_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bbdd16f2-c593-4366-86e5-6806cfab55c9",
+              "name": "Agent created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent\": {\n    \"name\": \"My New Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"provider\": \"elevenlabs\",\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"is_active\": true,\n    \"prompt\": \"This is the prompt for my agent I need:\\n {{messenger_interview_url}}\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": \"english_level\",\n        \"data_type\": \"string\",\n        \"description\": \"Candidate English proficiency level\",\n        \"number_of_values\": 1,\n        \"allowed_values\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"42\",\n  \"name\": \"My New Agent\",\n  \"description\": \"Evaluates candidate English proficiency\",\n  \"category\": \"screen_interview\",\n  \"prompt\": \"This is the prompt for my agent I need: Messenger Interview URL\",\n  \"question_set_id\": \"1\",\n  \"provider\": \"elevenlabs\",\n  \"provider_agent_id\": \"agent_abc123xyz456\",\n  \"data_extractions\": [\n    {\n      \"id\": \"29\",\n      \"candidate_attribute\": \"english_level\",\n      \"data_type\": \"string\",\n      \"description\": \"Candidate English proficiency level\",\n      \"number_of_values\": 1,\n      \"allowed_values\": [\n        \"basic\",\n        \"intermediate\",\n        \"advanced\"\n      ]\n    }\n  ],\n  \"is_active\": true,\n  \"created_at\": \"2026-04-24T10:00:00+08:00\",\n  \"updated_at\": \"2026-04-24T10:00:00+08:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f71a075-50a3-4b4c-977b-956b996a169b",
+              "name": "Validation error. Returned when the request body contains invalid data — e.g. an invalid `category`, an invalid `provider`, malformed `data_extractions`, or invalid Handlebars in the prompt.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent\": {\n    \"name\": \"My New Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"provider\": \"elevenlabs\",\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"is_active\": true,\n    \"prompt\": \"This is the prompt for my agent I need:\\n {{messenger_interview_url}}\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": \"english_level\",\n        \"data_type\": \"string\",\n        \"description\": \"Candidate English proficiency level\",\n        \"number_of_values\": 1,\n        \"allowed_values\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"provider must be one of: elevenlabs, vapi\",\n    \"category must be one of: screen_interview, phone_call, on_site_interview, event_invitation, passive_candidate_outreach, status_update, reminders\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc2a4a1c-fe43-4676-b1d7-068911f775c9",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent\": {\n    \"name\": \"My New Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"provider\": \"elevenlabs\",\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"is_active\": true,\n    \"prompt\": \"This is the prompt for my agent I need:\\n {{messenger_interview_url}}\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": \"english_level\",\n        \"data_type\": \"string\",\n        \"description\": \"Candidate English proficiency level\",\n        \"number_of_values\": 1,\n        \"allowed_values\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dde4d3a4-ad51-4cf2-9f61-99132d3a2af7",
+          "name": "Retrieve details of a specific agent",
+          "request": {
+            "name": "Retrieve details of a specific agent",
+            "description": {
+              "content": "Returns the full detail of a single agent, including its prompt, provider info, linked question set, and the complete data extractions configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the agent."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f3349df-33aa-444f-b470-bc9fe0626feb",
+              "name": "Agent returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"6\",\n    \"name\": \"Daniel's Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"prompt\": \"This is the prompt for my agent...\",\n    \"provider\": \"elevenlabs\",\n    \"provider_info\": {\n      \"name\": \"elevenlabs\",\n      \"vendor\": \"ElevenLabs\"\n    },\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"question_set\": {\n      \"id\": \"1\",\n      \"title\": \"Set name\"\n    },\n    \"data_extractions\": {\n      \"English Level\": {\n        \"type\": \"string\",\n        \"description\": \"Candidate English proficiency level\",\n        \"enum\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ],\n        \"candidate_attribute\": {\n          \"id\": \"29\"\n        }\n      }\n    },\n    \"is_active\": true,\n    \"created_at\": \"2026-02-11T06:33:43+08:00\",\n    \"updated_at\": \"2026-04-07T01:33:01+08:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbf9c9c5-51aa-45de-90df-346204efda42",
+              "name": "Agent not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec356d25-b323-44c0-aea9-b7a80a7266b5",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec174ae3-8c2f-4e96-808c-ffc6db52c75b",
+          "name": "Update an existing agent",
+          "request": {
+            "name": "Update an existing agent",
+            "description": {
+              "content": "Updates an agent's configuration. All fields are optional — only the fields provided will be changed. **Note:** if `data_extractions` is included, it **replaces** the existing extractions entirely (not a partial merge). The same applies to `prompt`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the agent to update."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent\": {\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"category\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"provider_agent_id\": \"<string>\",\n    \"question_set_id\": \"<string>\",\n    \"is_active\": \"<boolean>\",\n    \"prompt\": \"<string>\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": {\n          \"id\": \"<string>\"\n        },\n        \"description\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"enum_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      {\n        \"candidate_attribute\": {\n          \"id\": \"<string>\"\n        },\n        \"description\": \"<string>\",\n        \"data_type\": \"<string>\",\n        \"enum_values\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3d76ff6-b515-4d32-b0b7-7a6c124c062c",
+              "name": "Agent updated successfully. Returns the full updated agent detail.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent\": {\n    \"name\": \"My Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"provider\": \"elevenlabs\",\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"is_active\": true,\n    \"prompt\": \"This is the prompt for my agent I need:\\n {{messenger_interview_url}}\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": {\n          \"id\": \"29\"\n        },\n        \"description\": \"Candidate English proficiency level\",\n        \"data_type\": \"string\",\n        \"enum_values\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"category\": \"event_invitation\",\n    \"prompt\": \"string\",\n    \"provider\": \"vapi\",\n    \"provider_info\": {\n      \"name\": \"string\",\n      \"vendor\": \"string\"\n    },\n    \"provider_agent_id\": \"string\",\n    \"question_set_id\": \"string\",\n    \"question_set\": {\n      \"id\": \"string\",\n      \"title\": \"string\"\n    },\n    \"data_extractions\": {\n      \"key_0\": {\n        \"type\": \"string\",\n        \"description\": \"string\",\n        \"enum\": [\n          \"string\",\n          \"string\"\n        ],\n        \"candidate_attribute\": {\n          \"id\": \"string\"\n        }\n      }\n    },\n    \"is_active\": true,\n    \"created_at\": \"1993-08-28T16:43:31.694Z\",\n    \"updated_at\": \"1969-11-15T03:02:00.229Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aeefd1ff-5933-4e3d-a475-8a88d2da68fb",
+              "name": "Agent not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent to update."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent\": {\n    \"name\": \"My Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"provider\": \"elevenlabs\",\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"is_active\": true,\n    \"prompt\": \"This is the prompt for my agent I need:\\n {{messenger_interview_url}}\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": {\n          \"id\": \"29\"\n        },\n        \"description\": \"Candidate English proficiency level\",\n        \"data_type\": \"string\",\n        \"enum_values\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "984de386-12b5-48fd-94fe-8ef593c40a80",
+              "name": "Validation error. Returned when the request body contains invalid data — e.g. an invalid `category`, an invalid `provider`, or malformed `data_extractions`.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent to update."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent\": {\n    \"name\": \"My Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"provider\": \"elevenlabs\",\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"is_active\": true,\n    \"prompt\": \"This is the prompt for my agent I need:\\n {{messenger_interview_url}}\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": {\n          \"id\": \"29\"\n        },\n        \"description\": \"Candidate English proficiency level\",\n        \"data_type\": \"string\",\n        \"enum_values\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"provider must be one of: elevenlabs, vapi\",\n    \"category must be one of: screen_interview, phone_call, on_site_interview, event_invitation, passive_candidate_outreach, status_update, reminders\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ebc2b2f-bc15-4015-ac62-5d567c17ba73",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent to update."
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agent\": {\n    \"name\": \"My Agent\",\n    \"description\": \"Evaluates candidate English proficiency\",\n    \"category\": \"screen_interview\",\n    \"provider\": \"elevenlabs\",\n    \"provider_agent_id\": \"agent_abc123xyz456\",\n    \"question_set_id\": \"1\",\n    \"is_active\": true,\n    \"prompt\": \"This is the prompt for my agent I need:\\n {{messenger_interview_url}}\",\n    \"data_extractions\": [\n      {\n        \"candidate_attribute\": {\n          \"id\": \"29\"\n        },\n        \"description\": \"Candidate English proficiency level\",\n        \"data_type\": \"string\",\n        \"enum_values\": [\n          \"basic\",\n          \"intermediate\",\n          \"advanced\"\n        ]\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb4a7a99-b32b-44dd-b47d-098d7d61d276",
+          "name": "Delete an agent",
+          "request": {
+            "name": "Delete an agent",
+            "description": {
+              "content": "Permanently deletes the agent identified by `id`. On success, returns HTTP 204 with no response body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the agent to delete."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e6deee38-6ec8-47d2-a258-bedcc045e7e8",
+              "name": "Agent deleted successfully. No response body is returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent to delete."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "146235d6-731b-4ebe-826d-9c727e1be011",
+              "name": "Agent not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent to delete."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "78c2d368-61c5-4e70-bdcb-f3c706fc4a58",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the agent to delete."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc23e67a-2210-4070-92ab-c0b29ca3a4ce",
+          "name": "Retrieve a list of calls for a specific agent",
+          "request": {
+            "name": "Retrieve a list of calls for a specific agent",
+            "description": {
+              "content": "Returns a paginated list of call records handled by the given agent, ordered by most recent first. Each record includes the associated application (candidate / campaign invitation) context, extracted data, interview insights, transcript, and a link to the call recording when available.\n\nOptional filters:\n- `status`: filter by call status.\n- `start_date` + `end_date`: filter by creation date range. Both parameters must be provided together. Any format accepted by `Time.zone.parse` is supported (e.g. `2026-04-01`, `2026-04-01T00:00:00Z`).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "calls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by call status."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<string>",
+                  "description": "Start of the creation-date range filter. Must be provided together with `end_date`. Any format parseable by `Time.zone.parse` is accepted (e.g. `2026-04-01`, `2026-04-01T00:00:00Z`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<string>",
+                  "description": "End of the creation-date range filter. Must be provided together with `start_date`."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of the results to return. Default is 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of records per page. Default is 20, maximum is 100."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "agent_id",
+                  "description": "(Required) The ID of the agent whose calls should be returned."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b7dc1af-7443-4655-b271-fdc936bc5787",
+              "name": "Calls returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose calls should be returned."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"company\": \"Acme\",\n      \"company_id\": 123,\n      \"company_tenant\": \"acme\",\n      \"status\": \"completed\",\n      \"summary\": \"Candidate completed the screening interview successfully.\",\n      \"extracted_data\": {\n        \"English Level\": \"advanced\"\n      },\n      \"interview_insights\": {\n        \"strengths\": [\n          \"clear articulation\"\n        ],\n        \"weaknesses\": []\n      },\n      \"transcript\": \"Agent: Hello...\\nCandidate: Hi...\",\n      \"recording_url\": \"https://cdn.talkpush.com/recordings/abc123.mp3\",\n      \"identifier\": \"call_abc123xyz456\",\n      \"agent\": {\n        \"identifier\": \"agent_abc123xyz456\"\n      },\n      \"application\": {\n        \"id\": 987654,\n        \"candidate_id\": 123456,\n        \"campaign_id\": 4321,\n        \"campaign_title\": \"Customer Service Representative\",\n        \"first_name\": \"Jane\",\n        \"last_name\": \"Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"msisdn\": \"639171234567\",\n        \"others\": {\n          \"talkscore_overall\": \"85\",\n          \"talkscore_cefr\": \"C1\"\n        },\n        \"scheduled_at\": \"2026-04-10T10:00:00+08:00\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"per_page\": 20,\n    \"total\": 42,\n    \"total_pages\": 3\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d46808a-19cf-4063-944b-3c178830649b",
+              "name": "Bad request. Possible messages:\n- `start_date and end_date are both required when filtering by date` (when only one of the two date parameters is supplied).\n- `Invalid date format for start_date or end_date` (when a date parameter cannot be parsed).\n- `status must be one of: <allowed values>` (when the provided status is not recognized).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose calls should be returned."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a154064-3bbf-4b12-9eb9-141a9dc5222e",
+              "name": "Invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose calls should be returned."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fd0394d1-0b61-45d7-8801-b0a5bdc02af6",
+              "name": "Agent not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose calls should be returned."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08f2bd9c-e261-4f0e-aace-434585ab1d87",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "calls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose calls should be returned."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b8a299e-ead7-4935-88e5-a1b232695dab",
+          "name": "Retrieve the changelog for a specific agent",
+          "request": {
+            "name": "Retrieve the changelog for a specific agent",
+            "description": {
+              "content": "Returns a paginated list of audit log entries for the given agent, ordered by most recent first. Each entry describes a single create, update, or destroy event — who made the change, when, and what fields were affected.\n\nFor `created` entries the `changes` array is always empty (the initial state is not diffed). For `updated` entries each item in `changes` names the API field that changed and includes both the previous and new value.\n\n**Possible `field` values inside a change entry:**\n- `agent_name` — display name of the agent (stored as `title`)\n- `description` — short description\n- `prompt` — agent prompt, rendered as a plain-text string\n- `data_extractions` — array of `{ \"candidate_attribute\": \"<key>\" }` objects\n- `category` — category enum key (e.g. `talkscore_interview`, `phone_calls`, `onsite_interview`, `event_invitation`, `passive_candidate_outreach`, `status_update`, `reminder`)\n- `provider` — provider key (e.g. `elevenlabs`, `vapi`)\n- `provider_agent_id` — provider-side agent identifier\n- `question_set_id` — ID of the linked question set\n- `is_active` — boolean active/inactive flag\n\n**`changed_by` values:**\n- Manager email address when the change was made from the Talkpush CRM\n- `\"TalkPush API\"` when the change was made via the API",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents",
+                ":agent_id",
+                "changelog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "(Required) The API key provided for your application."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number of the results to return. Default is 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of records per page. Default is 20, maximum is 100."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "agent_id",
+                  "description": "(Required) The ID of the agent whose changelog should be returned."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6540efed-0294-4a59-a19d-23aee36ce210",
+              "name": "Changelog returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "changelog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose changelog should be returned."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"agent_id\": \"6\",\n  \"data\": [\n    {\n      \"id\": \"4917\",\n      \"action\": \"updated\",\n      \"changed_at\": \"2026-04-07T01:33:01Z\",\n      \"changed_by\": \"TalkPush API\",\n      \"changes\": [\n        {\n          \"field\": \"agent_name\",\n          \"previous_value\": \"Daniel's agent\",\n          \"new_value\": \"Daniel's Agent Updated via Postman\"\n        },\n        {\n          \"field\": \"prompt\",\n          \"previous_value\": \"\",\n          \"new_value\": \"This is the prompt for my agent I need: Messenger Interview URL then Interview Link\"\n        },\n        {\n          \"field\": \"data_extractions\",\n          \"previous_value\": [\n            {\n              \"candidate_attribute\": \"admired_brands\"\n            }\n          ],\n          \"new_value\": [\n            {\n              \"candidate_attribute\": \"admired_brands\"\n            },\n            {\n              \"candidate_attribute\": \"bpo_experience\"\n            }\n          ]\n        },\n        {\n          \"field\": \"category\",\n          \"previous_value\": \"event_invitation\",\n          \"new_value\": \"talkscore_interview\"\n        },\n        {\n          \"field\": \"provider\",\n          \"previous_value\": \"vapi\",\n          \"new_value\": \"elevenlabs\"\n        },\n        {\n          \"field\": \"is_active\",\n          \"previous_value\": false,\n          \"new_value\": true\n        }\n      ]\n    },\n    {\n      \"id\": \"4852\",\n      \"action\": \"created\",\n      \"changed_at\": \"2026-03-26T10:30:00Z\",\n      \"changed_by\": \"user@example.com\",\n      \"changes\": []\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"per_page\": 20,\n    \"total\": 2,\n    \"total_pages\": 1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1919fd32-e153-44e3-abfe-815db6d687f7",
+              "name": "Invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "changelog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose changelog should be returned."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f2e706be-7798-4b6b-aa0a-f71c544a8c34",
+              "name": "Agent not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "changelog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose changelog should be returned."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f92ae6b7-bb99-4562-8496-d9eb3084610f",
+              "name": "Internal server error, we will provide you with the exception message of the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents",
+                    ":agent_id",
+                    "changelog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "agent_id",
+                      "description": "(Required) The ID of the agent whose changelog should be returned."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://company_subdomain.talkpush.com/api/talkpush_services",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7b3d1240-fd64-473a-acb2-3d4f81e15559",
+    "name": "Talkpush Agents API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services\n\nWith the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.\n\n\nContact Support:\n Email: admin@talkpush.com",
+      "type": "text/plain"
+    }
+  }
+}

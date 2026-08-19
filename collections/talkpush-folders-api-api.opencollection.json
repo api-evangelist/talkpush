@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Folders API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Folders API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all the available folders on the company account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/company/folders",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              }
+            ]
+          },
+          "docs": "This endpoint let's you retrieve all the available folders on the company account and shows whether these are default folders. This is useful for example if you want to display the them inside your ATS."
+        },
+        {
+          "info": {
+            "name": "Create custom folders",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/company/folders",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint let's you create custom folders in the company account. A common scenario for this endpoint would be to create a custom folder whenever you create a new recruitment process step inside the ATS."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

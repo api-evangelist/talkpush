@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Talkpush Agents API Document Tags API API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Tags API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve all the available document tags(templates) on the company account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://company_subdomain.talkpush.com/api/talkpush_services/document_tags",
+            "params": [
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "The API key provided for your application"
+              },
+              {
+                "name": "include_default",
+                "value": "",
+                "type": "query",
+                "description": "Optional. If sent as true the default document tags created with the company are returned. Default to false."
+              }
+            ]
+          },
+          "docs": "This endpoint let's you retrieve all the available document tags(templates) on the company account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
