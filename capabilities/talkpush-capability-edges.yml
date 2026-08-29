@@ -1,0 +1,55 @@
+slug: talkpush
+provider: TalkPush
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Leads API
+  spec_file: talkpush-leads-api-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.9
+  evidence: Complete the interview for a candidate aplication ... Change lead's status ... Attach a document
+    to a lead
+  reason: 'Leads are candidate applications (campaign invitations): created, interviewed, status-changed,
+    reassigned to recruiters. This is applicant tracking / candidate screening, squarely Talent Acquisition
+    Management.'
+- tag: Campaigns API
+  spec_file: talkpush-campaigns-api-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.85
+  evidence: Create a new campaign inside your Talkpush account ... Get questions for a specific campaign
+  reason: Campaigns are the recruiting requisitions/screening flows against which candidate leads (campaign
+    invitations) are created and interviewed. This is sourcing/screening configuration, i.e. Talent Acquisition
+    Management.
+- tag: Movement Reasons API
+  spec_file: talkpush-movement-reasons-api-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.78
+  evidence: GET /movement_reasons — "List movement (shortlist & reject) reasons"
+  reason: Shortlist and reject reason codes are candidate-selection metadata in a recruiting CRM, squarely
+    within recruiting/screening under Talent Acquisition Management.
+- tag: Candidate Attributes API
+  spec_file: talkpush-candidate-attributes-api-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.7
+  evidence: List all candidate attribute definitions ... Create a custom candidate attribute
+  reason: Defines the candidate data model used to screen and track job applicants in a recruiting CRM,
+    supporting Talent Acquisition; it is schema/metadata definition, so confidence is moderate rather
+    than high.
