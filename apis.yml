@@ -1,18 +1,14 @@
 aid: talkpush
 name: TalkPush
-description: >-
-  TalkPush is a conversational recruiting and recruitment-automation CRM that
-  helps high-volume employers source, screen, and engage job candidates across
-  messaging channels (WhatsApp, SMS, Messenger, email) and AI voice agents. Its
-  public REST API — the Talkpush API v2.0 — lets you plug external lead sources
-  and HR/ATS technology into the platform: create and search leads (campaign
-  invitations), manage recruiting campaigns and folders, run and complete
-  interviews, send quick-reply and message templates, configure AI calling
-  agents, and manage company labels, candidate attributes, movement reasons, and
-  managers. Authentication is via an api_key query parameter, and the docs are
-  published on a ReadMe developer hub with an llms.txt index for AI agents.
-  Surfaced as a Seedcamp portfolio company and enriched by the API Evangelist
-  pipeline from TalkPush's own published developer documentation.
+description: 'TalkPush is a conversational recruiting and recruitment-automation CRM that helps high-volume
+  employers source, screen, and engage job candidates across messaging channels (WhatsApp, SMS, Messenger,
+  email) and AI voice agents. Its public REST API — the Talkpush API v2.0 — lets you plug external lead
+  sources and HR/ATS technology into the platform: create and search leads (campaign invitations), manage
+  recruiting campaigns and folders, run and complete interviews, send quick-reply and message templates,
+  configure AI calling agents, and manage company labels, candidate attributes, movement reasons, and
+  managers. Authentication is via an api_key query parameter, and the docs are published on a ReadMe developer
+  hub with an llms.txt index for AI agents. Surfaced as a Seedcamp portfolio company and enriched by the
+  API Evangelist pipeline from TalkPush''s own published developer documentation.'
 url: https://raw.githubusercontent.com/api-evangelist/talkpush/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -47,7 +43,7 @@ accessModel:
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-09-16'
 image: https://files.readme.io/2a5f3f7-small-logov1.png
 tags:
 - Company
@@ -61,10 +57,10 @@ tags:
 - CRM
 apis:
 - aid: talkpush:talkpush-agents-api-api
-  name: TalkPush Agents API API
-  description: >-
-    Collection of endpoints related to AI Agents (SmartCall Settings). Agents are configurable AI-powered
-    voice/interview agents that can be linked to campaigns, question sets, and candidate attribute extractions.
+  name: TalkPush Agents API
+  description: Collection of endpoints related to AI Agents (SmartCall Settings). Agents are configurable
+    AI-powered voice/interview agents that can be linked to campaigns, question sets, and candidate attribute
+    extractions.
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
   tags:
@@ -79,7 +75,7 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-calls-api-api
-  name: TalkPush Calls API API
+  name: TalkPush Calls API
   description: Collection of endpoints related to calls data
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
@@ -95,7 +91,7 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-campaigns-api-api
-  name: TalkPush Campaigns API API
+  name: TalkPush Campaigns API
   description: Collection of endpoints related to Talkpush Campaigns
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
@@ -111,11 +107,10 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-candidate-attributes-api-api
-  name: TalkPush Candidate Attributes API API
-  description: >-
-    List and create candidate (lead) custom attribute definitions at the company level. Definitions appear
-    in the recruiter UI and can be written on leads via the `others` field using the attribute key. Both
-    built-in (`default`) and custom attributes are returned on list.
+  name: TalkPush Candidate Attributes API
+  description: List and create candidate (lead) custom attribute definitions at the company level. Definitions
+    appear in the recruiter UI and can be written on leads via the `others` field using the attribute
+    key. Both built-in (`default`) and custom attributes are returned on list.
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
   tags:
@@ -130,7 +125,7 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-document-tags-api-api
-  name: TalkPush Document Tags API API
+  name: TalkPush Document Tags API
   description: Collection of endpoints related to Document Tags (Templates)
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
@@ -146,7 +141,7 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-folders-api-api
-  name: TalkPush Folders API API
+  name: TalkPush Folders API
   description: Collection of endpoints related to folders
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
@@ -162,12 +157,11 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-labels-api-api
-  name: TalkPush Labels API API
-  description: >-
-    Collection of endpoints related to candidate labels. Labels are simple, company-wide tags that recruiters
-    use to flag and filter candidates (for example: "Priority", "Referral", "Needs Review"). The same
-    labels are visible in the Talkpush UI; anything added via the API immediately appears in the UI and
-    on the candidate's `labels` field returned by the Leads API.
+  name: TalkPush Labels API
+  description: 'Collection of endpoints related to candidate labels. Labels are simple, company-wide tags
+    that recruiters use to flag and filter candidates (for example: "Priority", "Referral", "Needs Review").
+    The same labels are visible in the Talkpush UI; anything added via the API immediately appears in
+    the UI and on the candidate''s `labels` field returned by the Leads API.'
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
   tags:
@@ -182,7 +176,7 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-leads-api-api
-  name: TalkPush Leads API API
+  name: TalkPush Leads API
   description: Collection of endpoints related to leads management
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
@@ -198,12 +192,11 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-managers-api-api
-  name: TalkPush Managers API API
-  description: >-
-    Endpoint for listing the company's managers (platform users with role-based permissions). Use the
-    returned IDs to discover valid managers before assigning them to campaign permissions, targeting them
-    in automation, or mirroring the user directory in external tools. Read-only; results are scoped to
-    the authenticated tenant and exclude deactivated managers.
+  name: TalkPush Managers API
+  description: Endpoint for listing the company's managers (platform users with role-based permissions).
+    Use the returned IDs to discover valid managers before assigning them to campaign permissions, targeting
+    them in automation, or mirroring the user directory in external tools. Read-only; results are scoped
+    to the authenticated tenant and exclude deactivated managers.
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
   tags:
@@ -218,11 +211,10 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-message-templates-api-api
-  name: TalkPush Message Templates API API
-  description: >-
-    Endpoints for managing Message Templates — the structured, token-based messages used by autoflows
-    and integrations for standardised communications (interview invitations, rejection notices, offer
-    letters, onboarding instructions). Templates are returned and accepted with content in Handlebars
+  name: TalkPush Message Templates API
+  description: Endpoints for managing Message Templates — the structured, token-based messages used by
+    autoflows and integrations for standardised communications (interview invitations, rejection notices,
+    offer letters, onboarding instructions). Templates are returned and accepted with content in Handlebars
     format (e.g. `{{candidate_name}}`), regardless of how they are stored internally. Use `GET /messaging/tokens`
     to discover the full list of tokens available in your company.
   humanURL: https://docs.talkpush.com/docs/getting-started
@@ -239,7 +231,7 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-messaging-api-api
-  name: TalkPush Messaging API API
+  name: TalkPush Messaging API
   description: Collection of endpoints related to sending messages
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
@@ -255,12 +247,11 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-movement-reasons-api-api
-  name: TalkPush Movement Reasons API API
-  description: >-
-    Endpoint for listing the company's candidate movement reasons — the configurable Shortlist Reasons
-    and Reject Reasons that recruiters select when shortlisting or rejecting a candidate. Use these IDs/names
-    to mirror reason labels in external dashboards or to map them back to Talkpush when syncing status
-    changes.
+  name: TalkPush Movement Reasons API
+  description: Endpoint for listing the company's candidate movement reasons — the configurable Shortlist
+    Reasons and Reject Reasons that recruiters select when shortlisting or rejecting a candidate. Use
+    these IDs/names to mirror reason labels in external dashboards or to map them back to Talkpush when
+    syncing status changes.
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
   tags:
@@ -291,11 +282,10 @@ apis:
   - type: Authentication
     url: authentication/talkpush-authentication.yml
 - aid: talkpush:talkpush-tokens-api-api
-  name: TalkPush Tokens API API
-  description: >-
-    Endpoint for discovering the message tokens available for use inside Message Templates. Returns both
-    system-level reserved tokens (e.g. `candidate_name`, `job_title`) and any custom tokens configured
-    for the company.
+  name: TalkPush Tokens API
+  description: Endpoint for discovering the message tokens available for use inside Message Templates.
+    Returns both system-level reserved tokens (e.g. `candidate_name`, `job_title`) and any custom tokens
+    configured for the company.
   humanURL: https://docs.talkpush.com/docs/getting-started
   baseURL: https://your-company.talkpush.com/api/talkpush_services
   tags:
@@ -356,7 +346,10 @@ common:
   url: authentication/talkpush-authentication.yml
 - type: X-MCPServerCandidate
   url: mcp/talkpush-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
 - type: ErrorCatalog
   url: errors/talkpush-problem-types.yml
 - type: Conventions
