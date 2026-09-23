@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+  description: 'Production Base URL to be used during implementation: {your company workspace subdomain}.talkpush.com/api/talkpush_services
 
 
-    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
-
-    '
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush.'
   version: '2.0'
-  title: Talkpush Agents API API
+  title: Talkpush Agents API
   contact:
     email: admin@talkpush.com
 servers:
@@ -101,6 +99,8 @@ paths:
                   total_pages: 1
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getAgents
+      x-operation-id-source: derived
     post:
       tags:
       - Agents API
@@ -186,6 +186,8 @@ paths:
                     - 'category must be one of: screen_interview, phone_call, on_site_interview, event_invitation, passive_candidate_outreach, status_update, reminders'
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: postAgents
+      x-operation-id-source: derived
   /agents/{id}:
     get:
       tags:
@@ -245,6 +247,8 @@ paths:
           description: Agent not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getAgentsById
+      x-operation-id-source: derived
     put:
       tags:
       - Agents API
@@ -313,6 +317,8 @@ paths:
                     - 'category must be one of: screen_interview, phone_call, on_site_interview, event_invitation, passive_candidate_outreach, status_update, reminders'
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: putAgentsById
+      x-operation-id-source: derived
     delete:
       tags:
       - Agents API
@@ -338,6 +344,8 @@ paths:
           description: Agent not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: deleteAgentsById
+      x-operation-id-source: derived
   /agents/{agent_id}/calls:
     get:
       tags:
@@ -468,6 +476,8 @@ paths:
           description: Agent not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getAgentsByAgentIdCalls
+      x-operation-id-source: derived
   /agents/{agent_id}/changelog:
     get:
       tags:
@@ -487,7 +497,7 @@ paths:
 
         - `prompt` — agent prompt, rendered as a plain-text string
 
-        - `data_extractions` — array of `{ "candidate_attribute": "<key>" }` objects
+        - `data_extractions` — array of `{ "candidate_attribute": "" }` objects
 
         - `category` — category enum key (e.g. `talkscore_interview`, `phone_calls`, `onsite_interview`, `event_invitation`, `passive_candidate_outreach`, `status_update`, `reminder`)
 
@@ -585,6 +595,8 @@ paths:
           description: Agent not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getAgentsByAgentIdChangelog
+      x-operation-id-source: derived
 components:
   schemas:
     changelog_entry:
@@ -619,6 +631,31 @@ components:
       - changed_at
       - changed_by
       - changes
+    agents_list_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/agent_list_item'
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number.
+            per_page:
+              type: integer
+              description: Number of items per page.
+            total:
+              type: integer
+              description: Total number of agents matching the filters.
+            total_pages:
+              type: integer
+              description: Total number of pages.
+      required:
+      - data
+      - pagination
     agent_create_request:
       type: object
       required:
@@ -689,6 +726,334 @@ components:
                     items:
                       type: string
                     description: Optional list of allowed values for the extraction. When provided, the extraction is constrained to these values and `number_of_values` defaults to their count.
+    agent_changelog_response:
+      type: object
+      description: Response envelope for the agent changelog endpoint.
+      properties:
+        agent_id:
+          type: string
+          description: Unique identifier of the agent.
+        data:
+          type: array
+          description: List of audit entries, ordered newest first.
+          items:
+            $ref: '#/components/schemas/changelog_entry'
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+              description: Current page number.
+            per_page:
+              type: integer
+              description: Number of records per page.
+            total:
+              type: integer
+              description: Total number of audit entries for this agent.
+            total_pages:
+              type: integer
+              description: Total number of pages available.
+      required:
+      - agent_id
+      - data
+      - pagination
+    agent_create_response:
+      type: object
+      description: Response body returned after successfully creating an agent (HTTP 201). The `data_extractions` field is an array — unlike the keyed map returned by the show/update endpoints.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the newly created agent.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Display name of the agent.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Short description of the agent's purpose.
+        category:
+          type:
+          - string
+          - 'null'
+          description: Use-case category of the agent.
+          enum:
+          - screen_interview
+          - phone_call
+          - on_site_interview
+          - event_invitation
+          - passive_candidate_outreach
+          - status_update
+          - reminders
+        prompt:
+          type: string
+          description: The agent's prompt string.
+        question_set_id:
+          type:
+          - string
+          - 'null'
+          description: ID of the linked question set, if any.
+        provider:
+          type:
+          - string
+          - 'null'
+          description: AI provider powering the agent.
+          enum:
+          - elevenlabs
+          - vapi
+        provider_agent_id:
+          type:
+          - string
+          - 'null'
+          description: The agent identifier on the external provider's platform.
+        data_extractions:
+          type: array
+          description: List of data extraction rules configured on the agent.
+          items:
+            type: object
+            properties:
+              id:
+                type:
+                - string
+                - 'null'
+                description: ID of the candidate attribute record.
+              candidate_attribute:
+                type:
+                - string
+                - 'null'
+                description: Key of the candidate attribute this extraction maps to.
+              data_type:
+                type: string
+                description: Data type of the extracted value.
+              description:
+                type:
+                - string
+                - 'null'
+                description: Instructions to the AI on what to extract.
+              number_of_values:
+                type: integer
+                description: Number of values to extract.
+              allowed_values:
+                type: array
+                items:
+                  type: string
+                description: List of allowed values for the extraction. Empty array if unconstrained.
+        is_active:
+          type: boolean
+          description: '`true` if the agent is active (published); `false` if inactive (draft).'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was last updated.
+    agent_detail_response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/agent_detail'
+      required:
+      - data
+    agent_list_item:
+      type: object
+      description: Compact agent representation returned in the list endpoint.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the agent.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Display name of the agent.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Short description of the agent's purpose.
+        category:
+          type:
+          - string
+          - 'null'
+          description: Use-case category of the agent.
+          enum:
+          - screen_interview
+          - phone_call
+          - on_site_interview
+          - event_invitation
+          - passive_candidate_outreach
+          - status_update
+          - reminders
+        prompt:
+          type: string
+          description: The agent's prompt string. Returns an empty string when the prompt has not been set yet.
+        provider:
+          type:
+          - string
+          - 'null'
+          description: AI provider powering the agent.
+          enum:
+          - elevenlabs
+          - vapi
+        provider_agent_id:
+          type:
+          - string
+          - 'null'
+          description: The agent identifier on the external provider's platform.
+        question_set_id:
+          type:
+          - string
+          - 'null'
+          description: ID of the linked question set, if any.
+        data_extractions_count:
+          type: integer
+          description: Number of data extraction rules configured on this agent.
+        is_active:
+          type: boolean
+          description: '`true` if the agent is active (published); `false` if inactive (draft).'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was last updated.
+    agent_calls_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/agent_call_body'
+        pagination:
+          $ref: '#/components/schemas/agent_calls_pagination'
+    agent_detail:
+      type: object
+      description: Full agent representation returned by the show and update endpoints.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the agent.
+        name:
+          type:
+          - string
+          - 'null'
+          description: Display name of the agent.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Short description of the agent's purpose.
+        category:
+          type:
+          - string
+          - 'null'
+          description: Use-case category of the agent.
+          enum:
+          - screen_interview
+          - phone_call
+          - on_site_interview
+          - event_invitation
+          - passive_candidate_outreach
+          - status_update
+          - reminders
+        prompt:
+          type: string
+          description: The agent's full prompt string. Supports Handlebars-style variables such as `{{messenger_interview_url}}`, `{{interview_page_url}}`, and `{{messenger_interview_link}}`.
+        provider:
+          type:
+          - string
+          - 'null'
+          description: AI provider powering the agent.
+          enum:
+          - elevenlabs
+          - vapi
+        provider_info:
+          type:
+          - object
+          - 'null'
+          description: Human-readable provider metadata.
+          properties:
+            name:
+              type: string
+              description: Provider key (e.g. `elevenlabs`).
+            vendor:
+              type: string
+              description: Provider display name (e.g. `ElevenLabs`).
+        provider_agent_id:
+          type:
+          - string
+          - 'null'
+          description: The agent identifier on the external provider's platform.
+        question_set_id:
+          type:
+          - string
+          - 'null'
+          description: ID of the linked question set, if any.
+        question_set:
+          type:
+          - object
+          - 'null'
+          description: Linked question set metadata. Present only when a question set is associated.
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        data_extractions:
+          type: object
+          description: Map of data extraction rules keyed by the candidate attribute name. Each value defines the extraction schema for that attribute.
+          additionalProperties:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Data type of the extracted value (e.g. `string`, `integer`).
+              description:
+                type: string
+                description: Instructions to the AI on what to extract.
+              enum:
+                type: array
+                items:
+                  type: string
+                description: List of allowed values for the extraction. Empty array if unconstrained.
+              candidate_attribute:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the candidate attribute this extraction maps to.
+        is_active:
+          type: boolean
+          description: '`true` if the agent is active (published); `false` if inactive (draft).'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the agent was last updated.
+    changelog_change:
+      type: object
+      description: A single field-level change within an audit entry.
+      properties:
+        field:
+          type: string
+          description: 'API name of the field that changed. Possible values: `agent_name`, `description`, `prompt`, `data_extractions`, `category`, `provider`, `provider_agent_id`, `question_set_id`, `is_active`.'
+        previous_value:
+          description: 'Value of the field before the change. Type varies by field: string for `agent_name`, `description`, `prompt`, `provider`, `category`, `provider_agent_id`, `question_set_id`; boolean for `is_active`; array of `{ "candidate_attribute": "<key>" }` objects for `data_extractions`; null when the field had no prior value.'
+        new_value:
+          description: Value of the field after the change. Same type conventions as `previous_value`. Null when the field was cleared.
+      required:
+      - field
+      - previous_value
+      - new_value
     agent_calls_pagination:
       type: object
       properties:
@@ -704,6 +1069,112 @@ components:
         total_pages:
           type: integer
           description: Total number of pages available.
+    agent_call_body:
+      type: object
+      properties:
+        company:
+          type: string
+          description: Name of the company (tenant) that owns the call.
+        company_id:
+          type: integer
+          description: Numeric ID of the company (tenant).
+        company_tenant:
+          type: string
+          description: Tenant/schema identifier of the company.
+        status:
+          type: string
+          description: Current status of the call.
+          enum:
+          - pending
+          - queued
+          - in_progress
+          - ended
+          - completed
+          - declined
+          - voicemail
+          - unfinished
+          - not_taken
+          - failed
+          - dropped
+        summary:
+          type:
+          - string
+          - 'null'
+          description: Natural-language summary of the call produced by the agent.
+        extracted_data:
+          type:
+          - object
+          - 'null'
+          description: Structured data extracted from the conversation, keyed by the data-extraction labels configured on the agent.
+          additionalProperties: true
+        interview_insights:
+          type:
+          - object
+          - 'null'
+          description: AI-generated analysis of the interview (e.g. strengths, weaknesses, highlights).
+          additionalProperties: true
+        transcript:
+          type:
+          - string
+          - 'null'
+          description: Full dialogue transcript between the agent and the candidate.
+        recording_url:
+          type:
+          - string
+          - 'null'
+          description: CDN URL of the call recording, when available.
+        identifier:
+          type: string
+          description: Unique identifier of the call record on the provider side.
+        agent:
+          type: object
+          properties:
+            identifier:
+              type: string
+              description: Provider-side identifier of the agent that handled the call (e.g. ElevenLabs / VAPI assistant ID).
+        application:
+          type: object
+          description: Context of the application (campaign invitation) associated with the call.
+          properties:
+            id:
+              type: integer
+              description: Application (campaign invitation) ID.
+            candidate_id:
+              type: integer
+              description: Candidate ID.
+            campaign_id:
+              type: integer
+              description: Campaign ID.
+            campaign_title:
+              type: string
+              description: Title of the campaign.
+            first_name:
+              type:
+              - string
+              - 'null'
+            last_name:
+              type:
+              - string
+              - 'null'
+            email:
+              type:
+              - string
+              - 'null'
+            msisdn:
+              type:
+              - string
+              - 'null'
+              description: Candidate phone number in E.164-like format (no leading `+`).
+            others:
+              type: object
+              description: Subset of the application's `others` attributes. Always includes a built-in allowlist (e.g. `candidate_feedback`, `talkscore_overall`, `talkscore_cefr`, `talkscore_reading`, `talkscore_grammar`, `talkscore_vocab`, `talkscore_fluency`, `talkscore_pronunciation`, `talkscore_comprehension`, `talkscore_active_listening`, `talkscore_generated_at`, `ai_interview_report`, `ai_interview_completion_date`, `ai_interview_scheduled_date`) plus any extra keys configured per company via the `ai_call_webhook_application_others` parameter.
+              additionalProperties: true
+            scheduled_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+              description: ISO 8601 timestamp of when the call was scheduled.
     agent_update_request:
       type: object
       required:
@@ -777,431 +1248,3 @@ components:
                     items:
                       type: string
                     description: Optional list of allowed values. Send an empty array for unconstrained extraction.
-    agent_create_response:
-      type: object
-      description: Response body returned after successfully creating an agent (HTTP 201). The `data_extractions` field is an array — unlike the keyed map returned by the show/update endpoints.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the newly created agent.
-        name:
-          type: string
-          nullable: true
-          description: Display name of the agent.
-        description:
-          type: string
-          nullable: true
-          description: Short description of the agent's purpose.
-        category:
-          type: string
-          nullable: true
-          description: Use-case category of the agent.
-          enum:
-          - screen_interview
-          - phone_call
-          - on_site_interview
-          - event_invitation
-          - passive_candidate_outreach
-          - status_update
-          - reminders
-        prompt:
-          type: string
-          description: The agent's prompt string.
-        question_set_id:
-          type: string
-          nullable: true
-          description: ID of the linked question set, if any.
-        provider:
-          type: string
-          nullable: true
-          description: AI provider powering the agent.
-          enum:
-          - elevenlabs
-          - vapi
-        provider_agent_id:
-          type: string
-          nullable: true
-          description: The agent identifier on the external provider's platform.
-        data_extractions:
-          type: array
-          description: List of data extraction rules configured on the agent.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                nullable: true
-                description: ID of the candidate attribute record.
-              candidate_attribute:
-                type: string
-                nullable: true
-                description: Key of the candidate attribute this extraction maps to.
-              data_type:
-                type: string
-                description: Data type of the extracted value.
-              description:
-                type: string
-                nullable: true
-                description: Instructions to the AI on what to extract.
-              number_of_values:
-                type: integer
-                description: Number of values to extract.
-              allowed_values:
-                type: array
-                items:
-                  type: string
-                description: List of allowed values for the extraction. Empty array if unconstrained.
-        is_active:
-          type: boolean
-          description: '`true` if the agent is active (published); `false` if inactive (draft).'
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of when the agent was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of when the agent was last updated.
-    agent_changelog_response:
-      type: object
-      description: Response envelope for the agent changelog endpoint.
-      properties:
-        agent_id:
-          type: string
-          description: Unique identifier of the agent.
-        data:
-          type: array
-          description: List of audit entries, ordered newest first.
-          items:
-            $ref: '#/components/schemas/changelog_entry'
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page number.
-            per_page:
-              type: integer
-              description: Number of records per page.
-            total:
-              type: integer
-              description: Total number of audit entries for this agent.
-            total_pages:
-              type: integer
-              description: Total number of pages available.
-      required:
-      - agent_id
-      - data
-      - pagination
-    agent_detail_response:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/agent_detail'
-      required:
-      - data
-    agent_calls_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/agent_call_body'
-        pagination:
-          $ref: '#/components/schemas/agent_calls_pagination'
-    agent_list_item:
-      type: object
-      description: Compact agent representation returned in the list endpoint.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the agent.
-        name:
-          type: string
-          description: Display name of the agent.
-          nullable: true
-        description:
-          type: string
-          description: Short description of the agent's purpose.
-          nullable: true
-        category:
-          type: string
-          description: Use-case category of the agent.
-          nullable: true
-          enum:
-          - screen_interview
-          - phone_call
-          - on_site_interview
-          - event_invitation
-          - passive_candidate_outreach
-          - status_update
-          - reminders
-        prompt:
-          type: string
-          description: The agent's prompt string. Returns an empty string when the prompt has not been set yet.
-        provider:
-          type: string
-          description: AI provider powering the agent.
-          nullable: true
-          enum:
-          - elevenlabs
-          - vapi
-        provider_agent_id:
-          type: string
-          description: The agent identifier on the external provider's platform.
-          nullable: true
-        question_set_id:
-          type: string
-          description: ID of the linked question set, if any.
-          nullable: true
-        data_extractions_count:
-          type: integer
-          description: Number of data extraction rules configured on this agent.
-        is_active:
-          type: boolean
-          description: '`true` if the agent is active (published); `false` if inactive (draft).'
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of when the agent was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of when the agent was last updated.
-    agents_list_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/agent_list_item'
-        pagination:
-          type: object
-          properties:
-            page:
-              type: integer
-              description: Current page number.
-            per_page:
-              type: integer
-              description: Number of items per page.
-            total:
-              type: integer
-              description: Total number of agents matching the filters.
-            total_pages:
-              type: integer
-              description: Total number of pages.
-      required:
-      - data
-      - pagination
-    agent_call_body:
-      type: object
-      properties:
-        company:
-          type: string
-          description: Name of the company (tenant) that owns the call.
-        company_id:
-          type: integer
-          description: Numeric ID of the company (tenant).
-        company_tenant:
-          type: string
-          description: Tenant/schema identifier of the company.
-        status:
-          type: string
-          description: Current status of the call.
-          enum:
-          - pending
-          - queued
-          - in_progress
-          - ended
-          - completed
-          - declined
-          - voicemail
-          - unfinished
-          - not_taken
-          - failed
-          - dropped
-        summary:
-          type: string
-          nullable: true
-          description: Natural-language summary of the call produced by the agent.
-        extracted_data:
-          type: object
-          nullable: true
-          description: Structured data extracted from the conversation, keyed by the data-extraction labels configured on the agent.
-          additionalProperties: true
-        interview_insights:
-          type: object
-          nullable: true
-          description: AI-generated analysis of the interview (e.g. strengths, weaknesses, highlights).
-          additionalProperties: true
-        transcript:
-          type: string
-          nullable: true
-          description: Full dialogue transcript between the agent and the candidate.
-        recording_url:
-          type: string
-          nullable: true
-          description: CDN URL of the call recording, when available.
-        identifier:
-          type: string
-          description: Unique identifier of the call record on the provider side.
-        agent:
-          type: object
-          properties:
-            identifier:
-              type: string
-              description: Provider-side identifier of the agent that handled the call (e.g. ElevenLabs / VAPI assistant ID).
-        application:
-          type: object
-          description: Context of the application (campaign invitation) associated with the call.
-          properties:
-            id:
-              type: integer
-              description: Application (campaign invitation) ID.
-            candidate_id:
-              type: integer
-              description: Candidate ID.
-            campaign_id:
-              type: integer
-              description: Campaign ID.
-            campaign_title:
-              type: string
-              description: Title of the campaign.
-            first_name:
-              type: string
-              nullable: true
-            last_name:
-              type: string
-              nullable: true
-            email:
-              type: string
-              nullable: true
-            msisdn:
-              type: string
-              nullable: true
-              description: Candidate phone number in E.164-like format (no leading `+`).
-            others:
-              type: object
-              description: Subset of the application's `others` attributes. Always includes a built-in allowlist (e.g. `candidate_feedback`, `talkscore_overall`, `talkscore_cefr`, `talkscore_reading`, `talkscore_grammar`, `talkscore_vocab`, `talkscore_fluency`, `talkscore_pronunciation`, `talkscore_comprehension`, `talkscore_active_listening`, `talkscore_generated_at`, `ai_interview_report`, `ai_interview_completion_date`, `ai_interview_scheduled_date`) plus any extra keys configured per company via the `ai_call_webhook_application_others` parameter.
-              additionalProperties: true
-            scheduled_at:
-              type: string
-              format: date-time
-              nullable: true
-              description: ISO 8601 timestamp of when the call was scheduled.
-    changelog_change:
-      type: object
-      description: A single field-level change within an audit entry.
-      properties:
-        field:
-          type: string
-          description: 'API name of the field that changed. Possible values: `agent_name`, `description`, `prompt`, `data_extractions`, `category`, `provider`, `provider_agent_id`, `question_set_id`, `is_active`.'
-        previous_value:
-          description: 'Value of the field before the change. Type varies by field: string for `agent_name`, `description`, `prompt`, `provider`, `category`, `provider_agent_id`, `question_set_id`; boolean for `is_active`; array of `{ "candidate_attribute": "<key>" }` objects for `data_extractions`; null when the field had no prior value.'
-          nullable: true
-        new_value:
-          description: Value of the field after the change. Same type conventions as `previous_value`. Null when the field was cleared.
-          nullable: true
-      required:
-      - field
-      - previous_value
-      - new_value
-    agent_detail:
-      type: object
-      description: Full agent representation returned by the show and update endpoints.
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the agent.
-        name:
-          type: string
-          description: Display name of the agent.
-          nullable: true
-        description:
-          type: string
-          description: Short description of the agent's purpose.
-          nullable: true
-        category:
-          type: string
-          description: Use-case category of the agent.
-          nullable: true
-          enum:
-          - screen_interview
-          - phone_call
-          - on_site_interview
-          - event_invitation
-          - passive_candidate_outreach
-          - status_update
-          - reminders
-        prompt:
-          type: string
-          description: The agent's full prompt string. Supports Handlebars-style variables such as `{{messenger_interview_url}}`, `{{interview_page_url}}`, and `{{messenger_interview_link}}`.
-        provider:
-          type: string
-          description: AI provider powering the agent.
-          nullable: true
-          enum:
-          - elevenlabs
-          - vapi
-        provider_info:
-          type: object
-          description: Human-readable provider metadata.
-          nullable: true
-          properties:
-            name:
-              type: string
-              description: Provider key (e.g. `elevenlabs`).
-            vendor:
-              type: string
-              description: Provider display name (e.g. `ElevenLabs`).
-        provider_agent_id:
-          type: string
-          description: The agent identifier on the external provider's platform.
-          nullable: true
-        question_set_id:
-          type: string
-          description: ID of the linked question set, if any.
-          nullable: true
-        question_set:
-          type: object
-          description: Linked question set metadata. Present only when a question set is associated.
-          nullable: true
-          properties:
-            id:
-              type: string
-            title:
-              type: string
-        data_extractions:
-          type: object
-          description: Map of data extraction rules keyed by the candidate attribute name. Each value defines the extraction schema for that attribute.
-          additionalProperties:
-            type: object
-            properties:
-              type:
-                type: string
-                description: Data type of the extracted value (e.g. `string`, `integer`).
-              description:
-                type: string
-                description: Instructions to the AI on what to extract.
-              enum:
-                type: array
-                items:
-                  type: string
-                description: List of allowed values for the extraction. Empty array if unconstrained.
-              candidate_attribute:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: ID of the candidate attribute this extraction maps to.
-        is_active:
-          type: boolean
-          description: '`true` if the agent is active (published); `false` if inactive (draft).'
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of when the agent was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of when the agent was last updated.

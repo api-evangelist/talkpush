@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+  description: 'Production Base URL to be used during implementation: {your company workspace subdomain}.talkpush.com/api/talkpush_services
 
 
-    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
-
-    '
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush.'
   version: '2.0'
-  title: Talkpush Agents API Campaigns API API
+  title: Talkpush Campaigns API
   contact:
     email: admin@talkpush.com
 servers:
@@ -46,11 +44,15 @@ paths:
           description: Campaigns not found for this company.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCampaigns
+      x-operation-id-source: derived
     post:
       tags:
       - Campaigns API
       summary: Create a new campaign inside your Talkpush account
-      description: "This endpoint lets you create a new campaign inside Talkpush. Not all the information required to set up a fully operational campaign can be provided via the API.  Permission settings, questions, message, smart filters and notifications need to set up from the campaign settings inside the CRM. \nA common use case for this endpoint would be the automatic creation of a campaign inside Talkpush when a user creates a job requisiton inside an integrated ATS.\n"
+      description: 'This endpoint lets you create a new campaign inside Talkpush. Not all the information required to set up a fully operational campaign can be provided via the API. Permission settings, questions, message, smart filters and notifications need to set up from the campaign settings inside the CRM.
+
+        A common use case for this endpoint would be the automatic creation of a campaign inside Talkpush when a user creates a job requisiton inside an integrated ATS.'
       requestBody:
         $ref: '#/components/requestBodies/campaign_request'
       responses:
@@ -62,6 +64,8 @@ paths:
           description: Country not found. Will return the list of available countries.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: postCampaigns
+      x-operation-id-source: derived
   /campaigns/archive:
     get:
       tags:
@@ -86,6 +90,8 @@ paths:
           description: No archive campaigns found for this company.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCampaignsArchive
+      x-operation-id-source: derived
   /campaigns/search/{criteria}:
     get:
       tags:
@@ -116,6 +122,8 @@ paths:
           description: Campaigns not match the criteria.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCampaignsSearchByCriteria
+      x-operation-id-source: derived
   /campaigns/{id}:
     get:
       tags:
@@ -146,11 +154,13 @@ paths:
           description: Campaign not found for this company.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCampaignsById
+      x-operation-id-source: derived
     put:
       tags:
       - Campaigns API
       summary: Update a campaign inside your Talkpush account
-      description: "This endpoint lets you update an exixting campaign inside Talkpush. Not all the information required to update the campaign.  Permission settings, questions, message, smart filters and notifications need to be updated from the campaign settings inside the CRM. \n"
+      description: This endpoint lets you update an exixting campaign inside Talkpush. Not all the information required to update the campaign. Permission settings, questions, message, smart filters and notifications need to be updated from the campaign settings inside the CRM.
       parameters:
       - name: id
         in: path
@@ -167,12 +177,14 @@ paths:
           description: Campaign not found. | Country not found. Will return the list of available countries.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: putCampaignsById
+      x-operation-id-source: derived
   /campaigns/{id}/questions:
     get:
       tags:
       - Campaigns API
       summary: Get questions for a specific campaign
-      description: This endpoint let's you retrieve all the questions that are associated to a campaign for which you provide the ID in the path. <b> DISCLAIMER </b> - Only text, short_text and multiple choice types supported. No audio or image type question supported.
+      description: This endpoint let's you retrieve all the questions that are associated to a campaign for which you provide the ID in the path. DISCLAIMER - Only text, short_text and multiple choice types supported. No audio or image type question supported.
       parameters:
       - name: api_key
         in: query
@@ -202,6 +214,8 @@ paths:
           description: Invalid Campaign Id. Or Questions not found for this campaign.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCampaignsByIdQuestions
+      x-operation-id-source: derived
   /campaigns/{id}/folders:
     get:
       tags:
@@ -235,6 +249,8 @@ paths:
                       $ref: '#/components/schemas/folder_body'
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCampaignsByIdFolders
+      x-operation-id-source: derived
   /campaigns/{id}/archive:
     put:
       tags:
@@ -261,6 +277,8 @@ paths:
           description: Campaign not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: putCampaignsByIdArchive
+      x-operation-id-source: derived
   /campaigns/{id}/activate:
     put:
       tags:
@@ -287,6 +305,8 @@ paths:
           description: Campaign not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: putCampaignsByIdActivate
+      x-operation-id-source: derived
   /campaigns/{campaign_id}/folders/{folder_id}:
     post:
       tags:
@@ -319,24 +339,10 @@ paths:
           description: Campaign not found | Folder not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: postCampaignsByCampaignIdFoldersByFolderId
+      x-operation-id-source: derived
 components:
   schemas:
-    folder_body:
-      type: object
-      required:
-      - id
-      - folder_name
-      - default
-      properties:
-        id:
-          type: number
-          description: Folder ID.
-        folder_name:
-          type: string
-          description: The name you want the custom folder to have.
-        default:
-          type: boolean
-          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
     question_body:
       type: object
       properties:
@@ -357,13 +363,6 @@ components:
           description: Array of strings that cointais the possible options for the question if the type is multiple choice.
           items:
             type: string
-    campaigns_response:
-      type: object
-      properties:
-        campaigns:
-          type: array
-          items:
-            $ref: '#/components/schemas/campaign_response_body'
     campaign_response_body:
       type: object
       properties:
@@ -442,6 +441,22 @@ components:
         allow_applications:
           type: boolean
           description: If the campaign is accepting new applications.
+    folder_body:
+      type: object
+      required:
+      - id
+      - folder_name
+      - default
+      properties:
+        id:
+          type: number
+          description: Folder ID.
+        folder_name:
+          type: string
+          description: The name you want the custom folder to have.
+        default:
+          type: boolean
+          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
     campaign:
       type: object
       required:
@@ -513,3 +528,10 @@ components:
         allow_applications:
           type: boolean
           description: If the campaign is accepting new applications.
+    campaigns_response:
+      type: object
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/campaign_response_body'

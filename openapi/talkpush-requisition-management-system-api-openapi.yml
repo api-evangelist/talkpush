@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+  description: 'Production Base URL to be used during implementation: {your company workspace subdomain}.talkpush.com/api/talkpush_services
 
 
-    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
-
-    '
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush.'
   version: '2.0'
-  title: Talkpush Agents API Requisition Management System API
+  title: Talkpush Requisition Management System API
   contact:
     email: admin@talkpush.com
 servers:
@@ -75,6 +73,8 @@ paths:
                     example: CAMPAIGN_ALREADY_EXISTS
         '500':
           description: Internal Server Error
+      operationId: postRmsCallback
+      x-operation-id-source: derived
 components:
   schemas:
     JobRequisitionCallback:

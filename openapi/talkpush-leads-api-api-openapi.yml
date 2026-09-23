@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+  description: 'Production Base URL to be used during implementation: {your company workspace subdomain}.talkpush.com/api/talkpush_services
 
 
-    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
-
-    '
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush.'
   version: '2.0'
-  title: Talkpush Agents API Leads API API
+  title: Talkpush Leads API
   contact:
     email: admin@talkpush.com
 servers:
@@ -21,7 +19,11 @@ paths:
       tags:
       - Leads API
       summary: Retrieve a list of leads matching your search criterias
-      description: "This API endpoint will enable you to search through your lead database programatically  with the same criterias than you would use on the recruiter's leads page.  You can execute 2 kinds of search: \n  * Use the query parameter which is equivalent to typing your search query in a search bar. \n  * Use a combination of parameter to execute an advanced search\n"
+      description: 'This API endpoint will enable you to search through your lead database programatically with the same criterias than you would use on the recruiter''s leads page. You can execute 2 kinds of search:
+
+        * Use the query parameter which is equivalent to typing your search query in a search bar.
+
+        * Use a combination of parameter to execute an advanced search'
       parameters:
       - name: api_key
         in: query
@@ -173,6 +175,8 @@ paths:
                 $ref: '#/components/schemas/leads_response'
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCampaignInvitations
+      x-operation-id-source: derived
   /campaign_invitations/{id}:
     patch:
       tags:
@@ -207,6 +211,8 @@ paths:
           description: Campaign Invitation not found for this company
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: patchCampaignInvitationsById
+      x-operation-id-source: derived
   /campaigns/{id}/campaign_invitations:
     post:
       tags:
@@ -241,12 +247,12 @@ paths:
           description: Campaign not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: postCampaignsByIdCampaignInvitations
+      x-operation-id-source: derived
   /campaign_invitations/{id}/interview:
     post:
       summary: Complete the interview for a candidate aplication
-      description: 'With this endpoint a candidate can complete the campaign''s interview. <b> DISCLAIMER </b> - Only text, short_text and multiple choice question types supported. No audio or image question type supported.
-
-        '
+      description: With this endpoint a candidate can complete the campaign's interview. DISCLAIMER - Only text, short_text and multiple choice question types supported. No audio or image question type supported.
       tags:
       - Leads API
       parameters:
@@ -272,12 +278,12 @@ paths:
           description: Candidate not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: postCampaignInvitationsByIdInterview
+      x-operation-id-source: derived
   /campaign_invitations/{id}/comments:
     post:
       summary: Create a comment for a lead
-      description: 'With this endpoint you can add comments to the lead''s profile (the campaign invitation).
-
-        '
+      description: With this endpoint you can add comments to the lead's profile (the campaign invitation).
       tags:
       - Leads API
       parameters:
@@ -303,6 +309,8 @@ paths:
           description: Campaign Invitation not found | Manager not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: postCampaignInvitationsByIdComments
+      x-operation-id-source: derived
   /campaign_invitations/{id}/{status}:
     put:
       tags:
@@ -348,12 +356,12 @@ paths:
           description: Campaign Invitation not found for this company
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: putCampaignInvitationsByIdByStatus
+      x-operation-id-source: derived
   /campaign_invitations/{id}/move:
     put:
       summary: Move a lead to a different campaign
-      description: 'With this endpoint you can move a lead (the campaign invitation) between different campaigns. E.g. a candidate applied for Front end developer but her profile actually suits the fullstack developer position better, in that case you might want to move the application to the fullstack developer campaign.  Applications cannot be moved to the inbox folder of another campaign.
-
-        '
+      description: With this endpoint you can move a lead (the campaign invitation) between different campaigns. E.g. a candidate applied for Front end developer but her profile actually suits the fullstack developer position better, in that case you might want to move the application to the fullstack developer campaign. Applications cannot be moved to the inbox folder of another campaign.
       tags:
       - Leads API
       parameters:
@@ -381,6 +389,8 @@ paths:
           description: Campaign Invitation not found | Campaign not found. | Folder not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: putCampaignInvitationsByIdMove
+      x-operation-id-source: derived
   /campaign_invitations/{id}/reassign:
     put:
       summary: Reassign a lead to another user
@@ -408,6 +418,8 @@ paths:
           description: Lead Id or Asignee email not found.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: putCampaignInvitationsByIdReassign
+      x-operation-id-source: derived
   /campaign_invitations/{id}/documents:
     put:
       summary: Attach a document to a lead
@@ -461,95 +473,10 @@ paths:
           description: Campaign Invitation or Document Tag not found.
         '500':
           description: Internal server error, we will provide you with the exception message.
+      operationId: putCampaignInvitationsByIdDocuments
+      x-operation-id-source: derived
 components:
   schemas:
-    interview_request:
-      type: object
-      required:
-      - api_key
-      - answers
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/answer_body'
-    campaign_invitation_request:
-      type: object
-      required:
-      - candidate
-      properties:
-        candidate:
-          $ref: '#/components/schemas/lead'
-    lead:
-      required:
-      - email
-      - first_name
-      - last_name
-      properties:
-        first_name:
-          type: string
-          description: candidate's first name
-        last_name:
-          type: string
-          description: candidate's last name
-        email:
-          type: string
-          description: candidate's email address
-        user_phone_number:
-          type: string
-          description: candidate's phone number
-        source:
-          type: string
-          description: Microsite name
-        others:
-          type: object
-          description: Other candidate information. Any key is valid as long as it is in a JSON format
-          additionalProperties: true
-          example:
-            custom_field1: value1
-            custom_field2: value2
-        labels:
-          type: object
-          description: Optional. Add and/or remove labels on this candidate. When provided, BOTH `add` and `remove` must be present (use `[]` for the side you don't need). Names must already exist as company labels — see `POST /company/labels`.
-          required:
-          - add
-          - remove
-          properties:
-            add:
-              type: array
-              items:
-                type: string
-              description: Label names to attach to the candidate. Names already attached are silently ignored (no duplicates).
-            remove:
-              type: array
-              items:
-                type: string
-              description: Label names to detach from the candidate.
-          example:
-            add:
-            - Manager Approved
-            - Priority
-            remove:
-            - Needs Review
-    move_campaign_invitation_request:
-      type: object
-      required:
-      - api_key
-      - campaign_id
-      - folder_id
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        campaign_id:
-          type: string
-          description: The ID of the campaign into which the campaign invitation should be moved.
-        folder_id:
-          type: string
-          description: The ID of the folder into which the campaign inivitation should be moved inside the destination campaign.
     create_lead_request:
       type: object
       required:
@@ -561,6 +488,50 @@ components:
           description: The API key provided for your application
         campaign_invitation:
           $ref: '#/components/schemas/lead'
+    comments_request:
+      type: object
+      required:
+      - api_key
+      - manager_email
+      - content
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        manager_email:
+          type: string
+          description: Email of the Talkpush CRM user account that is creating the comment.
+        content:
+          type: string
+          description: Text content for the comment in HTML form.
+    reassign_request:
+      type: object
+      required:
+      - api_key
+      - assignee_email
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        assignee_email:
+          type: string
+          description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
+    leads_response:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: The total number of leads that match the query criteria.
+        current_page:
+          type: integer
+          description: A page contains 12 leads, this is the indicator of the page that you are looking at.
+        pages:
+          type: integer
+          description: The total number of pages available for the result.
+        candidates:
+          type: array
+          items:
+            $ref: '#/components/schemas/leads_response_candidates'
     leads_response_candidates:
       type: object
       properties:
@@ -680,34 +651,93 @@ components:
                     url:
                       description: File URL. **The file URL is a public link that has an expiration time of 7 days.**
                       type: string
-    leads_response:
-      type: object
+    lead:
+      required:
+      - email
+      - first_name
+      - last_name
       properties:
-        total:
-          type: integer
-          description: The total number of leads that match the query criteria.
-        current_page:
-          type: integer
-          description: A page contains 12 leads, this is the indicator of the page that you are looking at.
-        pages:
-          type: integer
-          description: The total number of pages available for the result.
-        candidates:
-          type: array
-          items:
-            $ref: '#/components/schemas/leads_response_candidates'
-    reassign_request:
+        first_name:
+          type: string
+          description: candidate's first name
+        last_name:
+          type: string
+          description: candidate's last name
+        email:
+          type: string
+          description: candidate's email address
+        user_phone_number:
+          type: string
+          description: candidate's phone number
+        source:
+          type: string
+          description: Microsite name
+        others:
+          type: object
+          description: Other candidate information. Any key is valid as long as it is in a JSON format
+          additionalProperties: true
+          example:
+            custom_field1: value1
+            custom_field2: value2
+        labels:
+          type: object
+          description: Optional. Add and/or remove labels on this candidate. When provided, BOTH `add` and `remove` must be present (use `[]` for the side you don't need). Names must already exist as company labels — see `POST /company/labels`.
+          required:
+          - add
+          - remove
+          properties:
+            add:
+              type: array
+              items:
+                type: string
+              description: Label names to attach to the candidate. Names already attached are silently ignored (no duplicates).
+            remove:
+              type: array
+              items:
+                type: string
+              description: Label names to detach from the candidate.
+          example:
+            add:
+            - Manager Approved
+            - Priority
+            remove:
+            - Needs Review
+    move_campaign_invitation_request:
       type: object
       required:
       - api_key
-      - assignee_email
+      - campaign_id
+      - folder_id
       properties:
         api_key:
           type: string
           description: The API key provided for your application
-        assignee_email:
+        campaign_id:
           type: string
-          description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
+          description: The ID of the campaign into which the campaign invitation should be moved.
+        folder_id:
+          type: string
+          description: The ID of the folder into which the campaign inivitation should be moved inside the destination campaign.
+    interview_request:
+      type: object
+      required:
+      - api_key
+      - answers
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/answer_body'
+    campaign_invitation_request:
+      type: object
+      required:
+      - candidate
+      properties:
+        candidate:
+          $ref: '#/components/schemas/lead'
     answer_body:
       type: object
       required:
@@ -723,19 +753,3 @@ components:
         answer:
           type: string
           description: Answer provided for the question.
-    comments_request:
-      type: object
-      required:
-      - api_key
-      - manager_email
-      - content
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        manager_email:
-          type: string
-          description: Email of the Talkpush CRM user account that is creating the comment.
-        content:
-          type: string
-          description: Text content for the comment in HTML form.

@@ -1,13 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  description: '<b>Production Base URL to be used during implementation:</b> {your company workspace subdomain}.talkpush.com/api/talkpush_services
+  description: 'Production Base URL to be used during implementation: {your company workspace subdomain}.talkpush.com/api/talkpush_services
 
 
-    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush. You can also synch your <b> existing HR / Recruitment technology stack </b> with your Talkpush account. To be able to use our API you will need pass an api key as a parameter for each API call.  In case you do not know your current API key you can contact our support team at cs@talkpush.com.
-
-    '
+    With the Talkpush APIs you can instantly plug your lead source into out platform to enjoy the benefits of Talkpush.'
   version: '2.0'
-  title: Talkpush Agents API Folders API API
+  title: Talkpush Folders API
   contact:
     email: admin@talkpush.com
 servers:
@@ -43,6 +41,8 @@ paths:
                       $ref: '#/components/schemas/folder_body'
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: getCompanyFolders
+      x-operation-id-source: derived
     post:
       tags:
       - Folders API
@@ -70,8 +70,21 @@ paths:
           description: Conflict. The folder name sent already exists.
         '500':
           description: Internal server error, we will provide you with the exception message of the application.
+      operationId: postCompanyFolders
+      x-operation-id-source: derived
 components:
   schemas:
+    folder_request:
+      type: object
+      required:
+      - api_key
+      - folder
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        folder:
+          $ref: '#/components/schemas/folder_body'
     folder_body:
       type: object
       required:
@@ -88,14 +101,3 @@ components:
         default:
           type: boolean
           description: Default folders are by default associated to all campaigns in the account. By default this option is false.
-    folder_request:
-      type: object
-      required:
-      - api_key
-      - folder
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        folder:
-          $ref: '#/components/schemas/folder_body'

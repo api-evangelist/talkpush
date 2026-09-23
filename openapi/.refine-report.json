@@ -1,20 +1,7 @@
 {
   "provider": "talkpush",
   "sources": [
-    "talkpush-agents-api-api-openapi.yml",
-    "talkpush-calls-api-api-openapi.yml",
-    "talkpush-campaigns-api-api-openapi.yml",
-    "talkpush-candidate-attributes-api-api-openapi.yml",
-    "talkpush-document-tags-api-api-openapi.yml",
-    "talkpush-folders-api-api-openapi.yml",
-    "talkpush-labels-api-api-openapi.yml",
-    "talkpush-leads-api-api-openapi.yml",
-    "talkpush-managers-api-api-openapi.yml",
-    "talkpush-message-templates-api-api-openapi.yml",
-    "talkpush-messaging-api-api-openapi.yml",
-    "talkpush-movement-reasons-api-api-openapi.yml",
-    "talkpush-requisition-management-system-api-openapi.yml",
-    "talkpush-tokens-api-api-openapi.yml"
+    "_original/talkpush-openapi.json"
   ],
   "outputs": [
     "talkpush-agents-api-api-openapi.yml",
@@ -34,9 +21,28 @@
   ],
   "archived": [],
   "errors": [
-    "talkpush-campaigns-api-api-openapi.yml: dangling $ref: #/components/requestBodies/campaign_request"
+    "talkpush-openapi.json: dangling $ref: #/components/requestBodies/campaign_request"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "talkpush-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "talkpush-agents-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-calls-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-campaigns-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-candidate-attributes-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-document-tags-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-folders-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-labels-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-leads-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-managers-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-message-templates-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-messaging-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-movement-reasons-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-requisition-management-system-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "talkpush-tokens-api-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
