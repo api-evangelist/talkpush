@@ -363,6 +363,22 @@ components:
           description: Array of strings that cointais the possible options for the question if the type is multiple choice.
           items:
             type: string
+    folder_body:
+      type: object
+      required:
+      - id
+      - folder_name
+      - default
+      properties:
+        id:
+          type: number
+          description: Folder ID.
+        folder_name:
+          type: string
+          description: The name you want the custom folder to have.
+        default:
+          type: boolean
+          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
     campaign_response_body:
       type: object
       properties:
@@ -441,22 +457,13 @@ components:
         allow_applications:
           type: boolean
           description: If the campaign is accepting new applications.
-    folder_body:
+    campaigns_response:
       type: object
-      required:
-      - id
-      - folder_name
-      - default
       properties:
-        id:
-          type: number
-          description: Folder ID.
-        folder_name:
-          type: string
-          description: The name you want the custom folder to have.
-        default:
-          type: boolean
-          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/campaign_response_body'
     campaign:
       type: object
       required:
@@ -528,10 +535,3 @@ components:
         allow_applications:
           type: boolean
           description: If the campaign is accepting new applications.
-    campaigns_response:
-      type: object
-      properties:
-        campaigns:
-          type: array
-          items:
-            $ref: '#/components/schemas/campaign_response_body'

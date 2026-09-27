@@ -147,6 +147,63 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    label:
+      type: object
+      description: A company-wide candidate label.
+      properties:
+        id:
+          type: integer
+          description: Database id of the label.
+        name:
+          type: string
+          description: Display name; unique within the company.
+        created_at:
+          type: string
+          format: date-time
+          description: When the label was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: When the label was last updated.
+      required:
+      - id
+      - name
+      - created_at
+      - updated_at
+    label_create_request:
+      type: object
+      required:
+      - label
+      properties:
+        label:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              type: string
+              description: Display name. Trimmed of surrounding whitespace. Must be unique within the company and cannot contain `,`, `#` or `?`.
+    label_validation_error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          example: unprocessable_entity
+        message:
+          type: string
+          example: Name is invalid
+    labels_list_response:
+      type: object
+      required:
+      - labels
+      properties:
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/label'
     label_conflict_error:
       type: object
       required:
@@ -178,60 +235,3 @@ components:
       properties:
         label:
           $ref: '#/components/schemas/label'
-    label:
-      type: object
-      description: A company-wide candidate label.
-      properties:
-        id:
-          type: integer
-          description: Database id of the label.
-        name:
-          type: string
-          description: Display name; unique within the company.
-        created_at:
-          type: string
-          format: date-time
-          description: When the label was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: When the label was last updated.
-      required:
-      - id
-      - name
-      - created_at
-      - updated_at
-    labels_list_response:
-      type: object
-      required:
-      - labels
-      properties:
-        labels:
-          type: array
-          items:
-            $ref: '#/components/schemas/label'
-    label_create_request:
-      type: object
-      required:
-      - label
-      properties:
-        label:
-          type: object
-          required:
-          - name
-          properties:
-            name:
-              type: string
-              description: Display name. Trimmed of surrounding whitespace. Must be unique within the company and cannot contain `,`, `#` or `?`.
-    label_validation_error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          example: unprocessable_entity
-        message:
-          type: string
-          example: Name is invalid

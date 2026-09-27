@@ -92,6 +92,27 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    manager_bad_request_error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          example: bad_request
+        message:
+          type: string
+          example: Parameter 'name' must be a string.
+    managers_list_response:
+      type: object
+      required:
+      - managers
+      properties:
+        managers:
+          type: array
+          items:
+            $ref: '#/components/schemas/manager'
     manager:
       type: object
       description: A single manager — a platform user belonging to the company, with a role and contact details.
@@ -116,24 +137,3 @@ components:
       - name
       - email
       - role
-    manager_bad_request_error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          example: bad_request
-        message:
-          type: string
-          example: Parameter 'name' must be a string.
-    managers_list_response:
-      type: object
-      required:
-      - managers
-      properties:
-        managers:
-          type: array
-          items:
-            $ref: '#/components/schemas/manager'

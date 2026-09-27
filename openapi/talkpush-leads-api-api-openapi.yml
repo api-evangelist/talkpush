@@ -477,45 +477,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    create_lead_request:
-      type: object
-      required:
-      - api_key
-      - campaign_invitation
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        campaign_invitation:
-          $ref: '#/components/schemas/lead'
-    comments_request:
-      type: object
-      required:
-      - api_key
-      - manager_email
-      - content
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        manager_email:
-          type: string
-          description: Email of the Talkpush CRM user account that is creating the comment.
-        content:
-          type: string
-          description: Text content for the comment in HTML form.
-    reassign_request:
-      type: object
-      required:
-      - api_key
-      - assignee_email
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        assignee_email:
-          type: string
-          description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
     leads_response:
       type: object
       properties:
@@ -718,25 +679,51 @@ components:
         folder_id:
           type: string
           description: The ID of the folder into which the campaign inivitation should be moved inside the destination campaign.
-    interview_request:
+    comments_request:
       type: object
       required:
       - api_key
-      - answers
+      - manager_email
+      - content
       properties:
         api_key:
           type: string
           description: The API key provided for your application
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/answer_body'
+        manager_email:
+          type: string
+          description: Email of the Talkpush CRM user account that is creating the comment.
+        content:
+          type: string
+          description: Text content for the comment in HTML form.
     campaign_invitation_request:
       type: object
       required:
       - candidate
       properties:
         candidate:
+          $ref: '#/components/schemas/lead'
+    reassign_request:
+      type: object
+      required:
+      - api_key
+      - assignee_email
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        assignee_email:
+          type: string
+          description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
+    create_lead_request:
+      type: object
+      required:
+      - api_key
+      - campaign_invitation
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        campaign_invitation:
           $ref: '#/components/schemas/lead'
     answer_body:
       type: object
@@ -753,3 +740,16 @@ components:
         answer:
           type: string
           description: Answer provided for the question.
+    interview_request:
+      type: object
+      required:
+      - api_key
+      - answers
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/answer_body'

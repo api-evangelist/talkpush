@@ -93,6 +93,13 @@ components:
         quick_reply_id:
           type: integer
           description: The ID of the quick reply template that should be sent.
+    quick_reply_response:
+      type: object
+      properties:
+        quick_replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/quick_reply'
     quick_reply:
       type: object
       properties:
@@ -105,10 +112,3 @@ components:
         content:
           type: string
           description: The content of the body is the actual message that is sent to the candidate, it may contain Tokens (e.g. Candidate Name) that are dynamically replaced by CRM upon sending the message.
-    quick_reply_response:
-      type: object
-      properties:
-        quick_replies:
-          type: array
-          items:
-            $ref: '#/components/schemas/quick_reply'

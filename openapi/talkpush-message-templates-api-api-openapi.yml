@@ -243,99 +243,37 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    token:
-      type: object
-      description: A message token available for use in template content.
-      properties:
-        id:
-          type: string
-          description: The token key used in Handlebars syntax — use this as `{{id}}` in `content`.
-          example: candidate_name
-        display_name:
-          type: string
-          description: Human-readable label shown in the UI.
-          example: Candidate Name
-        description:
-          type:
-          - string
-          - 'null'
-          description: Optional description of what the token resolves to at send time. `null` for system tokens.
-          example: null
-      required:
-      - id
-      - display_name
-      - description
-    message_template_create_request:
+    message_template_error:
       type: object
       required:
-      - name
-      - content
-      - type
-      - sub_type
-      - category
+      - error
+      - message
       properties:
-        name:
+        error:
           type: string
-          description: Display name for the template.
-        content:
-          type: string
-          description: Template body in Handlebars format. Use `{{token_id}}` for dynamic values (see `GET /messaging/tokens` for available tokens).
-        type:
-          type: string
-          description: Communication channel. Must be one of `email`, `sms`, `whatsapp`, `messenger`. (`calendar` is not yet supported via the API.)
+          description: Machine-readable error code.
           enum:
-          - email
-          - sms
-          - whatsapp
-          - messenger
-        sub_type:
+          - missing_params
+          - invalid_type
+          - invalid_tokens
+          - validation_failed
+          example: invalid_tokens
+        message:
           type: string
-          description: Open-ended sub-classification (e.g. `invitation`, `rejection`, `reminder`). No fixed enum.
-        category:
-          type: string
-          description: Free-form grouping for the template (e.g. `onboarding`, `scheduling`, `rejection`, `offer`, `general`).
-        locale:
-          type: string
-          description: BCP 47 language tag. Defaults to `en` when omitted.
-          default: en
-          example: en
-        settings:
+          description: Human-readable description of the error.
+          example: content contains unrecognised tokens
+        details:
           type: object
-          description: Optional channel-specific settings. For email templates, include `subject_line` here.
-          additionalProperties: true
-          example:
-            subject_line: Your interview invitation — {{job_title}}
-    message_template_update_request:
-      type: object
-      description: All fields are optional. Only provided fields are updated.
-      properties:
-        name:
-          type: string
-          description: New display name.
-        content:
-          type: string
-          description: New content in Handlebars format. All tokens are re-validated if this field is present.
-        type:
-          type: string
-          description: New channel type.
-          enum:
-          - email
-          - sms
-          - whatsapp
-          - messenger
-        sub_type:
-          type: string
-          description: New sub-classification.
-        category:
-          type: string
-          description: New category.
-        locale:
-          type: string
-          description: New locale tag.
-        settings:
-          type: object
-          description: Settings to merge into the existing settings object. `content_state` is always stripped.
-          additionalProperties: true
+          description: Present only for `invalid_tokens` errors.
+          properties:
+            invalid_tokens:
+              type: array
+              items:
+                type: string
+              description: List of unrecognised token names found in `content`.
+              example:
+              - bogus_token
+              - unknown_field
     message_templates_list_response:
       type: object
       required:
@@ -416,34 +354,96 @@ components:
       properties:
         message_template:
           $ref: '#/components/schemas/message_template'
-    message_template_error:
+    message_template_update_request:
+      type: object
+      description: All fields are optional. Only provided fields are updated.
+      properties:
+        name:
+          type: string
+          description: New display name.
+        content:
+          type: string
+          description: New content in Handlebars format. All tokens are re-validated if this field is present.
+        type:
+          type: string
+          description: New channel type.
+          enum:
+          - email
+          - sms
+          - whatsapp
+          - messenger
+        sub_type:
+          type: string
+          description: New sub-classification.
+        category:
+          type: string
+          description: New category.
+        locale:
+          type: string
+          description: New locale tag.
+        settings:
+          type: object
+          description: Settings to merge into the existing settings object. `content_state` is always stripped.
+          additionalProperties: true
+    message_template_create_request:
       type: object
       required:
-      - error
-      - message
+      - name
+      - content
+      - type
+      - sub_type
+      - category
       properties:
-        error:
+        name:
           type: string
-          description: Machine-readable error code.
+          description: Display name for the template.
+        content:
+          type: string
+          description: Template body in Handlebars format. Use `{{token_id}}` for dynamic values (see `GET /messaging/tokens` for available tokens).
+        type:
+          type: string
+          description: Communication channel. Must be one of `email`, `sms`, `whatsapp`, `messenger`. (`calendar` is not yet supported via the API.)
           enum:
-          - missing_params
-          - invalid_type
-          - invalid_tokens
-          - validation_failed
-          example: invalid_tokens
-        message:
+          - email
+          - sms
+          - whatsapp
+          - messenger
+        sub_type:
           type: string
-          description: Human-readable description of the error.
-          example: content contains unrecognised tokens
-        details:
+          description: Open-ended sub-classification (e.g. `invitation`, `rejection`, `reminder`). No fixed enum.
+        category:
+          type: string
+          description: Free-form grouping for the template (e.g. `onboarding`, `scheduling`, `rejection`, `offer`, `general`).
+        locale:
+          type: string
+          description: BCP 47 language tag. Defaults to `en` when omitted.
+          default: en
+          example: en
+        settings:
           type: object
-          description: Present only for `invalid_tokens` errors.
-          properties:
-            invalid_tokens:
-              type: array
-              items:
-                type: string
-              description: List of unrecognised token names found in `content`.
-              example:
-              - bogus_token
-              - unknown_field
+          description: Optional channel-specific settings. For email templates, include `subject_line` here.
+          additionalProperties: true
+          example:
+            subject_line: Your interview invitation — {{job_title}}
+    token:
+      type: object
+      description: A message token available for use in template content.
+      properties:
+        id:
+          type: string
+          description: The token key used in Handlebars syntax — use this as `{{id}}` in `content`.
+          example: candidate_name
+        display_name:
+          type: string
+          description: Human-readable label shown in the UI.
+          example: Candidate Name
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description of what the token resolves to at send time. `null` for system tokens.
+          example: null
+      required:
+      - id
+      - display_name
+      - description

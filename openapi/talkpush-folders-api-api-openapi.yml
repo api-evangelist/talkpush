@@ -74,17 +74,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    folder_request:
-      type: object
-      required:
-      - api_key
-      - folder
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        folder:
-          $ref: '#/components/schemas/folder_body'
     folder_body:
       type: object
       required:
@@ -101,3 +90,14 @@ components:
         default:
           type: boolean
           description: Default folders are by default associated to all campaigns in the account. By default this option is false.
+    folder_request:
+      type: object
+      required:
+      - api_key
+      - folder
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        folder:
+          $ref: '#/components/schemas/folder_body'

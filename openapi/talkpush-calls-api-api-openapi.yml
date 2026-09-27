@@ -67,6 +67,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    calls_pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: The current page number.
+        per_page:
+          type: integer
+          description: The number of records per page.
+        total_records:
+          type: integer
+          description: The total number of call records matching the query.
+        total_pages:
+          type: integer
+          description: The total number of pages available.
+    calls_response:
+      type: object
+      properties:
+        start_date:
+          type: string
+          description: The start date of the requested date range. Format DD-MM-YYYY.
+        end_date:
+          type: string
+          description: The end date of the requested date range. Format DD-MM-YYYY.
+        pagination:
+          $ref: '#/components/schemas/calls_pagination'
+        calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/call_body'
     call_body:
       type: object
       properties:
@@ -118,33 +148,3 @@ components:
           - string
           - 'null'
           description: The URL of the call recording, if available.
-    calls_response:
-      type: object
-      properties:
-        start_date:
-          type: string
-          description: The start date of the requested date range. Format DD-MM-YYYY.
-        end_date:
-          type: string
-          description: The end date of the requested date range. Format DD-MM-YYYY.
-        pagination:
-          $ref: '#/components/schemas/calls_pagination'
-        calls:
-          type: array
-          items:
-            $ref: '#/components/schemas/call_body'
-    calls_pagination:
-      type: object
-      properties:
-        page:
-          type: integer
-          description: The current page number.
-        per_page:
-          type: integer
-          description: The number of records per page.
-        total_records:
-          type: integer
-          description: The total number of call records matching the query.
-        total_pages:
-          type: integer
-          description: The total number of pages available.
