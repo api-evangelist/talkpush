@@ -89,6 +89,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    movement_reason_validation_error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          example: unprocessable_entity
+        message:
+          type: string
+          example: 'Invalid type ''foo''. Must be one of: rejected, shortlisted.'
     movement_reasons_list_response:
       type: object
       required:
@@ -119,15 +131,3 @@ components:
       - id
       - name
       - type
-    movement_reason_validation_error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          example: unprocessable_entity
-        message:
-          type: string
-          example: 'Invalid type ''foo''. Must be one of: rejected, shortlisted.'
