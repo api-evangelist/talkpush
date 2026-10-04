@@ -116,6 +116,15 @@ components:
       - name
       - email
       - role
+    managers_list_response:
+      type: object
+      required:
+      - managers
+      properties:
+        managers:
+          type: array
+          items:
+            $ref: '#/components/schemas/manager'
     manager_bad_request_error:
       type: object
       required:
@@ -128,12 +137,3 @@ components:
         message:
           type: string
           example: Parameter 'name' must be a string.
-    managers_list_response:
-      type: object
-      required:
-      - managers
-      properties:
-        managers:
-          type: array
-          items:
-            $ref: '#/components/schemas/manager'

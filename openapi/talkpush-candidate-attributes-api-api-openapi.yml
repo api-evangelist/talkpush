@@ -123,14 +123,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    candidate_attribute_conflict_error:
+    candidate_attribute_single_response:
       type: object
-      properties:
-        error:
-          type: string
-          example: A candidate attribute with this key already exists
       required:
-      - error
+      - candidate_attribute
+      properties:
+        candidate_attribute:
+          $ref: '#/components/schemas/candidate_attribute'
     candidate_attribute:
       type: object
       description: Single attribute definition as returned by the API (list or create response).
@@ -183,6 +182,33 @@ components:
       - private
       - restrict_to_owners
       - default
+    candidate_attributes_list_response:
+      type: object
+      properties:
+        candidate_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/candidate_attribute'
+      required:
+      - candidate_attributes
+    candidate_attribute_conflict_error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: A candidate attribute with this key already exists
+      required:
+      - error
+    candidate_attribute_validation_errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+          description: Rails `full_messages` when model validation fails.
+      required:
+      - errors
     candidate_attribute_create_request:
       type: object
       required:
@@ -218,29 +244,3 @@ components:
             auto_add_to_all_candidates:
               type: boolean
               description: Maps to shared / auto-add behavior when provided.
-    candidate_attribute_validation_errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-          description: Rails `full_messages` when model validation fails.
-      required:
-      - errors
-    candidate_attributes_list_response:
-      type: object
-      properties:
-        candidate_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/candidate_attribute'
-      required:
-      - candidate_attributes
-    candidate_attribute_single_response:
-      type: object
-      required:
-      - candidate_attribute
-      properties:
-        candidate_attribute:
-          $ref: '#/components/schemas/candidate_attribute'

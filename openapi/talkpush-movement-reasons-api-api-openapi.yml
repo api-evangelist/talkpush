@@ -101,15 +101,6 @@ components:
         message:
           type: string
           example: 'Invalid type ''foo''. Must be one of: rejected, shortlisted.'
-    movement_reasons_list_response:
-      type: object
-      required:
-      - movement_reasons
-      properties:
-        movement_reasons:
-          type: array
-          items:
-            $ref: '#/components/schemas/movement_reason'
     movement_reason:
       type: object
       description: A single movement reason — a configurable Shortlist or Reject reason used when changing a candidate's status.
@@ -131,3 +122,12 @@ components:
       - id
       - name
       - type
+    movement_reasons_list_response:
+      type: object
+      required:
+      - movement_reasons
+      properties:
+        movement_reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/movement_reason'

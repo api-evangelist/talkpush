@@ -350,6 +350,42 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/campaign_response_body'
+    question_body:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the question.
+        type:
+          type: string
+          description: Question type. DISCLAIMER - Only text, short_text and multiple choice types supported. No audio or image type question supported.
+        question_text:
+          type: string
+          description: The content of the question statement.
+        data_point:
+          type: string
+          description: The data point associated with the question if the question has a data point configured.
+        options:
+          type: array
+          description: Array of strings that cointais the possible options for the question if the type is multiple choice.
+          items:
+            type: string
+    folder_body:
+      type: object
+      required:
+      - id
+      - folder_name
+      - default
+      properties:
+        id:
+          type: number
+          description: Folder ID.
+        folder_name:
+          type: string
+          description: The name you want the custom folder to have.
+        default:
+          type: boolean
+          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
     campaign_response_body:
       type: object
       properties:
@@ -499,39 +535,3 @@ components:
         allow_applications:
           type: boolean
           description: If the campaign is accepting new applications.
-    folder_body:
-      type: object
-      required:
-      - id
-      - folder_name
-      - default
-      properties:
-        id:
-          type: number
-          description: Folder ID.
-        folder_name:
-          type: string
-          description: The name you want the custom folder to have.
-        default:
-          type: boolean
-          description: Default folders are by default associated to all campaigns in the account. By default this option is false.
-    question_body:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the question.
-        type:
-          type: string
-          description: Question type. DISCLAIMER - Only text, short_text and multiple choice types supported. No audio or image type question supported.
-        question_text:
-          type: string
-          description: The content of the question statement.
-        data_point:
-          type: string
-          description: The data point associated with the question if the question has a data point configured.
-        options:
-          type: array
-          description: Array of strings that cointais the possible options for the question if the type is multiple choice.
-          items:
-            type: string

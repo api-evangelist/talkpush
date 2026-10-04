@@ -493,80 +493,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/leads_response_candidates'
-    reassign_request:
-      type: object
-      required:
-      - api_key
-      - assignee_email
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        assignee_email:
-          type: string
-          description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
-    lead:
-      required:
-      - email
-      - first_name
-      - last_name
-      properties:
-        first_name:
-          type: string
-          description: candidate's first name
-        last_name:
-          type: string
-          description: candidate's last name
-        email:
-          type: string
-          description: candidate's email address
-        user_phone_number:
-          type: string
-          description: candidate's phone number
-        source:
-          type: string
-          description: Microsite name
-        others:
-          type: object
-          description: Other candidate information. Any key is valid as long as it is in a JSON format
-          additionalProperties: true
-          example:
-            custom_field1: value1
-            custom_field2: value2
-        labels:
-          type: object
-          description: Optional. Add and/or remove labels on this candidate. When provided, BOTH `add` and `remove` must be present (use `[]` for the side you don't need). Names must already exist as company labels — see `POST /company/labels`.
-          required:
-          - add
-          - remove
-          properties:
-            add:
-              type: array
-              items:
-                type: string
-              description: Label names to attach to the candidate. Names already attached are silently ignored (no duplicates).
-            remove:
-              type: array
-              items:
-                type: string
-              description: Label names to detach from the candidate.
-          example:
-            add:
-            - Manager Approved
-            - Priority
-            remove:
-            - Needs Review
-    create_lead_request:
-      type: object
-      required:
-      - api_key
-      - campaign_invitation
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        campaign_invitation:
-          $ref: '#/components/schemas/lead'
     leads_response_candidates:
       type: object
       properties:
@@ -686,13 +612,6 @@ components:
                     url:
                       description: File URL. **The file URL is a public link that has an expiration time of 7 days.**
                       type: string
-    campaign_invitation_request:
-      type: object
-      required:
-      - candidate
-      properties:
-        candidate:
-          $ref: '#/components/schemas/lead'
     interview_request:
       type: object
       required:
@@ -737,6 +656,76 @@ components:
         content:
           type: string
           description: Text content for the comment in HTML form.
+    campaign_invitation_request:
+      type: object
+      required:
+      - candidate
+      properties:
+        candidate:
+          $ref: '#/components/schemas/lead'
+    lead:
+      required:
+      - email
+      - first_name
+      - last_name
+      properties:
+        first_name:
+          type: string
+          description: candidate's first name
+        last_name:
+          type: string
+          description: candidate's last name
+        email:
+          type: string
+          description: candidate's email address
+        user_phone_number:
+          type: string
+          description: candidate's phone number
+        source:
+          type: string
+          description: Microsite name
+        others:
+          type: object
+          description: Other candidate information. Any key is valid as long as it is in a JSON format
+          additionalProperties: true
+          example:
+            custom_field1: value1
+            custom_field2: value2
+        labels:
+          type: object
+          description: Optional. Add and/or remove labels on this candidate. When provided, BOTH `add` and `remove` must be present (use `[]` for the side you don't need). Names must already exist as company labels — see `POST /company/labels`.
+          required:
+          - add
+          - remove
+          properties:
+            add:
+              type: array
+              items:
+                type: string
+              description: Label names to attach to the candidate. Names already attached are silently ignored (no duplicates).
+            remove:
+              type: array
+              items:
+                type: string
+              description: Label names to detach from the candidate.
+          example:
+            add:
+            - Manager Approved
+            - Priority
+            remove:
+            - Needs Review
+    reassign_request:
+      type: object
+      required:
+      - api_key
+      - assignee_email
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        assignee_email:
+          type: string
+          description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
     move_campaign_invitation_request:
       type: object
       required:
@@ -753,3 +742,14 @@ components:
         folder_id:
           type: string
           description: The ID of the folder into which the campaign inivitation should be moved inside the destination campaign.
+    create_lead_request:
+      type: object
+      required:
+      - api_key
+      - campaign_invitation
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        campaign_invitation:
+          $ref: '#/components/schemas/lead'

@@ -66,17 +66,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    message_body_request:
-      type: object
-      required:
-      - api_key
-      - message
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        message:
-          $ref: '#/components/schemas/message_body'
     message_body:
       type: object
       required:
@@ -93,13 +82,6 @@ components:
         quick_reply_id:
           type: integer
           description: The ID of the quick reply template that should be sent.
-    quick_reply_response:
-      type: object
-      properties:
-        quick_replies:
-          type: array
-          items:
-            $ref: '#/components/schemas/quick_reply'
     quick_reply:
       type: object
       properties:
@@ -112,3 +94,21 @@ components:
         content:
           type: string
           description: The content of the body is the actual message that is sent to the candidate, it may contain Tokens (e.g. Candidate Name) that are dynamically replaced by CRM upon sending the message.
+    quick_reply_response:
+      type: object
+      properties:
+        quick_replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/quick_reply'
+    message_body_request:
+      type: object
+      required:
+      - api_key
+      - message
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        message:
+          $ref: '#/components/schemas/message_body'
