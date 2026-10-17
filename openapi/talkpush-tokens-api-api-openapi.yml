@@ -59,15 +59,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    tokens_list_response:
-      type: object
-      required:
-      - tokens
-      properties:
-        tokens:
-          type: array
-          items:
-            $ref: '#/components/schemas/token'
     token:
       type: object
       description: A message token available for use in template content.
@@ -90,3 +81,12 @@ components:
       - id
       - display_name
       - description
+    tokens_list_response:
+      type: object
+      required:
+      - tokens
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/token'

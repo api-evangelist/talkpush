@@ -123,6 +123,60 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    candidate_attributes_list_response:
+      type: object
+      properties:
+        candidate_attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/candidate_attribute'
+      required:
+      - candidate_attributes
+    candidate_attribute_create_request:
+      type: object
+      required:
+      - candidate_attribute
+      properties:
+        candidate_attribute:
+          type: object
+          required:
+          - name
+          - key
+          properties:
+            name:
+              type: string
+              description: Display name of the attribute.
+            key:
+              type: string
+              description: Stable identifier used for storage and for the leads `others` payload. Must be unique after server-side normalization (duplicate returns 409).
+            data_type:
+              type: string
+              description: Defaults to `text` if omitted.
+              default: text
+            description:
+              type: string
+              description: Optional description.
+            suggested_values:
+              type: array
+              items:
+                type: string
+              description: Optional list of suggested values.
+            allow_only_suggested_values:
+              type: boolean
+              description: Maps to suggestions-only mode when provided.
+            auto_add_to_all_candidates:
+              type: boolean
+              description: Maps to shared / auto-add behavior when provided.
+    candidate_attribute_validation_errors:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+          description: Rails `full_messages` when model validation fails.
+      required:
+      - errors
     candidate_attribute_single_response:
       type: object
       required:
@@ -130,6 +184,14 @@ components:
       properties:
         candidate_attribute:
           $ref: '#/components/schemas/candidate_attribute'
+    candidate_attribute_conflict_error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: A candidate attribute with this key already exists
+      required:
+      - error
     candidate_attribute:
       type: object
       description: Single attribute definition as returned by the API (list or create response).
@@ -182,65 +244,3 @@ components:
       - private
       - restrict_to_owners
       - default
-    candidate_attributes_list_response:
-      type: object
-      properties:
-        candidate_attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/candidate_attribute'
-      required:
-      - candidate_attributes
-    candidate_attribute_conflict_error:
-      type: object
-      properties:
-        error:
-          type: string
-          example: A candidate attribute with this key already exists
-      required:
-      - error
-    candidate_attribute_validation_errors:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-          description: Rails `full_messages` when model validation fails.
-      required:
-      - errors
-    candidate_attribute_create_request:
-      type: object
-      required:
-      - candidate_attribute
-      properties:
-        candidate_attribute:
-          type: object
-          required:
-          - name
-          - key
-          properties:
-            name:
-              type: string
-              description: Display name of the attribute.
-            key:
-              type: string
-              description: Stable identifier used for storage and for the leads `others` payload. Must be unique after server-side normalization (duplicate returns 409).
-            data_type:
-              type: string
-              description: Defaults to `text` if omitted.
-              default: text
-            description:
-              type: string
-              description: Optional description.
-            suggested_values:
-              type: array
-              items:
-                type: string
-              description: Optional list of suggested values.
-            allow_only_suggested_values:
-              type: boolean
-              description: Maps to suggestions-only mode when provided.
-            auto_add_to_all_candidates:
-              type: boolean
-              description: Maps to shared / auto-add behavior when provided.

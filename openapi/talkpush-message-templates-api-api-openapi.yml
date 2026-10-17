@@ -243,37 +243,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    message_template_error:
-      type: object
-      required:
-      - error
-      - message
-      properties:
-        error:
-          type: string
-          description: Machine-readable error code.
-          enum:
-          - missing_params
-          - invalid_type
-          - invalid_tokens
-          - validation_failed
-          example: invalid_tokens
-        message:
-          type: string
-          description: Human-readable description of the error.
-          example: content contains unrecognised tokens
-        details:
-          type: object
-          description: Present only for `invalid_tokens` errors.
-          properties:
-            invalid_tokens:
-              type: array
-              items:
-                type: string
-              description: List of unrecognised token names found in `content`.
-              example:
-              - bogus_token
-              - unknown_field
     message_template_update_request:
       type: object
       description: All fields are optional. Only provided fields are updated.
@@ -305,13 +274,6 @@ components:
           type: object
           description: Settings to merge into the existing settings object. `content_state` is always stripped.
           additionalProperties: true
-    message_template_single_response:
-      type: object
-      required:
-      - message_template
-      properties:
-        message_template:
-          $ref: '#/components/schemas/message_template'
     message_template_create_request:
       type: object
       required:
@@ -352,15 +314,6 @@ components:
           additionalProperties: true
           example:
             subject_line: Your interview invitation — {{job_title}}
-    message_templates_list_response:
-      type: object
-      required:
-      - message_templates
-      properties:
-        message_templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/message_template'
     message_template:
       type: object
       description: A Message Template used by autoflows and integrations for standardised communications.
@@ -425,6 +378,46 @@ components:
       - tokens
       - created_at
       - updated_at
+    message_templates_list_response:
+      type: object
+      required:
+      - message_templates
+      properties:
+        message_templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/message_template'
+    message_template_error:
+      type: object
+      required:
+      - error
+      - message
+      properties:
+        error:
+          type: string
+          description: Machine-readable error code.
+          enum:
+          - missing_params
+          - invalid_type
+          - invalid_tokens
+          - validation_failed
+          example: invalid_tokens
+        message:
+          type: string
+          description: Human-readable description of the error.
+          example: content contains unrecognised tokens
+        details:
+          type: object
+          description: Present only for `invalid_tokens` errors.
+          properties:
+            invalid_tokens:
+              type: array
+              items:
+                type: string
+              description: List of unrecognised token names found in `content`.
+              example:
+              - bogus_token
+              - unknown_field
     token:
       type: object
       description: A message token available for use in template content.
@@ -447,3 +440,10 @@ components:
       - id
       - display_name
       - description
+    message_template_single_response:
+      type: object
+      required:
+      - message_template
+      properties:
+        message_template:
+          $ref: '#/components/schemas/message_template'

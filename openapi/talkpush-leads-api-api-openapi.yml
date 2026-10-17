@@ -477,22 +477,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    leads_response:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: The total number of leads that match the query criteria.
-        current_page:
-          type: integer
-          description: A page contains 12 leads, this is the indicator of the page that you are looking at.
-        pages:
-          type: integer
-          description: The total number of pages available for the result.
-        candidates:
-          type: array
-          items:
-            $ref: '#/components/schemas/leads_response_candidates'
     leads_response_candidates:
       type: object
       properties:
@@ -612,34 +596,22 @@ components:
                     url:
                       description: File URL. **The file URL is a public link that has an expiration time of 7 days.**
                       type: string
-    interview_request:
+    leads_response:
       type: object
-      required:
-      - api_key
-      - answers
       properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        answers:
+        total:
+          type: integer
+          description: The total number of leads that match the query criteria.
+        current_page:
+          type: integer
+          description: A page contains 12 leads, this is the indicator of the page that you are looking at.
+        pages:
+          type: integer
+          description: The total number of pages available for the result.
+        candidates:
           type: array
           items:
-            $ref: '#/components/schemas/answer_body'
-    answer_body:
-      type: object
-      required:
-      - id
-      - answer
-      properties:
-        id:
-          type: number
-          description: The ID of the question.
-        type:
-          type: string
-          description: Question type. DISCLAIMER - Only text, short_text and multiple choice types supported. No audio or image type question supported.
-        answer:
-          type: string
-          description: Answer provided for the question.
+            $ref: '#/components/schemas/leads_response_candidates'
     comments_request:
       type: object
       required:
@@ -656,13 +628,6 @@ components:
         content:
           type: string
           description: Text content for the comment in HTML form.
-    campaign_invitation_request:
-      type: object
-      required:
-      - candidate
-      properties:
-        candidate:
-          $ref: '#/components/schemas/lead'
     lead:
       required:
       - email
@@ -726,6 +691,52 @@ components:
         assignee_email:
           type: string
           description: Email of the Talkpush CRM user account that the candidate should be assigned to. You can also use automatic reassignment by setting this value to "automatic" in which case the lead will be reassigned to the recruiters enabled for round robin assignment inside that campaign.
+    campaign_invitation_request:
+      type: object
+      required:
+      - candidate
+      properties:
+        candidate:
+          $ref: '#/components/schemas/lead'
+    create_lead_request:
+      type: object
+      required:
+      - api_key
+      - campaign_invitation
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        campaign_invitation:
+          $ref: '#/components/schemas/lead'
+    interview_request:
+      type: object
+      required:
+      - api_key
+      - answers
+      properties:
+        api_key:
+          type: string
+          description: The API key provided for your application
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/answer_body'
+    answer_body:
+      type: object
+      required:
+      - id
+      - answer
+      properties:
+        id:
+          type: number
+          description: The ID of the question.
+        type:
+          type: string
+          description: Question type. DISCLAIMER - Only text, short_text and multiple choice types supported. No audio or image type question supported.
+        answer:
+          type: string
+          description: Answer provided for the question.
     move_campaign_invitation_request:
       type: object
       required:
@@ -742,14 +753,3 @@ components:
         folder_id:
           type: string
           description: The ID of the folder into which the campaign inivitation should be moved inside the destination campaign.
-    create_lead_request:
-      type: object
-      required:
-      - api_key
-      - campaign_invitation
-      properties:
-        api_key:
-          type: string
-          description: The API key provided for your application
-        campaign_invitation:
-          $ref: '#/components/schemas/lead'
